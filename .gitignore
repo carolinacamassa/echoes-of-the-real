@@ -1,0 +1,8 @@
+# Scraped page cache — regenerable with `build_epub.py --refresh`
+cache/
+
+# Built books
+*.epub
+
+__pycache__/
+*.pyc
