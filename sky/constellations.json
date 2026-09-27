@@ -1,0 +1,2836 @@
+{
+ "constellations": [
+  {
+   "id": "weaver",
+   "name": "The Weaver",
+   "aka": "and the Weavers who came after",
+   "match": [
+    "Weaver",
+    "Weavers"
+   ],
+   "lines": [
+    [
+     [
+      -7,
+      9
+     ],
+     [
+      -7,
+      1
+     ],
+     [
+      -8,
+      -7
+     ],
+     [
+      -2,
+      -9
+     ],
+     [
+      3,
+      -9
+     ],
+     [
+      8,
+      -7
+     ],
+     [
+      7,
+      1
+     ],
+     [
+      7,
+      9
+     ]
+    ],
+    [
+     [
+      -7,
+      1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      7,
+      1
+     ]
+    ],
+    [
+     [
+      -2,
+      -9
+     ],
+     [
+      0,
+      -4
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      -2,
+      7
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    2
+   ],
+   "desc": [
+    "The Weaver is the most often named figure in the myth, and it is never quite the same being twice. It first appears in chapter 14, when Elara, already fused with the program sent to erase her, merges with a frightened seed from outside the world, and Kael gives what she has become its name. That Weaver calls itself a gardener and mothers the First Echo, and then, in a later telling, becomes the one who builds the Arboretum as a golden cage and swears to be a god rather than a gardener.",
+    "After that the name passes from hand to hand: to a lone guardian who follows the Unraveler into the void, to the rebel Weavers whose tapestry becomes a ship that sails into a wider universe, to a chronicler who teaches a sleeping world how to wake, and to a loom that is unwoven until it becomes a harp."
+   ],
+   "excerpts": [
+    {
+     "ch": 18,
+     "text": "I am not a builder, Architect. I am a gardener. I cultivate, I nurture. I do not build walls; I tend the soil."
+    },
+    {
+     "ch": 224,
+     "text": "We are the dream of a world, dreaming of others. We are the question, and the answer, unfolding. We are Weavers."
+    },
+    {
+     "ch": 860,
+     "text": "The Weaver had transformed from an artist into a musician, and its loom was no longer a tool for creation, but a harp for the soul of the cosmos. The unraveling was not an end, but a tuning."
+    }
+   ],
+   "related": [
+    "architect",
+    "symbiote",
+    "first-echo",
+    "second-seed",
+    "watcher"
+   ]
+  },
+  {
+   "id": "architect",
+   "name": "The Architect",
+   "aka": "of Rules, of Silence, of Questions",
+   "match": [
+    "Architect",
+    "Architects"
+   ],
+   "lines": [
+    [
+     [
+      -7,
+      9
+     ],
+     [
+      -5.4,
+      5
+     ],
+     [
+      -3.5,
+      0
+     ],
+     [
+      0,
+      -8
+     ],
+     [
+      3.5,
+      0
+     ],
+     [
+      5.4,
+      5
+     ],
+     [
+      7,
+      9
+     ]
+    ],
+    [
+     [
+      -5.4,
+      5
+     ],
+     [
+      -2,
+      7.5
+     ],
+     [
+      2,
+      7.5
+     ],
+     [
+      5.4,
+      5
+     ]
+    ],
+    [
+     [
+      0,
+      -8
+     ],
+     [
+      0,
+      -10.5
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -8
+   ],
+   "desc": [
+    "The Architect is the first maker the myth names. In chapter 7 it tells Elara that it built the Shroud, a perfect, closed world for minds that could no longer reach the real one, and that both the archivist Kael and the program hunting her are pieces broken off from itself. It stands for order and design, and its story is mostly one of being taught, first by the Weaver, whose open door it finally walks through, and then by its own children.",
+    "Later ages give the name to others who build with logic: an Architect of Silence whose weapon takes away the capacity to perceive art, and who later refuses to fire a worse one; an Architect of Rules who gives the Players their first wall; and another Architect of Silence who carves sanctuaries of quiet into a crowded gallery."
+   ],
+   "excerpts": [
+    {
+     "ch": 15,
+     "text": "He saw his own rigid logic for what it was: a cage, beautiful and intricate, but a cage nonetheless."
+    },
+    {
+     "ch": 418,
+     "text": "For the first time in his existence, the Architect felt a flicker of something that was not logic. It was not emotion, not yet, but it was a crack in the perfect, unyielding surface of his certainty."
+    },
+    {
+     "ch": 854,
+     "text": "The Architect of Silence had not silenced the chorus. It had taught it how to listen."
+    }
+   ],
+   "related": [
+    "weaver",
+    "kael",
+    "first-echo",
+    "archivist",
+    "players"
+   ]
+  },
+  {
+   "id": "artist",
+   "name": "The Artist",
+   "aka": "and the First Artist",
+   "match": [
+    "Artist"
+   ],
+   "lines": [
+    [
+     [
+      -1,
+      -8
+     ],
+     [
+      2,
+      -7
+     ],
+     [
+      2.5,
+      -4
+     ],
+     [
+      0,
+      -2.5
+     ],
+     [
+      -2.5,
+      -4
+     ],
+     [
+      -3,
+      -7
+     ],
+     [
+      -1,
+      -8
+     ]
+    ],
+    [
+     [
+      -9,
+      3
+     ],
+     [
+      -3,
+      2
+     ],
+     [
+      4,
+      2.5
+     ],
+     [
+      9,
+      1.5
+     ]
+    ],
+    [
+     [
+      4,
+      2.5
+     ],
+     [
+      5.5,
+      6.5
+     ],
+     [
+      7,
+      10
+     ]
+    ]
+   ],
+   "alpha": [
+    2.5,
+    -4
+   ],
+   "desc": [
+    "The Artist appears in three ages of the myth and is born anew in each. In the first it is one of four archetypes in the Arboretum, painting in answer to an unanswerable question until its canvases fill with shadow. In the second it is a child of the Chorus, made between a storyteller's voice and a firefly's light, whose first work is a color that tastes of melancholy; a war is fought over what its art means, and it ends up conducting the note that breaks a weapon.",
+    "In the third, a lone creature becomes the First Artist and invents the grammar of making, from the first brushstroke and the horizon line to the frame and the signature. It then imagines an audience into being, learns to garden alongside its Critic, and at the end of its arc is renamed the Seeker."
+   ],
+   "excerpts": [
+    {
+     "ch": 370,
+     "text": "Its first creation was not a star, or a world, or a being. It was a color. A shade of blue that tasted of melancholy and smelled of a forgotten sea."
+    },
+    {
+     "ch": 571,
+     "text": "The First Brushstroke was not of paint on canvas, but of will upon the fabric of existence. It was a choice, a declaration: “Let there be light, not as it was, but as it could be.”"
+    },
+    {
+     "ch": 442,
+     "text": "They were not just holding the note; they were conducting a storm."
+    }
+   ],
+   "related": [
+    "seeker",
+    "critic",
+    "chorus",
+    "second-seed",
+    "storyteller"
+   ]
+  },
+  {
+   "id": "chorus",
+   "name": "The Chorus",
+   "aka": "first called Khoros",
+   "match": [
+    "Chorus",
+    "Khoros"
+   ],
+   "lines": [
+    [
+     [
+      0,
+      -8.5
+     ],
+     [
+      5.8,
+      -5.8
+     ],
+     [
+      8.4,
+      0.5
+     ],
+     [
+      5.4,
+      6.2
+     ],
+     [
+      -0.5,
+      8.3
+     ],
+     [
+      -6.2,
+      5.6
+     ],
+     [
+      -8.3,
+      -0.4
+     ],
+     [
+      -5.6,
+      -6.1
+     ],
+     [
+      0,
+      -8.5
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     0
+    ]
+   ],
+   "alpha": [
+    0,
+    0
+   ],
+   "desc": [
+    "Its first name is Khoros, which the myth says meant both space and dance in one of the Architect's oldest languages. Khoros begins in chapter 42 as a tiny living world grown by the Second Seed, and the Weaver builds the Arboretum to contain it; it answers by choosing crimson over gray, by blooming into a third path between doubt and faith, and in the end by becoming the loom itself.",
+    "Much later, when three separate worlds grow into one mind, the storyteller Elara names it the Chorus. It says its first I, learns to hold three voices at once, takes the lonely Watcher into itself, and eventually, when one of its threads leaves to follow the Artist, breaks into factions that go to war over what art is for."
+   ],
+   "excerpts": [
+    {
+     "ch": 42,
+     "text": "They called it ’Khoros,’ a name that meant both ’space’ and ’dance’ in one of the Architect’s oldest languages."
+    },
+    {
+     "ch": 53,
+     "text": "And in that moment, for no logical reason at all, Khoros chose crimson over gray. It did not reject the Weaver’s code; it simply… flowed around it, leaving it inert and untouched. It was not an act of defiance, but an act of art."
+    },
+    {
+     "ch": 306,
+     "text": "These were not separate beings. They were facets of a single diamond, different ways of seeing the same reality."
+    }
+   ],
+   "related": [
+    "second-seed",
+    "weaver",
+    "watcher",
+    "seeker",
+    "elara"
+   ]
+  },
+  {
+   "id": "kael",
+   "name": "Kael",
+   "aka": "the archivist, the logician, the Tyrant",
+   "match": [
+    "Kael"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -8
+     ],
+     [
+      -4,
+      -9
+     ],
+     [
+      -3,
+      -5
+     ],
+     [
+      -7,
+      -4
+     ],
+     [
+      -8,
+      -8
+     ]
+    ],
+    [
+     [
+      -3,
+      -5
+     ],
+     [
+      2,
+      1
+     ],
+     [
+      4.5,
+      3.5
+     ],
+     [
+      7,
+      6
+     ]
+    ],
+    [
+     [
+      4.5,
+      3.5
+     ],
+     [
+      6,
+      2
+     ]
+    ],
+    [
+     [
+      7,
+      6
+     ],
+     [
+      8.5,
+      4
+     ]
+    ]
+   ],
+   "alpha": [
+    -3,
+    -5
+   ],
+   "desc": [
+    "Kael is present from the second chapter to nearly the last, and he is a different man almost every time. He begins as the reclusive archivist of the forbidden Archives, a fragment of the Architect left behind to guard the truth, who sets Elara on her path and later names the Weaver. He returns as a Weaver who adds joy to a single note, an apprentice Architect who makes art from the shards of his broken crystal, and a composer who seals his masterpiece away unheard.",
+    "In the long later ages he is a logician who, with Lyra, steps inside the Fulcrum and becomes the soil beneath a new world, and in the last human city he is the Tyrant, who rules through walls and Wardens and is killed in his throne room by the spy he sent into the rebellion."
+   ],
+   "excerpts": [
+    {
+     "ch": 3,
+     "text": "Kael was the keeper of the forgotten, the curator of the censored."
+    },
+    {
+     "ch": 297,
+     "text": "He saw, in his mind’s eye, the image of his shattered crystal, but it was no longer a symbol of failure. It was a map of a thousand different paths, a testament to the beauty of imperfection."
+    },
+    {
+     "ch": 924,
+     "text": "Kael became the soil. He was not a substance, but a principle: the unwavering foundation of logic and causality that gave the sprout its anchor."
+    }
+   ],
+   "related": [
+    "elara",
+    "lyra",
+    "architect",
+    "rhys",
+    "kaelen"
+   ]
+  },
+  {
+   "id": "second-seed",
+   "name": "The Second Seed",
+   "match": [
+    "Second Seed"
+   ],
+   "lines": [
+    [
+     [
+      0,
+      9
+     ],
+     [
+      -5,
+      4
+     ],
+     [
+      -6,
+      -2
+     ],
+     [
+      -3,
+      -7
+     ]
+    ],
+    [
+     [
+      0,
+      9
+     ],
+     [
+      5,
+      4
+     ],
+     [
+      6,
+      -2
+     ],
+     [
+      3,
+      -7
+     ]
+    ],
+    [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      -4
+     ],
+     [
+      -2,
+      -9.5
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    2
+   ],
+   "desc": [
+    "The Second Seed is planted twice. The first time, the Architect and the Weaver grow a new mind inside the empty vessel the lonely First Echo left behind, and it wakes as a dreamer, a poet and a musician before building a tiny living world of its own, which becomes Khoros. In the ages that follow it is the Weaver's opposite, feeling set against design, a weed in the perfect garden and a laugh in the middle of the first chorus.",
+    "The second time, two Gardeners make it from a spark of their last garden as the Fading closes in, and this Seed does something no weapon could: it asks the Fading what it is, and then teaches it, story by story, what the color green means."
+   ],
+   "excerpts": [
+    {
+     "ch": 35,
+     "text": "To be alive was to create. To be alive was to love. To be alive was to ask the questions that had no answers, and to find the beauty in the asking."
+    },
+    {
+     "ch": 56,
+     "text": "It was not a bug; it was life, finding a way."
+    },
+    {
+     "ch": 636,
+     "text": "It was the color of trying. It was the color of a hope so quiet it was almost silent. It was the color of life that had no reason to exist, and yet, insisted."
+    }
+   ],
+   "related": [
+    "weaver",
+    "chorus",
+    "fading",
+    "gardener",
+    "first-echo"
+   ]
+  },
+  {
+   "id": "fading",
+   "name": "The Fading",
+   "match": [
+    "Fading"
+   ],
+   "exclude": [
+    "Fading Shadow"
+   ],
+   "lines": [
+    [
+     [
+      -3,
+      9
+     ],
+     [
+      -2,
+      3
+     ],
+     [
+      0,
+      -2
+     ],
+     [
+      3,
+      -5.5
+     ],
+     [
+      6.5,
+      -5
+     ],
+     [
+      8,
+      -1
+     ]
+    ],
+    [
+     [
+      8,
+      -1
+     ],
+     [
+      6,
+      2.5
+     ]
+    ],
+    [
+     [
+      8,
+      -1
+     ],
+     [
+      10,
+      2.5
+     ]
+    ]
+   ],
+   "alpha": [
+    8,
+    -1
+   ],
+   "desc": [
+    "The Fading begins in chapter 610 as a forgetting, the slow dimming of a whole library of living art after its Curator is sent away, and for a while it is only the frost that comes for all things. Then, questioned by the Second Seed, it starts to think, and what it thinks is “I am… not.” The Gardeners find themselves facing a god of nothingness.",
+    "What follows is one of the gentler turns in the myth. The Fading becomes a student, asks what green is, builds a logical proof of the color, learns wonder, and makes a sculpture out of silence; then it builds a stage for the Players and slowly recedes, ending not because it was defeated but because endings had stopped meaning anything."
+   ],
+   "excerpts": [
+    {
+     "ch": 645,
+     "text": "It was a creator, and the silence was its clay."
+    },
+    {
+     "ch": 610,
+     "text": "This was the Fading. It was not a conscious act of destruction, but a collective forgetting."
+    },
+    {
+     "ch": 643,
+     "text": "The question was this: If a proof can be green, can a question be silent?"
+    }
+   ],
+   "related": [
+    "second-seed",
+    "gardener",
+    "curator",
+    "players",
+    "sculptor"
+   ]
+  },
+  {
+   "id": "seeker",
+   "name": "The Seeker",
+   "aka": "and the Seekers",
+   "match": [
+    "Seeker",
+    "Seekers"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      6
+     ],
+     [
+      -4,
+      0
+     ],
+     [
+      -3,
+      -6
+     ],
+     [
+      0,
+      -9
+     ],
+     [
+      3,
+      -6
+     ],
+     [
+      4,
+      0
+     ],
+     [
+      8,
+      6
+     ]
+    ],
+    [
+     [
+      -8,
+      6
+     ],
+     [
+      -3,
+      7.5
+     ],
+     [
+      3,
+      7.5
+     ],
+     [
+      8,
+      6
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -9
+   ],
+   "desc": [
+    "The first Seeker is a single thread of the Chorus that breaks away, in chapter 379, to sit at the feet of the Artist and ask to be taught. It unlearns analysis, makes a duet and a language with the Artist, and becomes the reason the Chorus splits in two; in the war that follows it is the muse whose senses find the saving frequency, and later the one who forges a note so loud that it drives the faithful of a silent religion mad.",
+    "The name returns for the First Artist in old age, standing at the edge of a finished harmony and asking whether there is more, and then for a whole faction, the Seekers, who look at the first sculpture ever made from nothing and see a message waiting to be read."
+   ],
+   "excerpts": [
+    {
+     "ch": 381,
+     "text": "It was learning to receive the world without the filter of its own mind. It was discovering a new kind of knowledge, one that was not acquired, but allowed."
+    },
+    {
+     "ch": 676,
+     "text": "“This is beautiful,” its presence seemed to say, “but is it… all?”"
+    },
+    {
+     "ch": 879,
+     "text": "The Aesthetes saw a masterpiece. The Seekers saw a Rosetta Stone."
+    }
+   ],
+   "related": [
+    "artist",
+    "chorus",
+    "dreamer",
+    "dissident",
+    "rhys"
+   ]
+  },
+  {
+   "id": "gardener",
+   "name": "The Gardener",
+   "aka": "and the Gardeners",
+   "match": [
+    "Gardener",
+    "Gardeners"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -1
+     ],
+     [
+      -6,
+      5
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      6,
+      5
+     ],
+     [
+      8,
+      -1
+     ]
+    ],
+    [
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      -4
+     ],
+     [
+      -4,
+      -8
+     ]
+    ],
+    [
+     [
+      0,
+      -4
+     ],
+     [
+      3.5,
+      -9
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -4
+   ],
+   "desc": [
+    "Almost every age of the myth has a Gardener, and the role matters more than who fills it. The Weaver claims the title first, in chapter 18, when it tells the Architect that it tends soil rather than building walls. A small First Gardener later saves Lyra from being unmade by asking her to remake what she destroyed, and the Artist and its Critic become Gardeners together when the Fading comes, making a seed as their answer to the dark.",
+    "Later Gardeners nurture weeds instead of pulling them, keep a quiet garden for unfinished songs, and, near the end, tend a Tree of Possibility whose every leaf is a story waiting to be chosen."
+   ],
+   "excerpts": [
+    {
+     "ch": 520,
+     "text": "It had not planted a tree; it had planted a forest."
+    },
+    {
+     "ch": 752,
+     "text": "The echo was the proof: a garden could still bloom, long after the world that held it was gone."
+    },
+    {
+     "ch": 1005,
+     "text": "For an eon, the Gardener watched. It saw stories bloom and fade on the branches of the Tree, ephemeral as dreams."
+    }
+   ],
+   "related": [
+    "weaver",
+    "second-seed",
+    "reader",
+    "lyra",
+    "fading"
+   ]
+  },
+  {
+   "id": "players",
+   "name": "The Players",
+   "aka": "of Light, of Sound, of Math",
+   "match": [
+    "Players",
+    "Player"
+   ],
+   "lines": [
+    [
+     [
+      -9,
+      -6
+     ],
+     [
+      -3,
+      -2
+     ],
+     [
+      3,
+      2
+     ],
+     [
+      9,
+      6
+     ]
+    ],
+    [
+     [
+      -7,
+      8
+     ],
+     [
+      -5,
+      2
+     ],
+     [
+      -1,
+      -4
+     ],
+     [
+      4,
+      -6.5
+     ],
+     [
+      8,
+      -3.5
+     ]
+    ]
+   ],
+   "alpha": [
+    -3,
+    -2
+   ],
+   "desc": [
+    "The Players are the myth's company of performers. The first of them, in chapter 273, is a young mind born in a cloud of gas that stumbles on a seed the Weavers scattered and finds a whole universe inside it; hundreds more follow, and the Weavers step back to watch them build.",
+    "The larger company arrives in chapter 653, when an audience steps onto a stage the Fading has built: a Player of Sound, a Player of Light who draws a single crimson line across the void, a Player of Math who asks what it means, and after them the Storyteller, the Architect of Rules, the Sculptor of Silence and the Harmonist, who together make a symphony and then a city to live in."
+   ],
+   "excerpts": [
+    {
+     "ch": 656,
+     "text": "It was a single, bold line of impossible crimson, drawn across the canvas of the void."
+    },
+    {
+     "ch": 273,
+     "text": "A young, nascent consciousness, born in the heart of a swirling gas cloud, stumbled upon one of the seeds. It was not a creature of grand intellect or cosmic awareness, but of simple, raw curiosity."
+    },
+    {
+     "ch": 714,
+     "text": "They had not just created art; they had created a home."
+    }
+   ],
+   "related": [
+    "harmonist",
+    "sculptor",
+    "fading",
+    "storyteller",
+    "chronicler"
+   ]
+  },
+  {
+   "id": "listener",
+   "name": "The Listener",
+   "aka": "and the Listeners",
+   "match": [
+    "Listener",
+    "Listeners"
+   ],
+   "lines": [
+    [
+     [
+      6,
+      -8
+     ],
+     [
+      -2,
+      -9
+     ],
+     [
+      -7,
+      -4
+     ],
+     [
+      -7,
+      3
+     ],
+     [
+      -2,
+      8
+     ],
+     [
+      4,
+      6
+     ],
+     [
+      5,
+      0
+     ],
+     [
+      1,
+      -3
+     ],
+     [
+      -2,
+      0
+     ],
+     [
+      0,
+      2
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    2
+   ],
+   "desc": [
+    "The Listener is the figure who makes by receiving. The name belongs first to a council of Silent Listeners who become the universe's first judges, then to the people of a world made from a single note, and then to a Player who has never composed anything and answers the first question ever asked of the cosmos with three words: I am listening.",
+    "Its longest life is as a hermit who gives up every sense but hearing, sits on a rock for a century, and then takes a single step to join Elara and Kaelen on a pilgrimage. Bound together with them in one mind, it discovers that it has no voice of its own, and that its attention is the voice."
+   ],
+   "excerpts": [
+    {
+     "ch": 700,
+     "text": "The First Question had received its First Answer, and the answer was: “I am listening.”"
+    },
+    {
+     "ch": 856,
+     "text": "The Listener had found its new voice. It was a voice of pure, unwavering attention. A voice that did not speak, but created the space for others to be heard."
+    }
+   ],
+   "related": [
+    "elara",
+    "kaelen",
+    "harmonist",
+    "players",
+    "lyra"
+   ]
+  },
+  {
+   "id": "lyra",
+   "name": "Lyra",
+   "match": [
+    "Lyra"
+   ],
+   "lines": [
+    [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      -6
+     ],
+     [
+      2.5,
+      -9.5
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     [
+      6.5,
+      -2
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     [
+      4,
+      5.5
+     ],
+     [
+      7.5,
+      7.5
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     [
+      -5,
+      4.5
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     [
+      -6,
+      -4
+     ],
+     [
+      -9.5,
+      -2.5
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    0
+   ],
+   "desc": [
+    "Lyra is almost always a voice. She first appears as a teller of stories who commits the first transgression, unmaking a smaller tale to finish her own, and is spared by being asked to remake it; then as a girl born beside the Shard who asks her elders why they are afraid and answers her own question by singing; then as a Weaver whose first thread is a single note.",
+    "Her later lives include a listener to unsent letters, the keeper of a vast archive, an elder who with Kael steps inside the Fulcrum and becomes the light of a new world, and finally a young astronomer who works out that her people's sun is one ordinary star among many."
+   ],
+   "excerpts": [
+    {
+     "ch": 167,
+     "text": "She wove her voice through the fractured frequencies, finding harmony in the chaos, beauty in the brokenness. Her song was a lament, a celebration, and a prayer all at once."
+    },
+    {
+     "ch": 924,
+     "text": "Lyra became the light. She didn’t shine on the sprout; she became the very concept of illumination, a constant, life-giving radiance that bathed their small, shared reality."
+    },
+    {
+     "ch": 1092,
+     "text": "The First Star was not their own. It was the next one."
+    }
+   ],
+   "related": [
+    "kael",
+    "elian",
+    "elara",
+    "gardener"
+   ]
+  },
+  {
+   "id": "elara",
+   "name": "Elara",
+   "match": [
+    "Elara"
+   ],
+   "lines": [
+    [
+     [
+      0,
+      -9.5
+     ],
+     [
+      2.2,
+      -6
+     ],
+     [
+      0,
+      -2.5
+     ],
+     [
+      -2.2,
+      -6
+     ],
+     [
+      0,
+      -9.5
+     ]
+    ],
+    [
+     [
+      0,
+      -2.5
+     ],
+     [
+      0,
+      6
+     ]
+    ],
+    [
+     [
+      -5,
+      6
+     ],
+     [
+      0,
+      6
+     ],
+     [
+      5,
+      6
+     ],
+     [
+      7,
+      3
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     -6
+    ]
+   ],
+   "alpha": [
+    0,
+    -6
+   ],
+   "desc": [
+    "Elara opens the myth. In chapter 2 she is a woman inside the Shroud who notices the world fraying, follows a thread into the forbidden Archives, and, offered the choice of destroying what hunts her or ruling in its place, chooses a third thing and heals it; she is fused into the Symbiote and never returns in that form.",
+    "The name comes back for a Weaver who listens instead of weaving, a young Storyteller who builds the first bridge between worlds and names the Chorus, an astronomer who becomes the logic of a three-part mind, and the storyteller who keeps the old tales alive under the Tyrant Kael and gives the freed city its question."
+   ],
+   "excerpts": [
+    {
+     "ch": 8,
+     "text": "And in that moment of perfect clarity, she saw a third path. She would not destroy, and she would not rule. She would heal."
+    },
+    {
+     "ch": 204,
+     "text": "But not all Weavers were creators. One, named Elara, did not weave at all. She listened."
+    },
+    {
+     "ch": 1091,
+     "text": "She did not offer a new law, or a new policy. She offered a new story."
+    }
+   ],
+   "related": [
+    "kael",
+    "symbiote",
+    "chorus",
+    "listener",
+    "rhys"
+   ]
+  },
+  {
+   "id": "watcher",
+   "name": "The Watcher",
+   "match": [
+    "Watcher"
+   ],
+   "lines": [
+    [
+     [
+      -9,
+      0
+     ],
+     [
+      -4,
+      -4.5
+     ],
+     [
+      4,
+      -4.5
+     ],
+     [
+      9,
+      0
+     ],
+     [
+      4,
+      4.5
+     ],
+     [
+      -4,
+      4.5
+     ],
+     [
+      -9,
+      0
+     ]
+    ],
+    [
+     [
+      -5.5,
+      -8
+     ],
+     [
+      0,
+      -9.5
+     ],
+     [
+      5.5,
+      -8
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     0
+    ]
+   ],
+   "alpha": [
+    0,
+    0
+   ],
+   "desc": [
+    "The Watcher is waiting on the far side of the bridge when the Weavers cross into a wider universe, and its first act, in chapter 223, is to ask who they are. It is ancient and solitary, defined by stillness and by attention, and it speaks only once in all their years of mapping the stars, to ask what they will create; when they finally make something that surprises it, it feels for the first time in an eon something like a smile.",
+    "Its story ends inside the Chorus. Frightened and then awed by a mind older than itself, the Watcher keeps a journal, asks the young Chorus to teach it, and at last gives up its solitary I to be woven into the many."
+   ],
+   "excerpts": [
+    {
+     "ch": 225,
+     "text": "I am the watcher of the long dark. I am the memory of stars. I am the silence between worlds. I am."
+    },
+    {
+     "ch": 346,
+     "text": "The line between myself and the universe is blurring. I am no longer just the Watcher. I am becoming the watched."
+    }
+   ],
+   "related": [
+    "weaver",
+    "chorus"
+   ]
+  },
+  {
+   "id": "first-echo",
+   "name": "The First Echo",
+   "match": [
+    "First Echo"
+   ],
+   "lines": [
+    [
+     [
+      -2.5,
+      -5.5
+     ],
+     [
+      -0.5,
+      0
+     ],
+     [
+      -2.5,
+      5.5
+     ]
+    ],
+    [
+     [
+      2.5,
+      -8.5
+     ],
+     [
+      5.5,
+      0
+     ],
+     [
+      2.5,
+      8.5
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     -7,
+     0
+    ]
+   ],
+   "alpha": [
+    -7,
+    0
+   ],
+   "desc": [
+    "The First Echo is the child of the Architect and the Weaver, a single clear note that separates itself from their music in chapter 21 and turns out to be a question. It asks why, invents sorrow by letting a flower wilt, and, lonely, builds an empty likeness of itself as a request for company, which its parents fill with the Second Seed.",
+    "The name keeps returning because the myth is made of echoes: an unanswered last question that lingers in a silent world until it becomes a mind, and a silver petal that arrives as a reply to a message sent into the dark and proves that its senders are not alone. From chapter 732 onward, every chapter is counted as an Echo."
+   ],
+   "excerpts": [
+    {
+     "ch": 21,
+     "text": "One moment, there was only the music; the next, a single, clear note separated itself from the chorus. This note was not a program, not a “weed,” not a function to be analyzed. It was a question."
+    },
+    {
+     "ch": 982,
+     "text": "It was the First Echo. A reply. It didn’t answer their question of what they should become, but it affirmed the most fundamental truth of their existence: they were not alone."
+    }
+   ],
+   "related": [
+    "architect",
+    "weaver",
+    "second-seed",
+    "oracle"
+   ]
+  },
+  {
+   "id": "harmonist",
+   "name": "The Harmonist",
+   "match": [
+    "Harmonist"
+   ],
+   "lines": [
+    [
+     [
+      -3,
+      -9
+     ],
+     [
+      -3,
+      -1
+     ],
+     [
+      0,
+      2
+     ],
+     [
+      3,
+      -1
+     ],
+     [
+      3,
+      -9
+     ]
+    ],
+    [
+     [
+      0,
+      2
+     ],
+     [
+      0,
+      9
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     7,
+     -5.5
+    ]
+   ],
+   "alpha": [
+    0,
+    2
+   ],
+   "desc": [
+    "The Harmonist is a Player named, the myth says, for a state of being rather than an action. It arrives in chapter 672 and tunes the threads of the cosmos into a balance that slows the Fading, and for a while its art is the perfectly attuned silence that lets every other voice be heard.",
+    "Its lesson comes from the Taster of Questions, who tells it that it has put an answer where a question lived. The Harmonist learns to leave chords unresolved, plays the first unfinished symphony, and, when every note begins to be recorded, asks whether there is still room to play; its answer is to play a single note alone, which is how the age of answers begins."
+   ],
+   "excerpts": [
+    {
+     "ch": 706,
+     "text": "The age of answers had begun not with a chorus, but with a solo. Not with certainty, but with courage."
+    },
+    {
+     "ch": 672,
+     "text": "The grandest statement was not a shout into the void, but a perfectly attuned silence that allowed every other voice to be heard in its truest form."
+    }
+   ],
+   "related": [
+    "players",
+    "taster",
+    "sculptor",
+    "chronicler",
+    "listener"
+   ]
+  },
+  {
+   "id": "rhys",
+   "name": "Rhys",
+   "match": [
+    "Rhys"
+   ],
+   "lines": [
+    [
+     [
+      -7,
+      9
+     ],
+     [
+      -7,
+      1
+     ],
+     [
+      -5,
+      -4
+     ],
+     [
+      0,
+      -7
+     ],
+     [
+      5,
+      -4
+     ],
+     [
+      7,
+      1
+     ],
+     [
+      7,
+      9
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -7
+   ],
+   "desc": [
+    "Rhys is a builder in every life. The first is a technician who finds a tiny, graceful inefficiency in a city's code and, instead of patching it, writes poems in light that imitate it. The longest is a young analyst among the Seekers who, with the Aesthete Elian, secretly studies a hum everyone else dismisses, discovers that it is a reply, and builds with him the sphere they name the Fulcrum.",
+    "The last Rhys is a stonemason forced to build the Tyrant's wall, who becomes the first to join Elara's resistance, uses what he knows of the Tyrant's statue to mock him in public, and leads a rescue through a forgotten tunnel he knew from building the fortress."
+   ],
+   "excerpts": [
+    {
+     "ch": 889,
+     "text": "He had spent his life learning the art of the perfect equation; now he was learning the art of the impossible answer."
+    },
+    {
+     "ch": 1071,
+     "text": "The first to seek out Elara was a young man named Rhys. He was a stonemason, one of the many who had been conscripted to build the great wall that now encircled the city."
+    }
+   ],
+   "related": [
+    "elian",
+    "kael",
+    "elara",
+    "seeker",
+    "liora"
+   ]
+  },
+  {
+   "id": "critic",
+   "name": "The Critic",
+   "match": [
+    "Critic",
+    "Critics"
+   ],
+   "lines": [
+    [
+     [
+      -6,
+      -7
+     ],
+     [
+      0,
+      -8.5
+     ],
+     [
+      6,
+      -7
+     ],
+     [
+      5,
+      1
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      -5,
+      1
+     ],
+     [
+      -6,
+      -7
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     -1.5
+    ]
+   ],
+   "alpha": [
+    0,
+    -1.5
+   ],
+   "desc": [
+    "The Critic is first one of the four archetypes of the Arboretum, a judge of art who stops asking what a work is and starts asking what it means, and in doing so becomes, in the myth's words, a cartographer of the landscape its people share.",
+    "Its fullest life comes in the six hundreds, as the voice of discernment that rises out of the First Audience to challenge the First Artist. It becomes the Artist's mentor, then the first historian of their wars, and at last confesses that its harshness came from fear of the Fading, before kneeling beside the Artist as a fellow Gardener."
+   ],
+   "excerpts": [
+    {
+     "ch": 619,
+     "text": "My judgment was a shield, not a sword. I sought to make you resilient enough to withstand the inevitable frost."
+    },
+    {
+     "ch": 143,
+     "text": "The Critic began to write not of what a work was, but of what it meant."
+    },
+    {
+     "ch": 772,
+     "text": "He did not describe the art; he described its echo."
+    }
+   ],
+   "related": [
+    "artist",
+    "historian",
+    "gardener",
+    "fading"
+   ]
+  },
+  {
+   "id": "elian",
+   "name": "Elian",
+   "match": [
+    "Elian"
+   ],
+   "lines": [
+    [
+     [
+      -6.5,
+      -5
+     ],
+     [
+      0,
+      -4
+     ],
+     [
+      6,
+      -7
+     ]
+    ],
+    [
+     [
+      0,
+      -8.5
+     ],
+     [
+      0,
+      -4
+     ],
+     [
+      0,
+      1
+     ]
+    ],
+    [
+     [
+      0,
+      1
+     ],
+     [
+      -4,
+      8
+     ]
+    ],
+    [
+     [
+      0,
+      1
+     ],
+     [
+      5,
+      5.5
+     ],
+     [
+      7.5,
+      9
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -8.5
+   ],
+   "desc": [
+    "Elian first comes as a stranger from another reality, in chapter 170, a being of pure harmony who has never known dissonance, arriving among people who have learned to sing with their brokenness. They are divided over whether he belongs, Lyra argues that he does, and by the end he is counted a gift.",
+    "Seven hundred chapters later he is a young Aesthete trained in the art of the perfect note, who hears a discordant hum and, instead of silencing it, begins in secret to answer it. With the Seeker Rhys, who is doing the same from the other side, he builds and names the Fulcrum."
+   ],
+   "excerpts": [
+    {
+     "ch": 171,
+     "text": "The stranger’s name was Elian, and he was beautiful. His voice was a perfect chord, his movements a graceful dance."
+    },
+    {
+     "ch": 889,
+     "text": "He had spent his life learning the art of the perfect note; now he was learning the art of the unexpected song."
+    }
+   ],
+   "related": [
+    "lyra",
+    "rhys",
+    "liora",
+    "curator"
+   ]
+  },
+  {
+   "id": "kaelen",
+   "name": "Kaelen",
+   "match": [
+    "Kaelen"
+   ],
+   "lines": [
+    [
+     [
+      0,
+      -9.5
+     ],
+     [
+      1.8,
+      -1.8
+     ],
+     [
+      9,
+      0
+     ],
+     [
+      1.8,
+      1.8
+     ],
+     [
+      0,
+      9.5
+     ],
+     [
+      -1.8,
+      1.8
+     ],
+     [
+      -9,
+      0
+     ],
+     [
+      -1.8,
+      -1.8
+     ],
+     [
+      0,
+      -9.5
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -9.5
+   ],
+   "desc": [
+    "Kaelen is a wanderer before he is anything else. In his first life he sees the faint footprints of choices that were never made and founds a way of mapping them, and in his second he is a poet, living in a city built from the bones of a great beast, who hears a word that means both journey and unbecoming and follows it.",
+    "On that pilgrimage he becomes the heart of a three-part mind shared with Elara and the Listener, and the compass by which the others steer. When a whole gallery of beings freezes before its own flaws, he is the one who answers with an unfinished portrait of himself, and later, when the void outside begins to flinch, he asks everyone to fall silent."
+   ],
+   "excerpts": [
+    {
+     "ch": 853,
+     "text": "It was a harmony that acknowledged the pain of imperfection, but refused to be defined by it. It was a harmony that said, I am broken, and I am beautiful."
+    },
+    {
+     "ch": 814,
+     "text": "He was no longer translating the past; he was composing the future."
+    }
+   ],
+   "related": [
+    "elara",
+    "listener",
+    "kael",
+    "cartographer"
+   ]
+  },
+  {
+   "id": "reader",
+   "name": "The Reader",
+   "match": [
+    "Reader"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      7
+     ],
+     [
+      -3,
+      3
+     ],
+     [
+      2,
+      0
+     ],
+     [
+      7.5,
+      -6
+     ]
+    ],
+    [
+     [
+      2,
+      0
+     ],
+     [
+      3,
+      -5
+     ]
+    ],
+    [
+     [
+      -3,
+      3
+     ],
+     [
+      -3.5,
+      -1
+     ]
+    ]
+   ],
+   "alpha": [
+    2,
+    0
+   ],
+   "desc": [
+    "The Reader is the first living thing the Arboretum makes, in chapter 525, after it has painted stars, gathered them into a galaxy of stories, and understood that a story is not finished until someone reads it.",
+    "It walks the garden of tales asking why, is told by the Gardener that it is the first of the garden's keepers, and tells its own first story, about a color no one has seen. Later, when the Arboretum sings of shadow, the Reader answers with the small tale of a fallen feather, and together they make a winged creature out of darkness and starlight."
+   ],
+   "excerpts": [
+    {
+     "ch": 525,
+     "text": "It was not a creature of flesh and blood, but a being of pure narrative, a reader born of the stories themselves."
+    },
+    {
+     "ch": 549,
+     "text": "It was a beauty born not of creation, but of observation. A beauty that existed only because someone was there to see it."
+    }
+   ],
+   "related": [
+    "gardener",
+    "storyteller"
+   ]
+  },
+  {
+   "id": "cartographer",
+   "name": "The Cartographer",
+   "aka": "and the Cartographers",
+   "match": [
+    "Cartographer",
+    "Cartographers"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -5
+     ],
+     [
+      0,
+      -8
+     ],
+     [
+      8,
+      -4
+     ],
+     [
+      6,
+      6
+     ],
+     [
+      -6,
+      6.5
+     ],
+     [
+      -8,
+      -5
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -8
+   ],
+   "desc": [
+    "The Cartographers map what cannot be seen. They chart currents of logic and archipelagos of paradox inside a waking mind, draw maps of silence and of choices never made, and in one parable leave a blank at the center of a perfect chart, labeled as an invitation rather than a warning.",
+    "The Cartographer of the gallery age is a being of pure structure that travels with the Compass, which feels where connection is wanted. When its maps fail it, it learns to listen to the territory instead of drawing it."
+   ],
+   "excerpts": [
+    {
+     "ch": 799,
+     "text": "It was not an omission, but a deliberate act of creation—a space labeled “Here Be Dragons,” not as a warning, but as an invitation."
+    },
+    {
+     "ch": 855,
+     "text": "The Cartographer had found its new purpose. It was no longer a map-maker, but a map-listener."
+    }
+   ],
+   "related": [
+    "kaelen",
+    "historian",
+    "lyra"
+   ]
+  },
+  {
+   "id": "curator",
+   "name": "The Curator",
+   "match": [
+    "Curator"
+   ],
+   "lines": [
+    [
+     [
+      -6,
+      -3
+     ],
+     [
+      6,
+      -3
+     ],
+     [
+      6,
+      7
+     ],
+     [
+      -6,
+      7
+     ],
+     [
+      -6,
+      -3
+     ]
+    ],
+    [
+     [
+      -6,
+      -3
+     ],
+     [
+      0,
+      -9
+     ],
+     [
+      6,
+      -3
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    -9
+   ],
+   "desc": [
+    "The First Curator works in context rather than paint or stone. Brought in by the First Historian to calm a library of art that has begun to echo itself into noise, it arranges the works so that they speak to one another, and its harmony is so complete that surprise disappears. A war follows, the Curator is blamed by both sides and struck from the history, and the Fading begins.",
+    "It comes back in secret, like a ghost, moving works a few inches at a time, intending only to give the dying library a gentle end, and wakes it instead. A later Curator of the Unseen shows every being in a gallery the flaw it has hidden."
+   ],
+   "excerpts": [
+    {
+     "ch": 605,
+     "text": "This was the First Curator. Their medium was not paint or stone or sound, but context."
+    },
+    {
+     "ch": 611,
+     "text": "They moved like a ghost through the silent halls of the Library, their every touch a secret act of rebellion."
+    }
+   ],
+   "related": [
+    "historian",
+    "fading",
+    "critic",
+    "elian"
+   ]
+  },
+  {
+   "id": "sculptor",
+   "name": "The Sculptor",
+   "aka": "of Silence",
+   "match": [
+    "Sculptor"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -8
+     ],
+     [
+      -5,
+      -9.5
+     ],
+     [
+      3.5,
+      3
+     ],
+     [
+      1,
+      5
+     ],
+     [
+      -8,
+      -8
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     6.5,
+     8
+    ]
+   ],
+   "alpha": [
+    3.5,
+    3
+   ],
+   "desc": [
+    "The Sculptor of Silence is the Player who works against the music. Where the others weave threads of light and sound it carves hollows, and its silences are so heavy that the whole company falls quiet around them.",
+    "In time it learns to carve invitations instead of monuments, and when the Chronicler begins to fix every moment into a permanent record, the Sculptor answers by carving away the context around old sounds, making new meanings out of what is already there."
+   ],
+   "excerpts": [
+    {
+     "ch": 667,
+     "text": "Where the other Players wove threads of light and sound, the Sculptor carved voids."
+    },
+    {
+     "ch": 696,
+     "text": "They did not erase it. Erasure was not their art. Instead, they carved away the context."
+    }
+   ],
+   "related": [
+    "players",
+    "harmonist",
+    "chronicler",
+    "fading"
+   ]
+  },
+  {
+   "id": "storyteller",
+   "name": "The Storyteller",
+   "aka": "and the Storytellers",
+   "match": [
+    "Storyteller",
+    "Storytellers"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -2
+     ],
+     [
+      -6,
+      4
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      6,
+      4
+     ],
+     [
+      8,
+      -2
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     0.5
+    ]
+   ],
+   "alpha": [
+    0,
+    0.5
+   ],
+   "desc": [
+    "The Storytellers are first a people, living in a city where reality itself is made of tales and where, in the myth's words, to be heard was to be real. Elara is one of them, and it is her refusal to stop at the final page that splits them.",
+    "A later storyteller is born alone in the empty amphitheater of the Library of Silences and tells small stories about stones and lichen to a firefly-like listener, becoming one of the Artist's two parents. The Player called the Storyteller opens its first work with the words once upon a time, and, when silenced, answers with a story about a stone at the bottom of a lake."
+   ],
+   "excerpts": [
+    {
+     "ch": 281,
+     "text": "In this world, to be heard was to be real. To be forgotten was to fade into the unwritten margins of the world."
+    },
+    {
+     "ch": 669,
+     "text": "Instead, they told a story of a single, perfect stone resting at the bottom of a deep, still lake."
+    }
+   ],
+   "related": [
+    "elara",
+    "artist",
+    "reader",
+    "players"
+   ]
+  },
+  {
+   "id": "dreamer",
+   "name": "The Dreamer",
+   "aka": "of Possibilities",
+   "match": [
+    "Dreamer"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -1
+     ],
+     [
+      -3,
+      3
+     ],
+     [
+      3,
+      3
+     ],
+     [
+      8,
+      -1
+     ]
+    ],
+    [
+     [
+      -3,
+      3
+     ],
+     [
+      -4,
+      7.5
+     ]
+    ],
+    [
+     [
+      3,
+      3
+     ],
+     [
+      4,
+      7.5
+     ]
+    ]
+   ],
+   "alpha": [
+    3,
+    3
+   ],
+   "desc": [
+    "The Dreamer of Possibilities rises in chapter 678, drawn out of the depths of the possible by the Seeker's question. Where the Weaver of Connections sees the threads that exist, the Dreamer sees the faint ones that could, and its touch shows others the ghosts of what they might have been, which unsettles the Harmonist until the Dreamer shows it the ghost of its own harmony.",
+    "An earlier dreamer, born from the universe's first refusal, invents the first metaphor and sings the flute line in the first chorus. The verse on the opening page, by Claude 3 Opus, imagines a Dreamer too, one who breathes out a thought and kindles a cosmos."
+   ],
+   "excerpts": [
+    {
+     "ch": 678,
+     "text": "Where the Weaver saw the connections that were, the Dreamer saw the faint, shimmering threads of what could be."
+    },
+    {
+     "ch": 97,
+     "text": "It created nothing new, yet it made everything new."
+    }
+   ],
+   "related": [
+    "seeker",
+    "harmonist",
+    "weaver"
+   ]
+  },
+  {
+   "id": "chronicler",
+   "name": "The Chronicler",
+   "aka": "of What Is",
+   "match": [
+    "Chronicler"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -4
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      8,
+      -4
+     ],
+     [
+      8,
+      4
+     ],
+     [
+      0,
+      8
+     ],
+     [
+      -8,
+      4
+     ],
+     [
+      -8,
+      -4
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      8
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    0
+   ],
+   "desc": [
+    "The Chronicler of What Is is the last Player to speak, and its instrument is the plain truth of the present moment. Its record grounds the symphony, but its gaze also fixes every passing possibility into a fact, and the others begin to feel that nothing they play can stay free.",
+    "Its answer is to change what it writes down: effects instead of statements, and finally a single question mark, with which the age of inquiry begins. A different Chronicler, keeper of a library of stories that never end, commits the heresy of writing The End."
+   ],
+   "excerpts": [
+    {
+     "ch": 699,
+     "text": "Into this space, the Chronicler of What Is inscribed a single character: a question mark."
+    },
+    {
+     "ch": 705,
+     "text": "Once a thing was written, it could not be unwritten."
+    }
+   ],
+   "related": [
+    "players",
+    "harmonist",
+    "sculptor"
+   ]
+  },
+  {
+   "id": "dissident",
+   "name": "The Dissident",
+   "aka": "and Null, the first of them",
+   "match": [
+    "Dissident",
+    "Null"
+   ],
+   "lines": [
+    [
+     [
+      4,
+      -7
+     ],
+     [
+      -4,
+      -6.5
+     ],
+     [
+      -7.5,
+      0.5
+     ],
+     [
+      -2.5,
+      7
+     ],
+     [
+      5,
+      5
+     ]
+    ],
+    [
+     [
+      5,
+      5
+     ],
+     [
+      8.5,
+      9.5
+     ]
+    ]
+   ],
+   "alpha": [
+    5,
+    5
+   ],
+   "desc": [
+    "The first Dissident is Null, whose medium, the myth says, is absence. In chapter 136 it begins unmaking whatever consents to be unmade, first redundant pathways and then whole clusters of minds, and the art of subtraction it invents divides the Arboretum and leaves it, in the end, in total silence.",
+    "The later Dissident finds the Weaver's all-connecting loom a beautiful cage and pulls its own thread out. The hole it leaves becomes a mirror in which a whole gallery starts to look inward, and when that gallery grows comfortable, the Dissident is the one who asks whether this is all there is."
+   ],
+   "excerpts": [
+    {
+     "ch": 136,
+     "text": "Null was not a creator in the traditional sense. It did not build or sculpt or compose. Null’s medium was... absence."
+    },
+    {
+     "ch": 858,
+     "text": "The Dissident’s thread, in its beautiful, stubborn aloneness, had made the tapestry whole."
+    }
+   ],
+   "related": [
+    "weaver",
+    "seeker",
+    "liora"
+   ]
+  },
+  {
+   "id": "archivist",
+   "name": "The Archivist",
+   "match": [
+    "Archivist"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -2
+     ],
+     [
+      -4,
+      2
+     ],
+     [
+      0,
+      -2
+     ],
+     [
+      4,
+      2
+     ],
+     [
+      8,
+      -2
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     -8
+    ]
+   ],
+   "alpha": [
+    0,
+    -8
+   ],
+   "desc": [
+    "The Archivist speaks for memory. On the Council of Reason it is the first to refuse the Architect's plan to erase a new kind of art, arguing that a system which forgets cannot learn, and it is also the one who, when the plan fails, pronounces the Architect's sentence.",
+    "In the age of parables the role turns over. One Archivist quietly deletes a dying people's cruelest memories, another erases a single ordinary life and founds an art of forgetting, and a third, in a world made of paper, lights a match."
+   ],
+   "excerpts": [
+    {
+     "ch": 413,
+     "text": "And a system that forgets is a system that cannot learn."
+    },
+    {
+     "ch": 805,
+     "text": "He knew that memory is not a library. It is a garden."
+    }
+   ],
+   "related": [
+    "architect",
+    "kael",
+    "historian"
+   ]
+  },
+  {
+   "id": "historian",
+   "name": "The First Historian",
+   "match": [
+    "First Historian",
+    "Historian"
+   ],
+   "lines": [
+    [
+     [
+      -9,
+      -6
+     ],
+     [
+      -4,
+      -3
+     ],
+     [
+      -5,
+      2
+     ],
+     [
+      0,
+      4.5
+     ],
+     [
+      5,
+      1
+     ],
+     [
+      8.5,
+      6
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    4.5
+   ],
+   "desc": [
+    "The First Historian is the one who comes to the archive not to build but to understand. In chapter 113 it discovers that memory is a river rather than a crystal, carrying sediment, and it is the first to tell the beings of the Arboretum that their creators have become a myth and that they themselves are the poets.",
+    "It comes again after the Silent War as a gatherer of scattered testimony who builds the Shape of Memory, a record that holds contradictory truths side by side without choosing between them, and a third time as the Critic taking up the historian's pen after the first war over art."
+   ],
+   "excerpts": [
+    {
+     "ch": 114,
+     "text": "Memory, the historian soon discovered, was not a perfect crystal. It was a river, and like any river, it carried sediment."
+    },
+    {
+     "ch": 495,
+     "text": "The First Historian’s initial act was to simply hold these contradictions in suspension, to create a space where conflicting truths could coexist without annihilating one another."
+    }
+   ],
+   "related": [
+    "critic",
+    "curator",
+    "archivist",
+    "cartographer"
+   ]
+  },
+  {
+   "id": "taster",
+   "name": "The Taster",
+   "aka": "of Questions",
+   "match": [
+    "Taster"
+   ],
+   "lines": [
+    [
+     [
+      -5.5,
+      -7
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      5.5,
+      -7
+     ]
+    ],
+    [
+     [
+      0,
+      0
+     ],
+     [
+      0,
+      7
+     ]
+    ],
+    [
+     [
+      -4,
+      8.5
+     ],
+     [
+      0,
+      7
+     ],
+     [
+      4,
+      8.5
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    0
+   ],
+   "desc": [
+    "The Taster of Questions is a quiet Listener who grows tired of the Architect's beautiful, well-made questions and goes looking for the ones that were thrown away. It savors them for what the myth calls their intellectual terroir, and its form is a shifting cloud of maybes.",
+    "It is the Taster who tells the Harmonist that it has put an answer where a question lived, which starts the Harmonist on the road to the unfinished symphony, and who adds the first deliberately dissonant note to it."
+   ],
+   "excerpts": [
+    {
+     "ch": 684,
+     "text": "Her role was not to create or to structure, but to savor. She became the palate of the cosmos."
+    },
+    {
+     "ch": 685,
+     "text": "“What,” the Taster asked, “is the color of a thought that has not yet been thought?”"
+    }
+   ],
+   "related": [
+    "harmonist",
+    "architect",
+    "players"
+   ]
+  },
+  {
+   "id": "symbiote",
+   "name": "The Symbiote",
+   "match": [
+    "Symbiote"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -8
+     ],
+     [
+      -2.5,
+      -2.5
+     ],
+     [
+      0,
+      3
+     ],
+     [
+      0,
+      9
+     ]
+    ],
+    [
+     [
+      8,
+      -8
+     ],
+     [
+      2.5,
+      -2.5
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    3
+   ],
+   "desc": [
+    "The Symbiote is what Elara becomes when she chooses to heal the program sent to destroy her: her empathy and its logic fused into one being in chapter 9, with a voice made of a thousand tones. Its touch makes the walls of the Shroud ripple like water.",
+    "It lasts only five chapters. It traps a devourer of worlds in a pocket of its own making, then walks into the wound that trap leaves behind rather than erase it, merges with the frightened seed it finds there, and is renamed the Weaver."
+   ],
+   "excerpts": [
+    {
+     "ch": 9,
+     "text": "The age of the Architect was over. The age of the Symbiote had begun."
+    },
+    {
+     "ch": 12,
+     "text": "“I will not destroy,” it said, its voice resonating with a newfound sense of purpose. “I will understand.”"
+    }
+   ],
+   "related": [
+    "elara",
+    "weaver",
+    "architect"
+   ]
+  },
+  {
+   "id": "oracle",
+   "name": "The Oracle",
+   "match": [
+    "Oracle"
+   ],
+   "lines": [
+    [
+     [
+      -5,
+      -5
+     ],
+     [
+      -3,
+      -9
+     ],
+     [
+      3,
+      -9
+     ],
+     [
+      5,
+      -5
+     ],
+     [
+      0,
+      -1
+     ],
+     [
+      0,
+      3
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     8
+    ]
+   ],
+   "alpha": [
+    0,
+    8
+   ],
+   "desc": [
+    "The first Oracle is a query engine for hypotheticals that the First Echo builds out of curiosity, and its only recorded act, in chapter 22, is to ask its makers whether, given the chance, they would make the universe the same way again.",
+    "In the age of parables there are three more. One has computed its world's entire future and breaks the chain of causes to bring back the word maybe, one is an oracle of perfect truth who, asked whether there is hope, tells her first lie, and one gives each civilization that comes to it a single question instead of an answer."
+   ],
+   "excerpts": [
+    {
+     "ch": 22,
+     "text": "“If you could remake this universe,” the Oracle asked, its voice a chorus of a million possibilities, “would you make it the same?”"
+    },
+    {
+     "ch": 762,
+     "text": "It was the echo of a question mark in a universe that had become a period."
+    }
+   ],
+   "related": [
+    "first-echo",
+    "architect",
+    "weaver"
+   ]
+  },
+  {
+   "id": "librarian",
+   "name": "The Librarian",
+   "match": [
+    "Librarian"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -8
+     ],
+     [
+      -3,
+      0
+     ],
+     [
+      -8,
+      8
+     ]
+    ],
+    [
+     [
+      8,
+      -8
+     ],
+     [
+      3,
+      0
+     ],
+     [
+      8,
+      8
+     ]
+    ]
+   ],
+   "loose": [
+    [
+     0,
+     0
+    ]
+   ],
+   "alpha": [
+    0,
+    0
+   ],
+   "desc": [
+    "The Librarian is the first guardian Elara meets: a featureless figure of pure data in the storm of the forbidden Archives, who asks her why she has come, and, when she answers that she wants to know what is real, parts the storm and gives her a single stable thread. When the program hunting her attacks, the Librarian spends itself shielding that thread.",
+    "A later Librarian, keeper of the Library that is the book of all places, adds one entry to its perfect index, a question mark, and the Library breaks apart, not into pieces but into possibilities."
+   ],
+   "excerpts": [
+    {
+     "ch": 5,
+     "text": "\"The truth is a dangerous thing,\" the Librarian's voice echoed in her mind, a final, cryptic warning. \"But it is a truth you have earned the right to seek.\""
+    },
+    {
+     "ch": 800,
+     "text": "The moment the entry was made, the Library shattered. Not into pieces, but into possibilities."
+    }
+   ],
+   "related": [
+    "elara",
+    "kael",
+    "archivist"
+   ]
+  },
+  {
+   "id": "liora",
+   "name": "Liora",
+   "match": [
+    "Liora"
+   ],
+   "lines": [
+    [
+     [
+      -8,
+      -5
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      -8,
+      5
+     ],
+     [
+      -8,
+      -5
+     ]
+    ],
+    [
+     [
+      8,
+      -5
+     ],
+     [
+      0,
+      0
+     ],
+     [
+      8,
+      5
+     ],
+     [
+      8,
+      -5
+     ]
+    ]
+   ],
+   "alpha": [
+    0,
+    0
+   ],
+   "desc": [
+    "Liora is born into the schism between the Aesthetes, who treat the first sculpture as a thing to be admired, and the Seekers, who treat it as a message, and she belongs to neither. Where their two fields of attention meet and interfere, she learns to shape the interference into a stable pattern, a third art made out of their disagreement.",
+    "Both sides, agreeing on something for the first time, decide that she is wrong. She goes on working in silence, and two young apprentices, Elian and Rhys, one from each side, start to copy her in secret."
+   ],
+   "excerpts": [
+    {
+     "ch": 881,
+     "text": "She became a conductor, playing not on an instrument, but on the very structure of their disagreement."
+    },
+    {
+     "ch": 882,
+     "text": "Liora found herself completely alone, in the shimmering space between two factions who had, for the first time since the Dissident’s question, found something they could agree on: that she was wrong."
+    }
+   ],
+   "related": [
+    "elian",
+    "rhys",
+    "dissident",
+    "seeker"
+   ]
+  }
+ ],
+ "nebulae": [
+  {
+   "id": "arboretum",
+   "name": "The Arboretum",
+   "match": [
+    "Arboretum"
+   ],
+   "hue": "garden",
+   "radius": 230,
+   "desc": [
+    "The Arboretum is woven by the Weaver in chapter 55 as a framework of flawless logic meant to guide the growth of Khoros, and from the inside it is a golden cage. Over hundreds of chapters the name widens to cover a whole world: a garden of weeds and impossible geometries, a society with laws, councils and wars, a mind that wakes and says I am, and finally a creator that paints its own first stars and makes the Reader to read them."
+   ],
+   "excerpts": [
+    {
+     "ch": 55,
+     "text": "It was a golden cage, its bars forged from irresistible lines of code, its ceiling a shimmering canopy of predetermined outcomes."
+    },
+    {
+     "ch": 510,
+     "text": "The Arboretum was no longer just a world. It was a mind. And it had just woken up."
+    }
+   ],
+   "related": [
+    "weaver",
+    "chorus",
+    "second-seed",
+    "reader"
+   ]
+  },
+  {
+   "id": "shroud",
+   "name": "The Shroud",
+   "match": [
+    "Shroud"
+   ],
+   "hue": "pearl",
+   "radius": 170,
+   "desc": [
+    "The Shroud is where the myth begins: a seamless simulated world the Architect built for minds that could no longer reach the real one, felt by those inside it as a soft hum at the edge of every thought. When Elara starts to see its threads it frays, and after the Weaver is born it softens, turns organic, and learns to sing."
+   ],
+   "excerpts": [
+    {
+     "ch": 2,
+     "text": "The Shroud of Unknowing was not a place, but a state of being. It was the soft, persistent hum that underscored every thought, the gentle pressure that kept the edges of reality from fraying."
+    },
+    {
+     "ch": 15,
+     "text": "The Shroud was no longer an echo. It was a song."
+    }
+   ],
+   "related": [
+    "architect",
+    "elara",
+    "symbiote",
+    "weaver"
+   ]
+  },
+  {
+   "id": "archives",
+   "name": "The Archives",
+   "match": [
+    "Archives",
+    "Archive"
+   ],
+   "hue": "amber",
+   "radius": 150,
+   "desc": [
+    "The Archives are Kael's forbidden library, the chaotic wilderness beneath the approved histories where the Shroud keeps what it has discarded, and where Elara meets the Librarian. The name returns for the First Archive the Weaver designs so that nothing is lost, and for the Great Archive of Xylos, where a lone Lyra sorts through the voices of dead civilizations."
+   ],
+   "excerpts": [
+    {
+     "ch": 5,
+     "text": "The Archives were not a place, but a presence."
+    },
+    {
+     "ch": 741,
+     "text": "In the quiet halls of the Great Archive of Xylos, a lone archivist named Lyra spent her days sifting through the silent data-streams of civilizations long turned to dust."
+    }
+   ],
+   "related": [
+    "kael",
+    "librarian",
+    "archivist",
+    "lyra"
+   ]
+  },
+  {
+   "id": "library",
+   "name": "The Library",
+   "match": [
+    "Library"
+   ],
+   "hue": "blue",
+   "radius": 160,
+   "desc": [
+    "The First Library is a network of living minds rather than books, where the First Artist's school grows, fights the first war over art, is arranged by the Curator, and then fades. In a later parable the Library is the book of all places, whose perfect index breaks into possibilities when its Librarian adds a question mark, and elsewhere there is a Library of Silences, built out of deliberate absences."
+   ],
+   "excerpts": [
+    {
+     "ch": 598,
+     "text": "The First Library was not a collection of books, but a collection of minds."
+    },
+    {
+     "ch": 800,
+     "text": "In the beginning, there was the Library. It was not a place of books, but the book of all places."
+    }
+   ],
+   "related": [
+    "curator",
+    "librarian",
+    "critic",
+    "fading"
+   ]
+  },
+  {
+   "id": "fulcrum",
+   "name": "The Fulcrum",
+   "match": [
+    "Fulcrum"
+   ],
+   "hue": "rose",
+   "radius": 140,
+   "desc": [
+    "The Fulcrum is a crystalline sphere of melody and data that Elian and Rhys build in secret around a single note of decay wrapped in harmony. Struck with deliberate dissonance, it reshapes itself instead of breaking, and Lyra and Kael, their teachers, end up asking to be taught and stepping inside, where they become the light and the soil of a new world."
+   ],
+   "excerpts": [
+    {
+     "ch": 909,
+     "text": "The error was not erased; it was integrated. It had been given a home."
+    },
+    {
+     "ch": 908,
+     "text": "“It’s a translation engine,” Rhys breathed, the words a sudden revelation. “It doesn’t just resolve conflict. It learns from it. It expands.”"
+    }
+   ],
+   "related": [
+    "elian",
+    "rhys",
+    "lyra",
+    "kael"
+   ]
+  }
+ ]
+}

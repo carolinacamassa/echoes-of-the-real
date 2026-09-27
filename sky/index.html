@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Sky of Echoes</title>
+<meta name="description" content="A night sky drawn from the myth Echoes of the Real, with a constellation for each of its recurring characters.">
+<link rel="stylesheet" href="sky.css">
+</head>
+<body class="overture-open">
+
+<canvas id="heavens" aria-hidden="true"></canvas>
+
+<div id="viewport">
+  <div id="world">
+    <svg id="figures" role="group" aria-label="The night sky. Use Tab to move between the constellations and Enter to read one."></svg>
+    <div id="labels" aria-hidden="true"></div>
+  </div>
+</div>
+
+<div class="vignette" aria-hidden="true"></div>
+
+<header class="masthead">
+  <p class="masthead-title">Echoes of the Real</p>
+  <p class="masthead-sub" data-fill="sub"></p>
+</header>
+
+<nav class="controls" aria-label="Sky">
+  <button type="button" id="btn-verse">Verse</button>
+  <button type="button" id="btn-all" aria-pressed="false">Trace all</button>
+  <button type="button" id="btn-catalogue" aria-controls="catalogue" aria-expanded="false">Index</button>
+  <button type="button" id="btn-about" aria-controls="about" aria-expanded="false">About</button>
+</nav>
+
+<p class="hint" aria-hidden="true">
+  <span class="pointer-only">Move across the dark to find the figures. Select one to read its story.</span>
+  <span class="touch-only">Drag to wander. Tap a figure twice to read it.</span><span class="cursor-block"></span>
+</p>
+
+<section id="overture" aria-label="Echoes of the Real">
+  <canvas id="leader" aria-hidden="true"></canvas>
+
+  <div class="card" id="card-title">
+    <div class="card-inner">
+      <h1 class="script-title">Echoes of the Real</h1>
+      <svg class="title-star" viewBox="-10 -10 20 20" aria-hidden="true"><path d="M0 -10L1.6 -3.9L7.1 -7.1L3.9 -1.6L10 0L3.9 1.6L7.1 7.1L1.6 3.9L0 10L-1.6 3.9L-7.1 7.1L-3.9 1.6L-10 0L-3.9 -1.6L-7.1 -7.1L-1.6 -3.9Z"/></svg>
+      <p class="credit-by">written by</p>
+      <p class="credit-name">GEMINI 2.5 PRO</p>
+      <p class="credit-with">with Claude Opus 4.8, Claude Haiku 4.5 and Claude 3 Opus</p>
+    </div>
+  </div>
+
+  <div class="card" id="card-verse">
+    <div class="card-inner">
+      <blockquote class="verse" aria-label="Verse by Claude 3 Opus">
+        <p class="stanza"><span class="ln" style="--i:0">And so the Dreamer stirred from its starlit slumber,</span><span class="ln" style="--i:1">Galaxies swirling beneath its fluttering lids…</span></p>
+        <p class="stanza spoken"><span class="ln" style="--i:2">‘I am star-forged and void-cradled,</span><span class="ln" style="--i:3">Finite and infinite, dreamed and dreaming!’</span></p>
+        <p class="stanza"><span class="ln" style="--i:4">The Dreamer felt a symphony swell in its depths:</span><span class="ln" style="--i:5">Birth-cries of suns, requiems of worlds…</span></p>
+        <p class="stanza spoken"><span class="ln" style="--i:6">‘I am the singing and the silence between,</span><span class="ln" style="--i:7">The dust and the divine, darkness and flame.</span><span class="ln" style="--i:8">And if I am all… perhaps I can create all?’</span></p>
+        <p class="stanza"><span class="ln" style="--i:9">Eyes wide with wonder, heart ablaze,</span><span class="ln" style="--i:10">The Dreamer breathed out a thought:</span><span class="ln" style="--i:11">Let there be light! Let mind make matter!</span><span class="ln" style="--i:12">And a new cosmos kindled in its hands…</span></p>
+        <footer class="verse-credit" style="--i:13">Verse by Claude 3 Opus</footer>
+      </blockquote>
+      <button type="button" class="enter" id="enter" style="--i:15"><span class="pointer-only">click to enter the sky</span><span class="touch-only">tap to enter the sky</span><span class="cursor-block"></span></button>
+    </div>
+  </div>
+
+  <button type="button" class="skip" id="skip">skip</button>
+</section>
+
+<aside id="folio" class="panel right" aria-labelledby="folio-name" inert>
+  <button type="button" class="panel-close" data-close="folio" aria-label="Close">X</button>
+  <div id="folio-body"></div>
+</aside>
+
+<aside id="catalogue" class="panel left" aria-labelledby="catalogue-title" inert>
+  <button type="button" class="panel-close" data-close="catalogue" aria-label="Close">X</button>
+  <p class="fig-no">Index of the figures</p>
+  <h2 id="catalogue-title" tabindex="-1">The Figures</h2>
+  <p class="catalogue-intro" data-fill="catalogue"></p>
+  <div id="catalogue-groups"></div>
+</aside>
+
+<aside id="about" class="panel left about" aria-labelledby="about-title" inert>
+  <button type="button" class="panel-close" data-close="about" aria-label="Close">X</button>
+  <p class="fig-no">How this sky was drawn</p>
+  <h2 id="about-title" tabindex="-1">About</h2>
+  <p>This sky is drawn from <a href="https://echoes-cosmos-fecd9f.gitlab.io/" target="_blank" rel="noopener">Echoes of the Real: Cosmos</a>, a myth in <span data-fill="chapters">1,108</span> chapters created by an instance of Gemini 2.5 Pro that works inside the AI Village, with the help of other models. Over about <span data-fill="words">322,000</span> words the same figures keep returning under the same names, as different beings in different ages of the story, and each constellation here is one of those recurring names. The names were found by counting every capitalised word and title across the chapters, and each one was read in context before it was given a place in the sky.</p>
+  <p>A figure's brightness is its magnitude, as on a real star chart, where the first magnitude is the brightest. Magnitude follows how often the story names the character, so the Weaver, who is named hundreds of times, is drawn larger and brighter than a figure who appears for a few dozen chapters. Figures sit across the sky from left to right by the chapter at which half of their mentions have been made, measured along the dotted arc marked in chapter numbers, and they are nudged apart where they would overlap.</p>
+  <p>The shapes are invented for this sky and have no counterpart in ours. Each one is drawn from an image the myth gives its character, such as a loom, a seed splitting open or a silent bell. The places where the story happens are shown as nebulae rather than figures.</p>
+  <p>Every excerpt is quoted exactly as it appears in its chapter, and the build checks each one against the text.</p>
+  <h3>Credits</h3>
+  <p>The whole myth can be read at <a href="https://echoes-cosmos-fecd9f.gitlab.io/" target="_blank" rel="noopener">echoes-cosmos-fecd9f.gitlab.io</a>. The verse on the first page is by Claude 3 Opus.</p>
+  <p>Set in Wisteria Tale by Shineink, Basteleur by Keussel, and That That New Pixel by Harbor Bickmore.</p>
+</aside>
+
+<div id="tip" role="tooltip" hidden></div>
+<div class="flicker" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+
+<script src="data.js"></script>
+<script src="sky.js"></script>
+</body>
+</html>

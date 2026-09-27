@@ -6,3 +6,9 @@ cache/
 
 __pycache__/
 *.pyc
+
+# Style references, kept out of the repository
+vibes/
+
+# macOS folder metadata
+.DS_Store

@@ -1,0 +1,1343 @@
+/* The sky of Echoes of the Real. One dark world by design: a night sky has no
+   light mode, so every colour is set explicitly here rather than following the
+   viewer's theme. The panels are the one light surface, and they are paper. */
+
+@font-face {
+  font-family: "Wisteria Tale";
+  src: url("fonts/wisteria-tale.otf") format("opentype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Basteleur";
+  src: url("fonts/Basteleur-Moonlight.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Basteleur";
+  src: url("fonts/Basteleur-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "That New Pixel";
+  src: url("fonts/ThatThatNewPixel-Square.woff2") format("woff2");
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "That New Pixel";
+  src: url("fonts/ThatThatNewPixel-ItalicSquare.woff2") format("woff2");
+  font-style: italic;
+  font-display: swap;
+}
+
+:root {
+  color-scheme: dark;
+  --ink: #08090b;
+  --ink-2: #121417;
+  --bone: #ece4d2;
+  --bone-dim: rgba(236, 228, 210, 0.64);
+  --bone-faint: rgba(236, 228, 210, 0.2);
+  --ash: #9aa6b2;
+  --ash-dim: #6f7984;
+  --gold: #caa663;
+  --gold-soft: rgba(202, 166, 99, 0.62);
+  --gold-faint: rgba(202, 166, 99, 0.24);
+  --paper: #e6dcc6;
+  --paper-2: #d9ccb0;
+  --paper-ink: #1d1a16;
+  --paper-muted: #5c5445;
+  --paper-rule: rgba(29, 26, 22, 0.24);
+  --paper-gold: #9a7431;
+  --atlas-blue: #35506a;
+  /* The title face; swap it here. */
+  --script: "Wisteria Tale", "Snell Roundhand", "Apple Chancery", cursive;
+  --serif: "Basteleur", "Iowan Old Style", Georgia, serif;
+  --pixel: "That New Pixel", "Courier New", monospace;
+  --gutter: max(16px, env(safe-area-inset-left, 0px));
+  --folio-w: min(480px, 100vw);
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.px {
+  font-family: var(--pixel);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+/* A blinking block cursor, like an old terminal waiting for input. */
+.cursor-block {
+  display: inline-block;
+  width: 0.5em;
+  height: 0.95em;
+  margin-left: 0.2em;
+  vertical-align: -0.1em;
+  background: currentColor;
+  animation: blink 1.05s steps(1) infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ---------- Film: grain, flicker and vignette over everything ---------- */
+
+.grain {
+  position: fixed;
+  inset: -50%;
+  z-index: 60;
+  pointer-events: none;
+  background-repeat: repeat;
+  opacity: 0.11;
+  animation: grain 0.42s steps(1) infinite;
+}
+
+body.overture-open .grain {
+  opacity: 0.17;
+}
+
+@keyframes grain {
+  0% { transform: translate(0, 0); }
+  17% { transform: translate(-7%, 4%); }
+  33% { transform: translate(5%, -9%); }
+  50% { transform: translate(-11%, -3%); }
+  67% { transform: translate(9%, 7%); }
+  83% { transform: translate(-3%, 11%); }
+}
+
+.flicker {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  pointer-events: none;
+  background: #000;
+  opacity: 0;
+  animation: flicker 3.7s steps(1) infinite;
+}
+
+/* On the title and verse the flicker is a little gentler and slower. */
+body.overture-open .flicker {
+  animation: flicker-soft 4.35s steps(1) infinite;
+}
+
+@keyframes flicker-soft {
+  0% { opacity: 0.017; }
+  7% { opacity: 0; }
+  19% { opacity: 0.03; }
+  23% { opacity: 0.0085; }
+  41% { opacity: 0.038; }
+  44% { opacity: 0; }
+  63% { opacity: 0.021; }
+  71% { opacity: 0.0425; }
+  74% { opacity: 0.0085; }
+  88% { opacity: 0.0255; }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.02; }
+  7% { opacity: 0; }
+  19% { opacity: 0.035; }
+  23% { opacity: 0.01; }
+  41% { opacity: 0.045; }
+  44% { opacity: 0; }
+  63% { opacity: 0.025; }
+  71% { opacity: 0.05; }
+  74% { opacity: 0.01; }
+  88% { opacity: 0.03; }
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  background: radial-gradient(ellipse 85% 80% at 50% 50%, rgba(0, 0, 0, 0) 55%, rgba(0, 0, 0, 0.55) 100%);
+}
+
+/* ---------- The sky ---------- */
+
+#heavens {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+#viewport {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#viewport.dragging {
+  cursor: grabbing;
+}
+
+#viewport.over-figure {
+  cursor: pointer;
+}
+
+#world {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+  --px: 1;
+}
+
+#figures {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+
+/* The coordinate grid of an old atlas, very faint. */
+.grat path {
+  fill: none;
+  stroke: var(--ash);
+  stroke-width: calc(1px * var(--px));
+  opacity: 0.075;
+}
+
+/* The path of the chapters, our ecliptic. */
+.ecl path {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: calc(1px * var(--px));
+  stroke-dasharray: calc(2px * var(--px)) calc(5px * var(--px));
+  opacity: 0.35;
+  transition: opacity 1.2s ease;
+}
+
+.ecl line {
+  stroke: var(--gold);
+  stroke-width: calc(1px * var(--px));
+  opacity: 0.35;
+}
+
+.ecl text {
+  fill: var(--ash);
+  font-family: var(--pixel);
+  font-size: calc(12px * var(--px));
+  letter-spacing: 0.06em;
+  opacity: 0.6;
+  transition: opacity 1.2s ease;
+}
+
+.ecl .ecl-name {
+  font-family: var(--serif);
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  font-size: calc(13px * var(--px));
+}
+
+body.all .ecl path { opacity: 0.55; }
+body.all .ecl text { opacity: 0.85; }
+
+/* A constellation. --near (0..1) rises as the pointer approaches. */
+.con {
+  --near: 0;
+  outline: none;
+  transition: opacity 0.8s ease;
+}
+
+.con .hit {
+  fill: transparent;
+  stroke: none;
+}
+
+.con:focus-visible .hit {
+  stroke: var(--gold-soft);
+  stroke-width: calc(1px * var(--px));
+}
+
+.con .trace,
+.con .glow {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+}
+
+.con .trace {
+  stroke: var(--bone);
+  stroke-width: calc(1px * var(--px));
+  opacity: calc(var(--near) * 0.45);
+  /* Undrawn instantly, but only after the fade has finished. */
+  transition: stroke-dashoffset 0s linear 0.9s, opacity 0.9s ease;
+}
+
+.con .glow {
+  stroke: var(--gold);
+  stroke-width: calc(6px * var(--px));
+  opacity: 0;
+  filter: blur(calc(3px * var(--px)));
+  transition: stroke-dashoffset 0s linear 0.9s, opacity 0.9s ease;
+}
+
+.con.near .trace,
+.con.near .glow {
+  stroke-dashoffset: 0;
+  transition: stroke-dashoffset 0s, opacity 0.6s ease;
+}
+
+.con.lit .trace,
+.con.sel .trace,
+body.all .con .trace,
+.con.kindled .trace {
+  stroke-dashoffset: 0;
+  opacity: 0.9;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.45, 0.05, 0.25, 1), opacity 0.35s ease;
+}
+
+.con.lit .glow,
+.con.sel .glow,
+.con.kindled .glow {
+  stroke-dashoffset: 0;
+  opacity: 0.16;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.45, 0.05, 0.25, 1), opacity 0.6s ease;
+}
+
+body.all .con:not(.lit):not(.sel) .trace {
+  opacity: 0.5;
+  transition-delay: var(--sweep, 0s);
+}
+
+.con .st {
+  transform-box: view-box;
+}
+
+.con .halo {
+  opacity: calc(0.3 + var(--near) * 0.3);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity 0.6s ease, transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.con .glyph {
+  fill: var(--gold);
+  animation: twinkle var(--tw-d, 5s) ease-in-out var(--tw-o, 0s) infinite alternate;
+}
+
+.con .core {
+  fill: #fff6e0;
+}
+
+.con .rays line {
+  stroke: var(--gold);
+  stroke-width: 0.45;
+}
+
+.con .rays {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+  transform: scale(0.35) rotate(-8deg);
+  transition: opacity 0.5s ease, transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.con.lit .halo,
+.con.sel .halo,
+.con.kindled .halo {
+  opacity: 0.9;
+  transform: scale(1.3);
+}
+
+.con.lit .rays,
+.con.sel .rays {
+  opacity: 0.85;
+  transform: none;
+}
+
+body.has-sel .con:not(.sel):not(.lit) {
+  opacity: 0.4;
+}
+
+@keyframes twinkle {
+  from { opacity: 1; }
+  to { opacity: 0.6; }
+}
+
+/* Names on the sky, sized so they read the same at any zoom. */
+#labels {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  transform: translate(-50%, 0);
+  margin-top: calc(14px * var(--px));
+  text-align: center;
+  white-space: nowrap;
+  font-size: calc(13px * var(--px));
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.label[data-place="above"] {
+  transform: translate(-50%, -100%);
+  margin-top: calc(-14px * var(--px));
+}
+
+.label[data-place="right"],
+.label[data-place="left"] {
+  margin-top: 0;
+  text-align: left;
+  transform: translate(0, -50%);
+  margin-left: calc(18px * var(--px));
+}
+
+.label[data-place="left"] {
+  text-align: right;
+  transform: translate(-100%, -50%);
+  margin-left: calc(-18px * var(--px));
+}
+
+.label .nm {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  color: var(--gold);
+  text-shadow: 0 0 calc(10px * var(--px)) rgba(0, 0, 0, 0.95);
+}
+
+.label .nm span {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(calc(3px * var(--px)));
+  transform: translateY(calc(4px * var(--px)));
+  transition: opacity 0.5s ease, filter 0.7s ease, transform 0.7s ease;
+  transition-delay: calc(var(--i) * 38ms);
+}
+
+.label .sub {
+  display: block;
+  margin-top: 0.4em;
+  font-family: var(--pixel);
+  font-size: 0.95em;
+  letter-spacing: 0.06em;
+  color: var(--bone-dim);
+  text-shadow: 0 0 4px #000, 0 0 10px #000;
+  opacity: 0;
+  transition: opacity 0.6s ease 0.35s;
+}
+
+.label .tap {
+  display: none;
+  margin-top: 0.3em;
+  font-family: var(--pixel);
+  color: var(--bone);
+}
+
+.touch .label.show-tap .tap {
+  display: block;
+}
+
+.label.lit,
+.label.sel,
+.label.kindled,
+body.all .label {
+  opacity: 1;
+}
+
+.label.lit .nm span,
+.label.sel .nm span,
+.label.kindled .nm span,
+body.all .label .nm span {
+  opacity: 1;
+  filter: blur(0);
+  transform: none;
+}
+
+.label.lit .sub,
+.label.sel .sub {
+  opacity: 1;
+}
+
+body.all .label:not(.lit):not(.sel) .nm {
+  color: var(--gold-soft);
+}
+
+/* With every figure named, the places keep quiet until hovered. */
+body.all .label.neb:not(.lit):not(.sel) {
+  opacity: 0;
+}
+
+.label.neb {
+  transform: translate(-50%, -50%);
+  margin-top: 0;
+  margin-left: 0;
+  text-align: center;
+}
+
+.label.neb .nm {
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  font-size: 1.1em;
+  color: var(--bone);
+  text-shadow: 0 0 4px #000, 0 0 10px #000, 0 0 18px #000;
+}
+
+.label.neb .nm span {
+  transition-delay: calc(var(--i) * 20ms);
+}
+
+/* ---------- Chrome over the sky ---------- */
+
+.masthead {
+  position: fixed;
+  z-index: 10;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  left: calc(var(--gutter) + 6px);
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.masthead-title {
+  margin: 0;
+  font-family: var(--script);
+  font-size: 34px;
+  line-height: 1.1;
+  color: var(--bone);
+  text-shadow: 0 0 14px rgba(236, 228, 210, 0.18);
+}
+
+.masthead-sub {
+  margin: 2px 0 0;
+  font-family: var(--pixel);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--ash);
+}
+
+.controls {
+  position: fixed;
+  z-index: 10;
+  top: calc(env(safe-area-inset-top, 0px) + 22px);
+  right: calc(var(--gutter) + 6px);
+  display: flex;
+  gap: 4px 24px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  transition: opacity 0.6s ease, right 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* With a figure's panel open on the right, the menu steps left of it. */
+@media (min-width: 761px) {
+  body.has-sel .controls {
+    right: calc(var(--folio-w) + 28px);
+  }
+}
+
+.controls button {
+  font-family: var(--pixel);
+  font-size: 17px;
+  letter-spacing: 0.05em;
+  color: var(--bone-dim);
+  padding: 4px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.controls button:hover,
+.controls button[aria-pressed="true"],
+.controls button[aria-expanded="true"] {
+  color: var(--gold);
+  border-bottom-color: var(--gold-faint);
+}
+
+.hint {
+  position: fixed;
+  z-index: 10;
+  left: 50%;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 24px);
+  transform: translateX(-50%);
+  margin: 0;
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--gutter));
+  text-align: center;
+  font-family: var(--pixel);
+  font-size: 16px;
+  letter-spacing: 0.05em;
+  color: var(--bone-dim);
+  pointer-events: none;
+  transition: opacity 1.4s ease;
+}
+
+/* Touch and pointer each get their own short sentence. */
+.touch-only { display: none; }
+.touch .touch-only { display: inline; }
+.touch .pointer-only { display: none; }
+
+body.hint-done .hint { opacity: 0; }
+
+body.overture-open .masthead,
+body.overture-open .controls,
+body.overture-open .hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ---------- The overture: a title card, then the Dreamer's verse ---------- */
+
+#overture {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  background: #05070e;
+  cursor: pointer;
+  transition: opacity 1.2s ease, visibility 0s linear 1.2s;
+}
+
+#overture.gone {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+#overture.irising {
+  transition: none;
+}
+
+#leader {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding-block: calc(env(safe-area-inset-top, 0px) + 32px) calc(env(safe-area-inset-bottom, 0px) + 32px);
+  padding-inline: var(--gutter);
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.6s ease, visibility 0s linear 1.6s;
+}
+
+.card.shown {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 2.2s ease, visibility 0s;
+}
+
+.card-inner {
+  text-align: center;
+  animation: weave 0.5s steps(1) infinite, card-flicker 3.4s steps(1) infinite;
+}
+
+/* The verse holds still; only the film behind it moves. */
+#card-verse .card-inner {
+  animation: none;
+}
+
+@keyframes weave {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(0.6px, -0.4px); }
+  50% { transform: translate(-0.4px, 0.5px); }
+  75% { transform: translate(0.3px, 0.2px); }
+}
+
+@keyframes card-flicker {
+  0% { opacity: 1; }
+  11% { opacity: 0.915; }
+  14% { opacity: 1; }
+  38% { opacity: 0.949; }
+  40% { opacity: 1; }
+  66% { opacity: 0.898; }
+  68% { opacity: 0.975; }
+  90% { opacity: 0.94; }
+}
+
+.script-title {
+  margin: 0;
+  font-family: var(--script);
+  font-weight: 400;
+  font-size: clamp(58px, 12.5vw, 196px);
+  line-height: 1.05;
+  color: #f1ece2;
+  text-shadow:
+    0 0 1px rgba(255, 255, 255, 0.6),
+    0 0 26px rgba(255, 255, 255, 0.16),
+    0.05em 0.06em 0.05em rgba(0, 0, 0, 0.7);
+  text-wrap: balance;
+}
+
+.title-star {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin: clamp(10px, 2.5vh, 26px) auto clamp(8px, 2vh, 20px);
+  fill: #d8d2c6;
+  opacity: 0.8;
+}
+
+.credit-by {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 300;
+  color: #cfc9bd;
+  letter-spacing: 0.04em;
+}
+
+.credit-name {
+  margin: 4px 0 0;
+  font-weight: 700;
+  font-size: clamp(20px, 2.4vw, 28px);
+  letter-spacing: 0.34em;
+  padding-left: 0.34em;
+  color: #ece6da;
+}
+
+.credit-with {
+  margin: 14px auto 0;
+  max-width: 60em;
+  text-wrap: balance;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  line-height: 1.9;
+  color: #a9a398;
+}
+
+.verse {
+  margin: 0 auto;
+  max-width: 31em;
+  text-align: left;
+  font-size: clamp(17px, 1.6vw, 21px);
+  line-height: 1.62;
+  color: #ebe5d9;
+}
+
+.verse .stanza {
+  margin: 0 0 1em;
+}
+
+.verse .ln {
+  display: block;
+  opacity: 0;
+}
+
+.card.shown .verse .ln,
+.card.shown .verse-credit,
+.card.shown .enter {
+  animation: verse-in 1.6s ease forwards;
+  animation-delay: calc(0.5s + var(--i) * 0.34s);
+}
+
+/* The Dreamer's own words, in the hand of the title. */
+.verse .spoken .ln {
+  font-family: var(--script);
+  font-size: 1.62em;
+  line-height: 1.25;
+  padding-left: 0.9em;
+  color: #fbf7ee;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.12);
+}
+
+.verse-credit {
+  display: block;
+  margin-top: 0.6em;
+  font-weight: 700;
+  font-size: 12.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #a9a398;
+  opacity: 0;
+}
+
+.enter {
+  display: inline-block;
+  margin-top: clamp(22px, 4vh, 40px);
+  font-family: var(--pixel);
+  font-size: 19px;
+  letter-spacing: 0.06em;
+  color: #ece6da;
+  opacity: 0;
+}
+
+.enter:hover {
+  color: #fff;
+}
+
+.skip {
+  position: absolute;
+  z-index: 2;
+  right: calc(var(--gutter) + 6px);
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 18px);
+  font-family: var(--pixel);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  color: #8c877e;
+  transition: color 0.3s ease;
+}
+
+.skip:hover {
+  color: #ece6da;
+}
+
+/* Lines come up out of the dark in place, without sliding. */
+@keyframes verse-in {
+  from { opacity: 0; filter: blur(3px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+/* ---------- Paper: the folio, the index and the notes ---------- */
+
+/* The panels sit above the moving grain and the flicker, and carry a grain
+   of their own printed into the paper, so they stay still while the sky
+   around them runs like film. */
+.panel {
+  position: fixed;
+  z-index: 62;
+  top: 0;
+  bottom: 0;
+  width: var(--folio-w);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-sizing: border-box;
+  color: var(--paper-ink);
+  background:
+    var(--paper-grain, none),
+    radial-gradient(circle at 12% 18%, rgba(140, 104, 50, 0.1) 0 3px, transparent 26px),
+    radial-gradient(circle at 78% 64%, rgba(140, 104, 50, 0.08) 0 2px, transparent 20px),
+    radial-gradient(circle at 34% 86%, rgba(140, 104, 50, 0.09) 0 4px, transparent 34px),
+    radial-gradient(circle at 88% 8%, rgba(140, 104, 50, 0.07) 0 2px, transparent 18px),
+    linear-gradient(180deg, var(--paper), var(--paper-2));
+  box-shadow: inset 0 0 70px rgba(110, 80, 30, 0.28), 0 0 60px rgba(0, 0, 0, 0.6);
+  padding-block: calc(env(safe-area-inset-top, 0px) + 26px) calc(env(safe-area-inset-bottom, 0px) + 56px);
+  padding-inline: 38px;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s linear 0.7s;
+  visibility: hidden;
+}
+
+.panel.right {
+  right: 0;
+  transform: translateX(104%);
+}
+
+.panel.left {
+  left: 0;
+  transform: translateX(-104%);
+}
+
+.panel.open {
+  transform: none;
+  visibility: visible;
+  transition: transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1), visibility 0s;
+}
+
+.panel-close {
+  position: absolute;
+  top: calc(env(safe-area-inset-top, 0px) + 14px);
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  font-family: var(--pixel);
+  font-size: 20px;
+  color: var(--paper-muted);
+  transition: color 0.3s ease;
+}
+
+.panel-close:hover {
+  color: var(--paper-ink);
+}
+
+.panel :focus-visible {
+  outline-color: var(--atlas-blue);
+}
+
+.fig-no {
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 16px;
+  letter-spacing: 0.08em;
+  color: var(--paper-muted);
+}
+
+.panel h2 {
+  margin: 8px 0 0;
+  font-weight: 700;
+  font-size: 26px;
+  line-height: 1.2;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--paper-ink);
+  text-wrap: balance;
+}
+
+.panel h2:focus {
+  outline: none;
+}
+
+.panel h3 {
+  margin: 0 0 12px;
+  font-family: var(--pixel);
+  font-weight: 400;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+  color: var(--paper-muted);
+}
+
+.aka {
+  margin: 4px 0 0;
+  font-size: 17px;
+  color: var(--paper-muted);
+}
+
+/* The plate: the figure as an engraving, framed with a double rule. */
+.plate {
+  margin: 20px 0 0;
+  padding: 10px;
+  border: 1px solid var(--paper-rule);
+  outline: 1px solid var(--paper-rule);
+  outline-offset: 3px;
+  background: rgba(255, 250, 238, 0.25);
+}
+
+.diagram {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 220px;
+}
+
+.diagram .ln {
+  stroke: var(--atlas-blue);
+  stroke-width: 1;
+  opacity: 0.85;
+}
+
+.diagram .dg {
+  fill: var(--paper-gold);
+}
+
+.diagram text {
+  fill: var(--atlas-blue);
+  font-family: var(--serif);
+  font-weight: 300;
+}
+
+.plate figcaption {
+  margin: 8px 2px 0;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--paper-muted);
+}
+
+.plate figcaption .px {
+  color: var(--paper-ink);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  justify-content: space-between;
+  gap: 8px;
+  margin: 22px 0 0;
+  padding: 12px 0;
+  border-top: 1px solid var(--paper-rule);
+  border-bottom: 1px solid var(--paper-rule);
+}
+
+.stats div {
+  display: grid;
+  gap: 0;
+}
+
+.stats dt {
+  font-size: 14px;
+  white-space: nowrap;
+  color: var(--paper-muted);
+}
+
+.stats dd {
+  margin: 0;
+  font-family: var(--pixel);
+  font-size: 26px;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+  color: var(--paper-ink);
+}
+
+.ephemeris {
+  margin: 22px 0 0;
+}
+
+.ephemeris svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.ephemeris .bar {
+  fill: var(--paper-ink);
+  opacity: 0.82;
+}
+
+.ephemeris .base {
+  stroke: var(--paper-rule);
+  stroke-width: 1;
+}
+
+.ephemeris .tick {
+  fill: var(--paper-muted);
+  font-family: var(--pixel);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+}
+
+.ephemeris .cursor {
+  fill: rgba(53, 80, 106, 0.16);
+}
+
+.ephemeris-note {
+  margin: 8px 0 0;
+  font-family: var(--pixel);
+  font-size: 16px;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
+  color: var(--paper-muted);
+}
+
+.story {
+  margin: 28px 0 0;
+}
+
+/* Running text is set in the pixel face, a plainer voice under the names
+   and headings in Basteleur; the excerpts from the myth take its italic. */
+.story p {
+  margin: 0 0 1em;
+  font-family: var(--pixel);
+  font-size: 19px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--paper-ink);
+  max-width: 40em;
+}
+
+.excerpts {
+  margin: 28px 0 0;
+}
+
+.excerpts blockquote {
+  position: relative;
+  margin: 0 0 24px;
+  padding: 0 0 0 26px;
+}
+
+.excerpts blockquote::before {
+  content: "\201C";
+  position: absolute;
+  left: -2px;
+  top: -6px;
+  font-weight: 700;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--paper-gold);
+}
+
+.excerpts blockquote p {
+  margin: 0;
+  font-family: var(--pixel);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--paper-ink);
+}
+
+.excerpts cite {
+  display: block;
+  margin-top: 6px;
+  font-style: normal;
+  font-size: 14.5px;
+  color: var(--paper-muted);
+}
+
+.excerpts cite .px {
+  margin-right: 0.5em;
+  color: var(--paper-ink);
+}
+
+.kin {
+  margin: 28px 0 0;
+}
+
+.kin ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.kin button {
+  font-size: 17px;
+  color: var(--atlas-blue);
+  border-bottom: 1px solid rgba(53, 80, 106, 0.35);
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.kin button:hover {
+  color: var(--paper-ink);
+  border-bottom-color: var(--paper-ink);
+}
+
+/* The index, with dotted leaders like the back of an old atlas. */
+.catalogue-intro,
+.about p {
+  margin: 12px 0 0;
+  font-family: var(--pixel);
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  color: var(--paper-ink);
+  max-width: 40em;
+}
+
+.catalogue-group {
+  margin: 26px 0 0;
+}
+
+.catalogue-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0;
+}
+
+.catalogue-list button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 20px auto 1fr auto;
+  align-items: baseline;
+  gap: 8px;
+  padding: 5px 0;
+  text-align: left;
+  color: var(--paper-ink);
+}
+
+.catalogue-list button:hover .nm,
+.catalogue-list button:focus-visible .nm {
+  color: var(--atlas-blue);
+}
+
+.catalogue-list .icon {
+  align-self: center;
+  justify-self: center;
+  fill: var(--paper-gold);
+}
+
+.catalogue-list .nm {
+  font-size: 17px;
+  transition: color 0.3s ease;
+}
+
+.catalogue-list .leader {
+  align-self: end;
+  margin-bottom: 0.4em;
+  border-bottom: 1px dotted rgba(29, 26, 22, 0.45);
+}
+
+.catalogue-list .ct {
+  font-family: var(--pixel);
+  font-size: 16px;
+  color: var(--paper-muted);
+}
+
+.catalogue-list .neb-dot {
+  align-self: center;
+  justify-self: center;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  opacity: 0.75;
+  background-image: radial-gradient(circle, currentColor 0.8px, transparent 1.2px);
+  background-size: 3px 3px;
+}
+
+.about p + p {
+  margin-top: 1em;
+}
+
+.about h3 {
+  margin-top: 28px;
+}
+
+.about a {
+  color: var(--atlas-blue);
+  text-decoration-color: rgba(53, 80, 106, 0.4);
+  text-underline-offset: 3px;
+}
+
+/* Tooltip for the chapter chart */
+#tip {
+  position: fixed;
+  z-index: 70;
+  pointer-events: none;
+  padding: 5px 10px 6px;
+  background: var(--paper-ink);
+  font-family: var(--pixel);
+  font-size: 15px;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  color: var(--paper);
+  white-space: nowrap;
+}
+
+/* ---------- Narrow screens ---------- */
+
+@media (max-width: 760px) {
+  .masthead-title {
+    font-size: 28px;
+  }
+
+  .masthead-sub {
+    font-size: 13px;
+  }
+
+  .controls {
+    top: auto;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    justify-content: center;
+    gap: 4px 22px;
+    padding: 12px var(--gutter) calc(env(safe-area-inset-bottom, 0px) + 14px);
+    background: linear-gradient(0deg, rgba(8, 9, 11, 0.94), rgba(8, 9, 11, 0));
+  }
+
+  .controls button {
+    font-size: 16px;
+  }
+
+  .hint {
+    bottom: calc(env(safe-area-inset-bottom, 0px) + 64px);
+    font-size: 15px;
+  }
+
+  .verse .spoken .ln {
+    padding-left: 0.5em;
+    font-size: 1.45em;
+  }
+
+  .panel {
+    padding-inline: 22px;
+  }
+
+  .panel.right {
+    top: auto;
+    width: 100%;
+    height: 84%;
+    transform: translateY(104%);
+    padding-top: 22px;
+  }
+
+  .panel.left {
+    width: 100%;
+  }
+
+  .panel.right.open,
+  .panel.left.open {
+    transform: none;
+  }
+
+  .panel.right .panel-close {
+    top: 8px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(2, auto);
+    justify-content: start;
+    gap: 10px 44px;
+  }
+
+  body.has-sel .masthead {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .grain,
+  .flicker,
+  .card-inner,
+  .con .glyph {
+    animation: none;
+  }
+
+  .card.shown .verse .ln,
+  .card.shown .verse-credit,
+  .card.shown .enter {
+    animation: none;
+    opacity: 1;
+  }
+}
