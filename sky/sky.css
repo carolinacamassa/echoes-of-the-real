@@ -637,7 +637,7 @@ body.overture-open .hint {
   position: fixed;
   inset: 0;
   z-index: 30;
-  background: #06070a;
+  background: #05070e;
   cursor: pointer;
   transition: opacity 1.2s ease, visibility 0s linear 1.2s;
 }

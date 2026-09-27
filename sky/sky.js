@@ -1356,9 +1356,9 @@
     // the projector's beam falls.
     const hot = lctx.createRadialGradient(w / 2, h * 0.46, 0, w / 2, h * 0.46, Math.max(w, h) * 0.75);
     const f = (v) => Math.round(v * flick);
-    hot.addColorStop(0, `rgb(${f(9)},${f(10)},${f(14)})`);
-    hot.addColorStop(0.55, 'rgb(6,7,10)');
-    hot.addColorStop(1, 'rgb(3,3,5)');
+    hot.addColorStop(0, `rgb(${f(8)},${f(11)},${f(20)})`);
+    hot.addColorStop(0.55, 'rgb(5,7,14)');
+    hot.addColorStop(1, 'rgb(2,3,8)');
     lctx.fillStyle = hot;
     lctx.fillRect(0, 0, w, h);
     const jx = reduced ? 0 : (frand() - 0.5) * 1.2;
