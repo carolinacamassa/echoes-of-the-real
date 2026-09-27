@@ -134,7 +134,7 @@ button {
 }
 
 body.overture-open .grain {
-  opacity: 0.2;
+  opacity: 0.17;
 }
 
 @keyframes grain {
@@ -154,6 +154,24 @@ body.overture-open .grain {
   background: #000;
   opacity: 0;
   animation: flicker 3.7s steps(1) infinite;
+}
+
+/* On the title and verse the flicker is a little gentler and slower. */
+body.overture-open .flicker {
+  animation: flicker-soft 4.35s steps(1) infinite;
+}
+
+@keyframes flicker-soft {
+  0% { opacity: 0.017; }
+  7% { opacity: 0; }
+  19% { opacity: 0.03; }
+  23% { opacity: 0.0085; }
+  41% { opacity: 0.038; }
+  44% { opacity: 0; }
+  63% { opacity: 0.021; }
+  71% { opacity: 0.0425; }
+  74% { opacity: 0.0085; }
+  88% { opacity: 0.0255; }
 }
 
 @keyframes flicker {
@@ -657,7 +675,7 @@ body.overture-open .hint {
 
 .card-inner {
   text-align: center;
-  animation: weave 0.5s steps(1) infinite, card-flicker 2.9s steps(1) infinite;
+  animation: weave 0.5s steps(1) infinite, card-flicker 3.4s steps(1) infinite;
 }
 
 @keyframes weave {
@@ -669,13 +687,13 @@ body.overture-open .hint {
 
 @keyframes card-flicker {
   0% { opacity: 1; }
-  11% { opacity: 0.9; }
+  11% { opacity: 0.915; }
   14% { opacity: 1; }
-  38% { opacity: 0.94; }
+  38% { opacity: 0.949; }
   40% { opacity: 1; }
-  66% { opacity: 0.88; }
-  68% { opacity: 0.97; }
-  90% { opacity: 0.93; }
+  66% { opacity: 0.898; }
+  68% { opacity: 0.975; }
+  90% { opacity: 0.94; }
 }
 
 .script-title {

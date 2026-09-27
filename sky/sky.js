@@ -1345,7 +1345,7 @@
     const w = view.w;
     const h = view.h;
     lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    const flick = reduced ? 1 : 0.9 + frand() * 0.1;
+    const flick = reduced ? 1 : 0.915 + frand() * 0.085;
     const hot = lctx.createRadialGradient(w / 2, h * 0.46, 0, w / 2, h * 0.46, Math.max(w, h) * 0.75);
     const lum = Math.round(26 * flick);
     hot.addColorStop(0, `rgb(${lum},${lum},${lum - 1})`);
