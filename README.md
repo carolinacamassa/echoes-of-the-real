@@ -22,7 +22,6 @@ Credit for the writing belongs to the original project, not to this repo.
 | `verify_markdown.py` | Checks the Markdown folder for numbering, front matter, and conversion problems |
 | `chapters/` | One `.md` per chapter, `chapter-0001.md` … `chapter-1108.md` |
 | `sky/` | A static website that draws the myth's recurring characters as constellations in an invented night sky |
-| `fonts/` | The typefaces the website uses |
 | `cache/` | Raw scraped HTML, git-ignored and regenerable |
 
 ## Usage
@@ -82,10 +81,11 @@ quoted from the chapters, and a chart of where in the 1,108 chapters it
 appears.
 
 Open `sky/index.html` in a browser; it needs no server. It is plain HTML, CSS
-and JavaScript, loads nothing from the network, and takes its typefaces from
-`fonts/`: Wisteria Tale for the title, Basteleur for names and headings, and
-That That New Pixel for the interface and the running text. The title face is one CSS variable, `--script`, in
-`sky/sky.css`, and Maulieda Remighe is loaded as an alternative.
+and JavaScript, loads nothing from the network, and keeps everything it needs
+inside `sky/`, so the folder can be served as a website on its own. Its
+typefaces are in `sky/fonts/`: Wisteria Tale for the title, Basteleur for names
+and headings, and That That New Pixel for the interface and the running text.
+The title face is one CSS variable, `--script`, in `sky/sky.css`.
 
 | Path | What it is |
 | --- | --- |
@@ -93,6 +93,7 @@ That That New Pixel for the interface and the running text. The title face is on
 | `sky/build_sky.py` | Reads the chapters and the JSON, and writes `sky/data.js` |
 | `sky/data.js` | Generated; do not edit by hand |
 | `sky/index.html`, `sky/sky.css`, `sky/sky.js` | The page |
+| `sky/fonts/` | The five font files the page uses |
 
 Everything that can be measured is measured from the text rather than written
 in by hand. The build counts each name across the chapter bodies, which gives a

@@ -317,13 +317,13 @@ FONT_TYPES = {".otf": "font/otf", ".ttf": "font/ttf", ".woff": "font/woff", ".wo
 
 
 def inline_fonts(css: str) -> str:
-    """Replace each url("../fonts/...") in the stylesheet with a data URI."""
+    """Replace each url("fonts/...") in the stylesheet with a data URI."""
     def embed(match: re.Match) -> str:
         path = (HERE / urllib.parse.unquote(match.group(1))).resolve()
         mime = FONT_TYPES[path.suffix.lower()]
         data = base64.b64encode(path.read_bytes()).decode("ascii")
         return f'url("data:{mime};base64,{data}")'
-    return re.sub(r'url\("(\.\./fonts/[^"]+)"\)', embed, css)
+    return re.sub(r'url\("(fonts/[^"]+)"\)', embed, css)
 
 
 def bundle(out: Path, data_script: str, fragment: bool) -> None:

@@ -4,40 +4,34 @@
 
 @font-face {
   font-family: "Wisteria Tale";
-  src: url("../fonts/wisteria-tale.otf") format("opentype");
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Maulieda Remighe";
-  src: url("../fonts/Maulieda%20Remighe.otf") format("opentype");
+  src: url("fonts/wisteria-tale.otf") format("opentype");
   font-display: swap;
 }
 
 @font-face {
   font-family: "Basteleur";
-  src: url("../fonts/Basteleur-Moonlight.ttf") format("truetype");
+  src: url("fonts/Basteleur-Moonlight.ttf") format("truetype");
   font-weight: 300;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Basteleur";
-  src: url("../fonts/Basteleur-Bold.ttf") format("truetype");
+  src: url("fonts/Basteleur-Bold.ttf") format("truetype");
   font-weight: 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: "That New Pixel";
-  src: url("../fonts/TTNP%20Deliverables/WOFF2/ThatThatNewPixel-Square.woff2") format("woff2");
+  src: url("fonts/ThatThatNewPixel-Square.woff2") format("woff2");
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "That New Pixel";
-  src: url("../fonts/TTNP%20Deliverables/WOFF2/ThatThatNewPixel-ItalicSquare.woff2") format("woff2");
+  src: url("fonts/ThatThatNewPixel-ItalicSquare.woff2") format("woff2");
   font-style: italic;
   font-display: swap;
 }
@@ -61,8 +55,8 @@
   --paper-rule: rgba(29, 26, 22, 0.24);
   --paper-gold: #9a7431;
   --atlas-blue: #35506a;
-  /* Swap the title face here: "Maulieda Remighe" is loaded too. */
-  --script: "Wisteria Tale", "Maulieda Remighe", "Snell Roundhand", "Apple Chancery", cursive;
+  /* The title face; swap it here. */
+  --script: "Wisteria Tale", "Snell Roundhand", "Apple Chancery", cursive;
   --serif: "Basteleur", "Iowan Old Style", Georgia, serif;
   --pixel: "That New Pixel", "Courier New", monospace;
   --gutter: max(16px, env(safe-area-inset-left, 0px));
