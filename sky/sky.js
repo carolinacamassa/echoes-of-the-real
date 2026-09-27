@@ -1291,7 +1291,7 @@
   //
   // A title card, a dissolve to the verse, and an iris onto the sky. The
   // card sits on a strip of film: a faint engraved chart behind it with two
-  // pixel galaxies and a few gold and flickering stars, a projector's hot
+  // pixel star clusters and a few gold and flickering stars, a projector's hot
   // spot, and specks of dust and the odd hair that come and go.
 
   const overture = $('#overture');
@@ -1345,10 +1345,10 @@
     }
     g.globalAlpha = 1;
 
-    // Two small galaxies in the corners, built out of pixels.
+    // Two star clusters in the corners, built out of pixels.
     const m = Math.min(view.w, view.h);
-    pixelGalaxy(g, view.w * 0.12, view.h * 0.2, m * 0.13, -0.45, 0.42, 2, 31);
-    pixelGalaxy(g, view.w * 0.87, view.h * 0.8, m * 0.09, 0.55, 0.5, 1.5, 47);
+    pixelCluster(g, view.w * 0.12, view.h * 0.2, m * 0.11, 2, 31);
+    pixelCluster(g, view.w * 0.87, view.h * 0.8, m * 0.08, 1.5, 47);
 
     // A few gold stars with long rays, and a scatter of single pixels that
     // flicker, all kept clear of the middle where the words sit.
@@ -1384,43 +1384,42 @@
     }
   }
 
-  // A spiral of square pixels on a grid: a dense core, two arms that loosen
-  // outward, and a thin halo, seen at a slant.
-  function pixelGalaxy(g, cx, cy, R, tilt, squash, px, seed) {
+  // A star cluster of square pixels on a grid: packed and bright at the
+  // centre, thinning toward the edge, with a few brighter members that stand
+  // out as small crosses, like a globular cluster seen through a small scope.
+  function pixelCluster(g, cx, cy, R, px, seed) {
     const r = seeded(seed);
-    const gz = () => (r() + r() + r() + r() - 2) / 2;
-    const cos = Math.cos(tilt);
-    const sin = Math.sin(tilt);
-    const glow = g.createRadialGradient(cx, cy, 0, cx, cy, R * 0.55);
-    glow.addColorStop(0, 'rgba(220,226,240,0.12)');
-    glow.addColorStop(1, 'rgba(220,226,240,0)');
+    const glow = g.createRadialGradient(cx, cy, 0, cx, cy, R * 0.7);
+    glow.addColorStop(0, 'rgba(224,230,242,0.16)');
+    glow.addColorStop(0.5, 'rgba(224,230,242,0.05)');
+    glow.addColorStop(1, 'rgba(224,230,242,0)');
     g.fillStyle = glow;
     g.fillRect(cx - R, cy - R, R * 2, R * 2);
-    const put = (x, y, a, tone) => {
-      const X = cx + x * cos - y * squash * sin;
-      const Y = cy + x * sin + y * squash * cos;
+    const put = (x, y, a, tone, size = px) => {
       g.globalAlpha = Math.min(1, a);
       g.fillStyle = tone;
-      g.fillRect(Math.round(X / px) * px, Math.round(Y / px) * px, px, px);
+      g.fillRect(Math.round((cx + x) / px) * px, Math.round((cy + y) / px) * px, size, size);
     };
-    for (let i = 0; i < 420; i++) {
-      put(gz() * R * 0.16, gz() * R * 0.16, 0.5 + r() * 0.5, r() < 0.7 ? 'rgb(240,236,226)' : 'rgb(196,210,234)');
-    }
-    for (let arm = 0; arm < 2; arm++) {
-      for (let i = 0; i < 950; i++) {
-        const t = Math.pow(r(), 0.75);
-        const ang = arm * Math.PI + t * Math.PI * 2.6;
-        const rad = R * (0.12 + t * 0.88);
-        const spread = R * (0.03 + t * 0.09);
-        const x = Math.cos(ang) * rad + gz() * spread;
-        const y = Math.sin(ang) * rad + gz() * spread;
-        put(x, y, (0.18 + 0.6 * (1 - t)) * (0.5 + r() * 0.5), r() < 0.55 ? 'rgb(228,226,220)' : 'rgb(170,188,216)');
-      }
-    }
-    for (let i = 0; i < 260; i++) {
+    for (let i = 0; i < 1500; i++) {
+      // Most stars crowd the core: the radius is drawn from a steep curve.
+      const u = r();
+      const rad = R * Math.pow(u, 1.9);
       const a = r() * Math.PI * 2;
-      const rad = Math.sqrt(r()) * R;
-      put(Math.cos(a) * rad, Math.sin(a) * rad, 0.1 + r() * 0.12, 'rgb(200,208,224)');
+      const fade = 1 - rad / R;
+      put(Math.cos(a) * rad, Math.sin(a) * rad * 0.9, (0.15 + 0.75 * fade * fade) * (0.55 + r() * 0.45),
+        r() < 0.62 ? 'rgb(238,234,224)' : 'rgb(190,206,232)');
+    }
+    for (let i = 0; i < 7; i++) {
+      const rad = R * (0.12 + r() * 0.6);
+      const a = r() * Math.PI * 2;
+      const x = Math.round((cx + Math.cos(a) * rad) / px) * px;
+      const y = Math.round((cy + Math.sin(a) * rad * 0.9) / px) * px;
+      g.globalAlpha = 0.9;
+      g.fillStyle = 'rgb(250,246,236)';
+      g.fillRect(x, y, px * 1.5, px * 1.5);
+      g.globalAlpha = 0.45;
+      g.fillRect(x - px * 2, y, px * 5.5, px * 0.75);
+      g.fillRect(x, y - px * 2, px * 0.75, px * 5.5);
     }
     g.globalAlpha = 1;
   }
