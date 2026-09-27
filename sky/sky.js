@@ -90,21 +90,26 @@
   // ---------------------------------------------------------------- film grain
 
   (function makeGrain() {
-    // One tile of monochrome noise, light and dark specks on transparent,
-    // jumped around by CSS a dozen times a second.
-    const c = document.createElement('canvas');
-    c.width = c.height = 256;
-    const g = c.getContext('2d');
-    const img = g.createImageData(256, 256);
-    const r = seeded(77);
-    for (let i = 0; i < img.data.length; i += 4) {
-      const v = r();
-      const tone = v > 0.5 ? 255 : 0;
-      img.data[i] = img.data[i + 1] = img.data[i + 2] = tone;
-      img.data[i + 3] = Math.pow(Math.abs(v - 0.5) * 2, 1.5) * 255;
-    }
-    g.putImageData(img, 0, 0);
-    $('.grain').style.backgroundImage = `url(${c.toDataURL()})`;
+    // One tile of monochrome noise, light and dark specks on transparent.
+    // The page's copy is jumped around by CSS a dozen times a second; the
+    // paper's copy is fainter and stays still.
+    const tile = (strength) => {
+      const c = document.createElement('canvas');
+      c.width = c.height = 256;
+      const g = c.getContext('2d');
+      const img = g.createImageData(256, 256);
+      const r = seeded(77);
+      for (let i = 0; i < img.data.length; i += 4) {
+        const v = r();
+        const tone = v > 0.5 ? 255 : 0;
+        img.data[i] = img.data[i + 1] = img.data[i + 2] = tone;
+        img.data[i + 3] = Math.pow(Math.abs(v - 0.5) * 2, 1.5) * 255 * strength;
+      }
+      g.putImageData(img, 0, 0);
+      return `url(${c.toDataURL()})`;
+    };
+    $('.grain').style.backgroundImage = tile(1);
+    document.documentElement.style.setProperty('--paper-grain', tile(0.16));
   })();
 
   // -------------------------------------------------------------------- camera

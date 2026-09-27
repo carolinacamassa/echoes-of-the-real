@@ -830,9 +830,12 @@ body.overture-open .hint {
 
 /* ---------- Paper: the folio, the index and the notes ---------- */
 
+/* The panels sit above the moving grain and the flicker, and carry a grain
+   of their own printed into the paper, so they stay still while the sky
+   around them runs like film. */
 .panel {
   position: fixed;
-  z-index: 20;
+  z-index: 62;
   top: 0;
   bottom: 0;
   width: var(--folio-w);
@@ -841,6 +844,7 @@ body.overture-open .hint {
   box-sizing: border-box;
   color: var(--paper-ink);
   background:
+    var(--paper-grain, none),
     radial-gradient(circle at 12% 18%, rgba(140, 104, 50, 0.1) 0 3px, transparent 26px),
     radial-gradient(circle at 78% 64%, rgba(140, 104, 50, 0.08) 0 2px, transparent 20px),
     radial-gradient(circle at 34% 86%, rgba(140, 104, 50, 0.09) 0 4px, transparent 34px),
@@ -1221,7 +1225,7 @@ body.overture-open .hint {
 /* Tooltip for the chapter chart */
 #tip {
   position: fixed;
-  z-index: 40;
+  z-index: 70;
   pointer-events: none;
   padding: 5px 10px 6px;
   background: var(--paper-ink);
