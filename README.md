@@ -112,3 +112,33 @@ The characters were chosen by counting capitalised names and titles across the
 whole corpus and then reading every chapter to see which of them are beings,
 which are places and which are only words, so factions, weapons and one-off
 figures with fewer than about twenty mentions are left out.
+
+## Publishing the sky
+
+The site is published to GitHub Pages by
+[`.github/workflows/pages.yml`](.github/workflows/pages.yml), which runs on
+every push to `main`. It rebuilds `sky/data.js`, which also stops the deploy if
+an excerpt no longer matches its chapter, and publishes the `sky/` folder as the
+whole site, so the sky opens at the root of the domain and the chapter files
+are not published alongside it. Pull requests run the same build as a check
+without deploying.
+
+Setting it up is done once, in the repository and at the domain registrar:
+
+1. In the repository's Settings → Pages, set Source to **GitHub Actions**, and
+   under Custom domain enter `echoesofthereal.xyz`. With an Actions deploy
+   there is no `CNAME` file to commit; the setting is the whole configuration.
+2. At the registrar, point the bare domain at GitHub with four `A` records
+   (`185.199.108.153`, `185.199.109.153`, `185.199.110.153`,
+   `185.199.111.153`), and optionally the four `AAAA` records
+   (`2606:50c0:8000::153` to `2606:50c0:8003::153`), plus a `CNAME` record for
+   `www` pointing to `carolinacamassa.github.io`. Remove any parking or
+   forwarding records the registrar added.
+3. Optionally, verify the domain under your GitHub account's Settings → Pages,
+   using the `TXT` record GitHub gives you, so that no one else can claim it
+   on GitHub.
+4. Once the DNS has spread, which takes from minutes to a day, and GitHub has
+   issued a certificate, tick **Enforce HTTPS**.
+
+A deploy can also be started by hand from the Actions tab, with "Run workflow"
+on "Publish the sky".

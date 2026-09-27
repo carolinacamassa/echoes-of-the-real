@@ -1,0 +1,57 @@
+# Publishes the sky/ folder to GitHub Pages.
+#
+# Every push to main rebuilds sky/data.js from the chapters and the curated
+# constellations, which also checks each quoted excerpt against its chapter,
+# and then deploys sky/ as the whole site. Pull requests run the same build as
+# a check but do not deploy. There is nothing to compile: the build only
+# refreshes the data file, using the Python that the runner already has.
+
+name: Publish the sky
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time; a newer push waits rather than cancelling one
+# that is already going out.
+concurrency:
+  group: pages-${{ github.event_name == 'pull_request' && github.ref || 'deploy' }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Rebuild the sky data and check every excerpt
+        run: python3 sky/build_sky.py
+
+      - name: Configure Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/configure-pages@v6
+
+      - name: Package sky/ as the site
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: sky
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
