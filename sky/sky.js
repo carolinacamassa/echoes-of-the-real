@@ -1290,7 +1290,7 @@
   //
   // A title card, a dissolve to the verse, and an iris onto the sky. The
   // card sits on a strip of film: a faint engraved chart behind it, a
-  // projector's hot spot, and dust, hairs and scratches that come and go.
+  // projector's hot spot, and specks of dust and the odd hair that come and go.
 
   const overture = $('#overture');
   const cardTitle = $('#card-title');
@@ -1301,7 +1301,7 @@
   let stageTimer = null;
   let chartPattern = null;
   let lastLeader = 0;
-  const film = { scratches: [], hair: null };
+  const film = { hair: null };
   const frand = seeded(24);
 
   function sizeLeader() {
@@ -1316,7 +1316,7 @@
     g.scale(dpr, dpr);
     const cx = view.w / 2;
     const cy = view.h * 2.2;
-    g.strokeStyle = 'rgba(255,255,255,0.075)';
+    g.strokeStyle = 'rgba(255,255,255,0.0825)';
     g.lineWidth = 1;
     for (let R = view.h * 1.3; R < view.h * 2.4; R += view.h * 0.12) {
       g.beginPath();
@@ -1385,19 +1385,6 @@
       lctx.quadraticCurveTo(hr.x + hr.bend, hr.y + hr.len / 2, hr.x + hr.bend * 0.3, hr.y + hr.len);
       lctx.stroke();
       if (--hr.life <= 0) film.hair = null;
-    }
-    // Scratches run the height of the frame and wander a little.
-    if (frand() < 0.03) film.scratches.push({ x: frand() * w, life: 5 + Math.floor(frand() * 18), a: 0.06 + frand() * 0.12 });
-    for (let i = film.scratches.length - 1; i >= 0; i--) {
-      const s = film.scratches[i];
-      s.x += (frand() - 0.5) * 1.5;
-      lctx.strokeStyle = `rgba(255,255,255,${s.a})`;
-      lctx.lineWidth = 1;
-      lctx.beginPath();
-      lctx.moveTo(s.x, 0);
-      lctx.lineTo(s.x + (frand() - 0.5) * 3, h);
-      lctx.stroke();
-      if (--s.life <= 0) film.scratches.splice(i, 1);
     }
   }
 
