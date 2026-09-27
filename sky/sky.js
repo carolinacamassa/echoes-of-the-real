@@ -1,11 +1,13 @@
 /* The Sky of Echoes: renders window.SKY (built by build_sky.py) as a night sky.
  *
- * Three layers share one camera. A canvas draws the deep field: a band of
- * nebular dust, several thousand background stars and the places of the myth
- * as coloured nebulae. Above it, one "world" element holds the constellations
- * as SVG and their names as HTML, and is moved with a single CSS transform.
- * The pointer acts like a lantern: figures near it show faintly, and the one
- * under it traces itself in.
+ * It opens like an old film: a title card, then the Dreamer's verse, and an
+ * iris that opens onto the sky. The sky itself has three layers under one
+ * camera. A canvas draws the deep field: a band of dust and the places of the
+ * myth as stippled nebulae, over a soft blur, and several thousand stars as
+ * single pixels and small engraved sparkles. Above it one "world" element holds
+ * the constellations as SVG (gold star glyphs on a faint atlas grid) and their
+ * names as HTML, moved with a single CSS transform. The pointer acts like a
+ * lantern: figures near it show faintly, and the one under it traces itself in.
  */
 (() => {
   'use strict';
@@ -26,6 +28,7 @@
   const fmt = (n) => n.toLocaleString('en-US');
   const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
   const ease = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const easeIn = (t) => t * t * (1.6 * t - 0.6);
   const GREEK = 'αβγδεζηθικλμνξοπρστυφχψω';
   const ORDINAL = ['', 'first', 'second', 'third', 'fourth', 'fifth'];
   const NS = 'http://www.w3.org/2000/svg';
@@ -58,11 +61,24 @@
     };
   }
 
+  // A hand-drawn star: n points, with every other point shorter when `alt`
+  // is set, like the eight-pointed stars painted on old altarpieces.
+  function starPath(R, n = 6, inner = 0.36, rot = -Math.PI / 2, alt = 0) {
+    let d = '';
+    for (let k = 0; k < n * 2; k++) {
+      const outer = k % 2 === 0;
+      const long = outer && (k / 2) % 2 === 1 ? 1 - alt : 1;
+      const r = outer ? R * long : R * inner;
+      const a = rot + (k * Math.PI) / n;
+      d += `${k ? 'L' : 'M'}${(Math.cos(a) * r).toFixed(2)} ${(Math.sin(a) * r).toFixed(2)}`;
+    }
+    return `${d}Z`;
+  }
+
   // ---------------------------------------------------------------- text fills
 
   const fills = {
     sub: `${CONS.length} figures, ${NEBS.length} nebulae, ${fmt(LAST)} chapters`,
-    eyebrow: `A sky drawn from a myth in ${fmt(LAST)} chapters`,
     catalogue: `Brightest first. The number beside each name is how many times the ${fmt(LAST)} chapters name it.`,
     'about-1': `This sky is drawn from the ${fmt(LAST)} chapters of Echoes of the Real, about ${fmt(Math.round(SKY.corpus.words / 1000) * 1000)} words in which the same figures keep returning under the same names, as different beings in different ages of the story. Each constellation is one of those recurring names. The names were found by counting every capitalised word and title across the chapters, and each one was read in context before it was given a place here.`,
   };
@@ -70,6 +86,26 @@
     const text = fills[el.dataset.fill];
     if (text) el.textContent = text;
   });
+
+  // ---------------------------------------------------------------- film grain
+
+  (function makeGrain() {
+    // One tile of monochrome noise, light and dark specks on transparent,
+    // jumped around by CSS a dozen times a second.
+    const c = document.createElement('canvas');
+    c.width = c.height = 256;
+    const g = c.getContext('2d');
+    const img = g.createImageData(256, 256);
+    const r = seeded(77);
+    for (let i = 0; i < img.data.length; i += 4) {
+      const v = r();
+      const tone = v > 0.5 ? 255 : 0;
+      img.data[i] = img.data[i + 1] = img.data[i + 2] = tone;
+      img.data[i + 3] = Math.pow(Math.abs(v - 0.5) * 2, 1.5) * 255;
+    }
+    g.putImageData(img, 0, 0);
+    $('.grain').style.backgroundImage = `url(${c.toDataURL()})`;
+  })();
 
   // -------------------------------------------------------------------- camera
 
@@ -86,6 +122,7 @@
   let camTween = null;
   let lastTransform = '';
   let lastScaleChange = 0;
+  let labelsDirty = true;
 
   function resize() {
     view.w = window.innerWidth;
@@ -101,6 +138,7 @@
     view.s = clamp(view.s * (view.fit / oldFit), view.fit, view.fit * 3);
     setScale(view.s);
     clampCam();
+    sizeLeader();
   }
 
   function setScale(s) {
@@ -117,7 +155,7 @@
     const hw = view.w / (2 * view.s);
     const hh = view.h / (2 * view.s);
     const slack = 60;
-    const extraRight = folioOpen && view.w > 760 ? Math.min(460, view.w) / view.s : 0;
+    const extraRight = folioOpen && view.w > 760 ? Math.min(480, view.w) / view.s : 0;
     const extraBottom = folioOpen && view.w <= 760 ? (view.h * 0.84) / view.s : 0;
     const bx = W <= 2 * hw ? [W / 2, W / 2] : [hw - slack, W - hw + slack + extraRight];
     const by = H <= 2 * hh ? [H / 2, H / 2] : [hh - slack, H - hh + slack + extraBottom];
@@ -164,7 +202,7 @@
     let x = item.x;
     let y = item.y;
     if (folioOpen) {
-      if (view.w > 760) x += Math.min(460, view.w) / (2 * view.s);
+      if (view.w > 760) x += Math.min(480, view.w) / (2 * view.s);
       else y += (view.h * 0.84) / (2 * view.s) - 20 / view.s;
     }
     return { x, y };
@@ -185,47 +223,45 @@
     return (rand() + rand() + rand() + rand() - 2) / 2;
   }
 
-  const TINTS = [
-    [255, 247, 232], [255, 247, 232], [255, 247, 232], [255, 247, 232],
-    [214, 226, 255], [214, 226, 255], [255, 222, 190], [245, 205, 220],
-  ];
+  // Bone, a cool ash and a warm grey: the whole sky is nearly monochrome.
+  const TINTS = [[236, 228, 210], [236, 228, 210], [236, 228, 210], [178, 190, 204], [178, 190, 204], [214, 200, 176]];
+  const TINT_CSS = TINTS.map((t) => `rgb(${t.join(',')})`);
 
   const stars = [];
   function addStar(x, y, bright) {
-    const r = bright ? 0.8 + Math.pow(rand(), 3) * 1.3 : 0.35 + rand() * 0.55;
     stars.push({
-      x, y, r,
-      a: bright ? 0.4 + rand() * 0.45 : 0.16 + rand() * 0.36,
-      tint: TINTS[Math.floor(rand() * TINTS.length)],
-      tw: rand() < 0.4 ? 0.6 + rand() * 1.6 : 0,
+      x, y,
+      // Most stars are single pixels; the bright few are small sparkles.
+      kind: bright ? 'spark' : 'px',
+      r: bright ? 0.7 + Math.pow(rand(), 2.5) * 1.3 : rand() < 0.14 ? 2 : 1,
+      a: bright ? 0.5 + rand() * 0.45 : 0.18 + rand() * 0.5,
+      tint: Math.floor(rand() * TINTS.length),
+      tw: rand() < 0.45 ? 0.7 + rand() * 2.2 : 0,
       ph: rand() * Math.PI * 2,
       depth: bright ? 0.82 : 0.6,
     });
   }
-  for (let i = 0; i < 1500; i++) addStar(FIELD.x0 + rand() * FIELD.w, FIELD.y0 + rand() * FIELD.h, rand() < 0.28);
-  for (let i = 0; i < 1600; i++) {
+  for (let i = 0; i < 1700; i++) addStar(FIELD.x0 + rand() * FIELD.w, FIELD.y0 + rand() * FIELD.h, rand() < 0.07);
+  for (let i = 0; i < 1900; i++) {
     const p = bandAt(rand());
-    addStar(p.x + gauss() * 90, p.y + gauss() * 260, rand() < 0.12);
+    addStar(p.x + gauss() * 90, p.y + gauss() * 260, rand() < 0.04);
   }
+  stars.sort((a, b) => a.depth - b.depth);
 
-  // Sprites: a soft round star in each tint, drawn once and stamped per star.
-  const sprites = new Map();
-  function sprite(tint) {
-    const key = tint.join(',');
-    if (sprites.has(key)) return sprites.get(key);
+  // A soft round glow, stamped under the brighter sparkles.
+  const glowSprite = (() => {
     const c = document.createElement('canvas');
     c.width = c.height = 32;
     const g = c.getContext('2d');
     const grad = g.createRadialGradient(16, 16, 0, 16, 16, 16);
-    grad.addColorStop(0, `rgba(${key},1)`);
-    grad.addColorStop(0.18, `rgba(${key},0.85)`);
-    grad.addColorStop(0.45, `rgba(${key},0.18)`);
-    grad.addColorStop(1, `rgba(${key},0)`);
+    grad.addColorStop(0, 'rgba(250,244,230,1)');
+    grad.addColorStop(0.2, 'rgba(250,244,230,0.7)');
+    grad.addColorStop(0.5, 'rgba(250,244,230,0.12)');
+    grad.addColorStop(1, 'rgba(250,244,230,0)');
     g.fillStyle = grad;
     g.fillRect(0, 0, 32, 32);
-    sprites.set(key, c);
     return c;
-  }
+  })();
 
   // One soft blur pass hides the gradient banding that upscaling would show.
   function softenCanvas(target, px) {
@@ -242,8 +278,37 @@
     g.globalCompositeOperation = 'source-over';
   }
 
-  // The dust band and the nebulae are painted once into offscreen canvases at
-  // low resolution; they are soft enough that scaling them up costs nothing.
+  // Turn a soft field into stipple: each texel becomes a dot, or nothing,
+  // with a chance that follows the field's density. Drawn without smoothing,
+  // the dots stay square, halfway between an engraver's stipple and a pixel.
+  function stipple(src, gain, curve, seed) {
+    const w = src.width;
+    const h = src.height;
+    const data = src.getContext('2d').getImageData(0, 0, w, h).data;
+    const out = document.createElement('canvas');
+    out.width = w;
+    out.height = h;
+    const g = out.getContext('2d');
+    const img = g.createImageData(w, h);
+    const d = img.data;
+    const r = seeded(seed);
+    for (let i = 0; i < data.length; i += 4) {
+      const a = data[i + 3] / 255;
+      if (!a) continue;
+      const p = Math.pow(Math.min(1, a * gain), curve);
+      if (r() < p) {
+        d[i] = (data[i] + 236) / 2;
+        d[i + 1] = (data[i + 1] + 228) / 2;
+        d[i + 2] = (data[i + 2] + 210) / 2;
+        d[i + 3] = 110 + r() * 145;
+      }
+    }
+    g.putImageData(img, 0, 0);
+    return out;
+  }
+
+  // The dust band and the nebulae are painted once into offscreen canvases:
+  // a blurred glow for low focus, and a stipple of it for fine detail.
   const DUST_K = 0.3;
   const dust = document.createElement('canvas');
   dust.width = Math.round(FIELD.w * DUST_K);
@@ -253,15 +318,15 @@
     g.scale(DUST_K, DUST_K);
     g.translate(-FIELD.x0, -FIELD.y0);
     g.globalCompositeOperation = 'lighter';
-    const hues = [[110, 92, 190], [72, 118, 168], [150, 96, 160], [90, 80, 150], [184, 140, 150]];
-    for (let i = 0; i < 260; i++) {
+    const hues = [[140, 152, 166], [152, 148, 138], [120, 134, 152]];
+    for (let i = 0; i < 280; i++) {
       const p = bandAt(rand());
       const x = p.x + gauss() * 150;
       const y = p.y + gauss() * 240;
-      const r = 180 + rand() * 480;
+      const r = 160 + rand() * 440;
       const [cr, cg, cb] = hues[Math.floor(rand() * hues.length)];
       const grad = g.createRadialGradient(x, y, 0, x, y, r);
-      const a = 0.014 + rand() * 0.026;
+      const a = 0.016 + rand() * 0.03;
       grad.addColorStop(0, `rgba(${cr},${cg},${cb},${a})`);
       grad.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
       g.fillStyle = grad;
@@ -269,27 +334,29 @@
     }
     // Dark lanes through the middle of the band.
     g.globalCompositeOperation = 'destination-out';
-    for (let i = 0; i < 90; i++) {
+    for (let i = 0; i < 110; i++) {
       const p = bandAt(rand());
       const x = p.x + gauss() * 60 + 60;
       const y = p.y + gauss() * 90 - 40;
-      const r = 90 + rand() * 220;
+      const r = 80 + rand() * 220;
       const grad = g.createRadialGradient(x, y, 0, x, y, r);
-      grad.addColorStop(0, 'rgba(0,0,0,0.3)');
+      grad.addColorStop(0, 'rgba(0,0,0,0.35)');
       grad.addColorStop(1, 'rgba(0,0,0,0)');
       g.fillStyle = grad;
       g.fillRect(x - r, y - r, r * 2, r * 2);
     }
     softenCanvas(dust, 6);
   })();
+  const dustDots = stipple(dust, 0.95, 1.45, 31);
 
-  const NEB_HUES = {
-    garden: [96, 178, 150],
-    pearl: [196, 190, 236],
-    amber: [222, 164, 104],
-    rose: [216, 132, 164],
-    blue: [110, 150, 222],
-    violet: [150, 116, 214],
+  // Places keep a faint tint of their own, well short of colour.
+  const NEB_TINTS = {
+    garden: [150, 180, 162],
+    pearl: [212, 208, 228],
+    amber: [216, 192, 150],
+    rose: [214, 176, 184],
+    blue: [160, 180, 208],
+    violet: [184, 172, 210],
   };
   const NEB_K = 0.35;
   const nebLayer = document.createElement('canvas');
@@ -301,7 +368,7 @@
     g.globalCompositeOperation = 'lighter';
     for (const n of NEBS) {
       const r0 = n.radius;
-      const [cr, cg, cb] = NEB_HUES[n.hue] || NEB_HUES.violet;
+      const [cr, cg, cb] = NEB_TINTS[n.hue] || NEB_TINTS.violet;
       const local = seeded(n.id.length * 7919 + Math.round(n.x));
       for (let i = 0; i < 46; i++) {
         const ang = local() * Math.PI * 2;
@@ -309,7 +376,7 @@
         const x = n.x + Math.cos(ang) * dist * 1.25;
         const y = n.y + Math.sin(ang) * dist * 0.8;
         const r = r0 * (0.22 + local() * 0.5);
-        const a = 0.035 + local() * 0.05;
+        const a = 0.03 + local() * 0.045;
         const grad = g.createRadialGradient(x, y, 0, x, y, r);
         grad.addColorStop(0, `rgba(${cr},${cg},${cb},${a})`);
         grad.addColorStop(0.6, `rgba(${cr},${cg},${cb},${a * 0.35})`);
@@ -317,13 +384,12 @@
         g.fillStyle = grad;
         g.fillRect(x - r, y - r, r * 2, r * 2);
       }
-      // A brighter core.
       const core = g.createRadialGradient(n.x, n.y, 0, n.x, n.y, r0 * 0.35);
       core.addColorStop(0, `rgba(${cr},${cg},${cb},0.12)`);
       core.addColorStop(1, `rgba(${cr},${cg},${cb},0)`);
       g.fillStyle = core;
       g.fillRect(n.x - r0, n.y - r0, r0 * 2, r0 * 2);
-      n._stars = Array.from({ length: 26 }, () => {
+      n._stars = Array.from({ length: 22 }, () => {
         const ang = local() * Math.PI * 2;
         const dist = Math.pow(local(), 0.7) * r0 * 0.6;
         return { x: n.x + Math.cos(ang) * dist * 1.2, y: n.y + Math.sin(ang) * dist * 0.8, r: 0.6 + local() * 1.1, a: 0.4 + local() * 0.5 };
@@ -331,6 +397,7 @@
     }
     softenCanvas(nebLayer, 5);
   })();
+  const nebDots = stipple(nebLayer, 1.7, 1.3, 53);
 
   const meteors = [];
   let nextMeteor = performance.now() + 9000;
@@ -350,24 +417,34 @@
     ctx.globalAlpha = 1;
 
     const bg = ctx.createLinearGradient(0, 0, 0, h);
-    bg.addColorStop(0, '#04050d');
-    bg.addColorStop(0.55, '#080a1c');
-    bg.addColorStop(1, '#0d0c24');
+    bg.addColorStop(0, '#060709');
+    bg.addColorStop(0.6, '#090a0d');
+    bg.addColorStop(1, '#0c0d10');
     ctx.fillStyle = bg;
     ctx.fillRect(0, 0, w, h);
 
-    // Dust band, far away.
+    // Dust band, far away: the glow smoothed, the stipple crisp.
     const far = layerOffset(t, 0.55);
-    ctx.globalAlpha = 1;
+    const fx = far.x + FIELD.x0 * t.s;
+    const fy = far.y + FIELD.y0 * t.s;
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(dust, far.x + FIELD.x0 * t.s, far.y + FIELD.y0 * t.s, FIELD.w * t.s, FIELD.h * t.s);
+    ctx.globalAlpha = 0.7;
+    ctx.drawImage(dust, fx, fy, FIELD.w * t.s, FIELD.h * t.s);
+    ctx.imageSmoothingEnabled = false;
+    ctx.globalAlpha = 0.34;
+    ctx.drawImage(dustDots, Math.round(fx), Math.round(fy), Math.round(FIELD.w * t.s), Math.round(FIELD.h * t.s));
 
     // Nebulae, at the depth of the figures.
+    ctx.imageSmoothingEnabled = true;
+    ctx.globalAlpha = 0.8;
     ctx.drawImage(nebLayer, t.tx, t.ty, W * t.s, H * t.s);
+    ctx.imageSmoothingEnabled = false;
+    ctx.globalAlpha = 0.7;
+    ctx.drawImage(nebDots, Math.round(t.tx), Math.round(t.ty), Math.round(W * t.s), Math.round(H * t.s));
+    ctx.imageSmoothingEnabled = true;
 
     // Background stars.
-    ctx.globalCompositeOperation = 'lighter';
     const time = now / 1000;
     const zoomBoost = Math.sqrt(view.s / view.fit);
     let off = null;
@@ -379,12 +456,28 @@
       }
       const x = off.x + st.x * t.s;
       const y = off.y + st.y * t.s;
-      if (x < -6 || y < -6 || x > w + 6 || y > h + 6) continue;
+      if (x < -10 || y < -10 || x > w + 10 || y > h + 10) continue;
       let a = st.a;
-      if (st.tw && !reduced) a *= 0.72 + 0.28 * Math.sin(time * st.tw + st.ph);
-      const size = st.r * 5.2 * zoomBoost;
+      if (st.tw && !reduced) a *= 0.66 + 0.34 * Math.sin(time * st.tw + st.ph);
       ctx.globalAlpha = a;
-      ctx.drawImage(sprite(st.tint), x - size / 2, y - size / 2, size, size);
+      if (st.kind === 'px') {
+        ctx.fillStyle = TINT_CSS[st.tint];
+        ctx.fillRect(Math.round(x), Math.round(y), st.r, st.r);
+      } else {
+        const size = st.r * 7 * zoomBoost;
+        ctx.drawImage(glowSprite, x - size / 2, y - size / 2, size, size);
+        // Four fine rays, as an engraver marks a bright star.
+        const L = st.r * 4.5 * zoomBoost;
+        ctx.globalAlpha = a * 0.55;
+        ctx.strokeStyle = TINT_CSS[st.tint];
+        ctx.lineWidth = 0.6;
+        ctx.beginPath();
+        ctx.moveTo(x - L, y);
+        ctx.lineTo(x + L, y);
+        ctx.moveTo(x, y - L);
+        ctx.lineTo(x, y + L);
+        ctx.stroke();
+      }
     }
 
     // Stars inside the nebulae.
@@ -395,7 +488,7 @@
         if (x < -6 || y < -6 || x > w + 6 || y > h + 6) continue;
         const size = st.r * 5 * zoomBoost;
         ctx.globalAlpha = st.a * (0.8 + 0.2 * Math.sin(time * 0.7 + st.x));
-        ctx.drawImage(sprite(TINTS[0]), x - size / 2, y - size / 2, size, size);
+        ctx.drawImage(glowSprite, x - size / 2, y - size / 2, size, size);
       }
     }
 
@@ -403,8 +496,8 @@
     if (pointer.inside && !isTouch) {
       const r = 240;
       const grad = ctx.createRadialGradient(pointer.px, pointer.py, 0, pointer.px, pointer.py, r);
-      grad.addColorStop(0, 'rgba(242,226,190,0.045)');
-      grad.addColorStop(1, 'rgba(242,226,190,0)');
+      grad.addColorStop(0, 'rgba(236,228,210,0.04)');
+      grad.addColorStop(1, 'rgba(236,228,210,0)');
       ctx.globalAlpha = 1;
       ctx.fillStyle = grad;
       ctx.fillRect(pointer.px - r, pointer.py - r, r * 2, r * 2);
@@ -427,28 +520,25 @@
       if (k >= 1) { meteors.splice(i, 1); continue; }
       const hx = m.x + m.vx * k * (m.life / 1000);
       const hy = m.y + m.vy * k * (m.life / 1000);
-      const tail = 0.12;
-      const tx2 = hx - m.vx * tail;
-      const ty2 = hy - m.vy * tail;
+      const tx2 = hx - m.vx * 0.12;
+      const ty2 = hy - m.vy * 0.12;
       const grad = ctx.createLinearGradient(hx, hy, tx2, ty2);
       const a = Math.sin(k * Math.PI) * 0.8;
-      grad.addColorStop(0, `rgba(255,246,226,${a})`);
-      grad.addColorStop(1, 'rgba(255,246,226,0)');
+      grad.addColorStop(0, `rgba(245,240,228,${a})`);
+      grad.addColorStop(1, 'rgba(245,240,228,0)');
       ctx.globalAlpha = 1;
       ctx.strokeStyle = grad;
-      ctx.lineWidth = 1.2;
+      ctx.lineWidth = 1.1;
       ctx.beginPath();
       ctx.moveTo(hx, hy);
       ctx.lineTo(tx2, ty2);
       ctx.stroke();
     }
     ctx.globalAlpha = 1;
-    ctx.globalCompositeOperation = 'source-over';
   }
 
   // ------------------------------------------------------ figures and names
 
-  svgEl('svg', {}, null);
   svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
   svg.setAttribute('width', W);
   svg.setAttribute('height', H);
@@ -459,10 +549,34 @@
 
   const defs = svgEl('defs', {}, svg);
   const glow = svgEl('radialGradient', { id: 'starglow' }, defs);
-  svgEl('stop', { offset: '0', 'stop-color': '#fff8ea', 'stop-opacity': '0.95' }, glow);
-  svgEl('stop', { offset: '0.2', 'stop-color': '#fff1d6', 'stop-opacity': '0.4' }, glow);
-  svgEl('stop', { offset: '0.55', 'stop-color': '#e8d3a6', 'stop-opacity': '0.08' }, glow);
-  svgEl('stop', { offset: '1', 'stop-color': '#e8d3a6', 'stop-opacity': '0' }, glow);
+  svgEl('stop', { offset: '0', 'stop-color': '#fff4dc', 'stop-opacity': '0.9' }, glow);
+  svgEl('stop', { offset: '0.22', 'stop-color': '#e2c688', 'stop-opacity': '0.32' }, glow);
+  svgEl('stop', { offset: '0.6', 'stop-color': '#caa663', 'stop-opacity': '0.06' }, glow);
+  svgEl('stop', { offset: '1', 'stop-color': '#caa663', 'stop-opacity': '0' }, glow);
+
+  // The grid of an old atlas: circles of declination and hour lines around a
+  // pole that lies far below the bottom of the sky.
+  (function drawGraticule() {
+    const g = svgEl('g', { class: 'grat', 'aria-hidden': 'true' }, svg);
+    const cx = W / 2;
+    const cy = H * 2.9;
+    const a0 = -Math.PI / 2 - 0.62;
+    const a1 = -Math.PI / 2 + 0.62;
+    for (let R = 2350; R <= 4500; R += 175) {
+      const x0 = cx + Math.cos(a0) * R;
+      const y0 = cy + Math.sin(a0) * R;
+      const x1 = cx + Math.cos(a1) * R;
+      const y1 = cy + Math.sin(a1) * R;
+      svgEl('path', { d: `M${x0.toFixed(1)} ${y0.toFixed(1)}A${R} ${R} 0 0 1 ${x1.toFixed(1)} ${y1.toFixed(1)}` }, g);
+    }
+    for (let a = a0; a <= a1 + 1e-6; a += (a1 - a0) / 14) {
+      const x0 = cx + Math.cos(a) * 2350;
+      const y0 = cy + Math.sin(a) * 2350;
+      const x1 = cx + Math.cos(a) * 4500;
+      const y1 = cy + Math.sin(a) * 4500;
+      svgEl('path', { d: `M${x0.toFixed(1)} ${y0.toFixed(1)}L${x1.toFixed(1)} ${y1.toFixed(1)}` }, g);
+    }
+  })();
 
   // The path of the chapters.
   (function drawEcliptic() {
@@ -480,16 +594,16 @@
       const label = svgEl('text', { x, y: y + 24, 'text-anchor': 'middle' }, g);
       label.textContent = c === 1 ? 'ch. 1' : c === LAST ? `ch. ${fmt(LAST)}` : fmt(c);
     }
-    const name = svgEl('text', { x: chapterX(LAST), y: eclipticY(chapterX(LAST)) + 44, 'text-anchor': 'end', class: 'ecl-name' }, g);
+    const name = svgEl('text', { x: chapterX(LAST), y: eclipticY(chapterX(LAST)) + 46, 'text-anchor': 'end', class: 'ecl-name' }, g);
     name.textContent = 'the path of the chapters';
   })();
 
-  function pathFor(item, scale = 1) {
+  function pathFor(item) {
     let d = '';
     for (const line of item.lines) {
       line.forEach((i, k) => {
         const [x, y] = item.stars[i];
-        d += `${k ? 'L' : 'M'}${(x * scale).toFixed(1)} ${(y * scale).toFixed(1)}`;
+        d += `${k ? 'L' : 'M'}${x.toFixed(1)} ${y.toFixed(1)}`;
       });
     }
     return d;
@@ -497,6 +611,10 @@
 
   function magnitudeWords(m) {
     return `${ORDINAL[m]} magnitude`;
+  }
+
+  function figNo(item) {
+    return NEBS.includes(item) ? `Nebula ${NEBS.indexOf(item) + 1}` : `Fig. ${CONS.indexOf(item) + 1}`;
   }
 
   for (const c of CONS) {
@@ -516,11 +634,29 @@
     c.stars.forEach(([x, y, size], i) => {
       const st = svgEl('g', { class: 'st' }, g);
       st.style.transform = `translate(${x}px, ${y}px) scale(var(--ss, 1))`;
-      svgEl('circle', { class: 'halo', r: size * 5.5, fill: 'url(#starglow)' }, st);
-      const core = svgEl('circle', { class: 'core', r: size * 0.62 }, st);
-      core.style.setProperty('--tw-d', `${(3 + local() * 5).toFixed(2)}s`);
-      core.style.setProperty('--tw-o', `${(-local() * 8).toFixed(2)}s`);
-      if (i === c.alpha) svgEl('circle', { class: 'alpha-ring', r: size * 2.4 }, st);
+      const R = size * 2.3;
+      svgEl('circle', { class: 'halo', r: size * 6, fill: 'url(#starglow)' }, st);
+      if (i === c.alpha) {
+        // The brightest star bursts into fine rays when its figure wakes.
+        const rays = svgEl('g', { class: 'rays' }, st);
+        const n = 30;
+        for (let k = 0; k < n; k++) {
+          const a = (k / n) * Math.PI * 2 + local() * 0.09;
+          const r0 = R * 1.3;
+          const r1 = R * (2 + local() * 3.4);
+          svgEl('line', {
+            x1: (Math.cos(a) * r0).toFixed(2), y1: (Math.sin(a) * r0).toFixed(2),
+            x2: (Math.cos(a) * r1).toFixed(2), y2: (Math.sin(a) * r1).toFixed(2),
+          }, rays);
+        }
+      }
+      const shape = i === c.alpha
+        ? starPath(R * 1.3, 8, 0.3, -Math.PI / 2 + (local() - 0.5) * 0.2, 0.42)
+        : starPath(R, 6, 0.36, -Math.PI / 2 + (local() - 0.5) * 0.5);
+      const glyph = svgEl('path', { class: 'glyph', d: shape }, st);
+      glyph.style.setProperty('--tw-d', `${(2.5 + local() * 5).toFixed(2)}s`);
+      glyph.style.setProperty('--tw-o', `${(-local() * 8).toFixed(2)}s`);
+      svgEl('circle', { class: 'core', r: (R * 0.2).toFixed(2) }, st);
     });
     c._b = {
       minX: Math.min(...c.stars.map((s) => s[0])),
@@ -543,7 +679,7 @@
     label.appendChild(nm);
     const sub = document.createElement('span');
     sub.className = 'sub';
-    sub.textContent = `named ${fmt(c.mentions)} times · ch. ${c.first}–${fmt(c.last)}`;
+    sub.textContent = `named ${fmt(c.mentions)} times, ch. ${c.first}-${fmt(c.last)}`;
     label.appendChild(sub);
     const tap = document.createElement('span');
     tap.className = 'tap';
@@ -581,7 +717,7 @@
     label.appendChild(nm);
     const sub = document.createElement('span');
     sub.className = 'sub';
-    sub.textContent = `a place · named ${fmt(n.mentions)} times`;
+    sub.textContent = `a place, named ${fmt(n.mentions)} times`;
     label.appendChild(sub);
     labelLayer.appendChild(label);
     n._label = label;
@@ -599,7 +735,6 @@
     'neb-above': (n) => [n.x, n.y - n.radius * 0.28],
     'neb-below': (n) => [n.x, n.y + n.radius * 0.28],
   };
-  let labelsDirty = true;
 
   function setPlace(item, place) {
     const [x, y] = PLACES[place](item);
@@ -840,8 +975,15 @@
   }, { passive: false });
 
   window.addEventListener('keydown', (e) => {
+    if (stage !== 'sky') {
+      if (e.key === 'Escape') return iris(view.w / 2, view.h / 2);
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        return stage === 'title' ? toVerse() : iris(view.w / 2, view.h / 2);
+      }
+      return;
+    }
     if (e.key === 'Escape') {
-      if (!overture.classList.contains('gone')) return enterSky();
       if (openPanel) return closePanel(openPanel);
       if (folioOpen) return closeFolio();
     }
@@ -867,29 +1009,37 @@
   const folioBody = $('#folio-body');
   let returnFocus = null;
 
+  function escapeHTML(s) {
+    return s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
+  }
+
+  // The figure as an engraved plate: blue-ink lines, gold stars, and Bayer
+  // letters from the brightest star down.
   function diagramSVG(c) {
     const xs = c.stars.map((s) => s[0]);
     const ys = c.stars.map((s) => s[1]);
-    const pad = 26;
+    const pad = 28;
     const minX = Math.min(...xs) - pad;
     const minY = Math.min(...ys) - pad;
     const w = Math.max(...xs) - minX + pad;
     const h = Math.max(...ys) - minY + pad;
+    const unit = Math.max(w, h) / 300;
     const order = c.stars.map((s, i) => i).sort((a, b) => c.stars[b][2] - c.stars[a][2]);
-    let out = `<svg class="diagram" viewBox="${minX.toFixed(1)} ${minY.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" role="img" aria-label="Chart of ${c.name}, ${c.stars.length} stars">`;
+    let out = `<svg class="diagram" viewBox="${minX.toFixed(1)} ${minY.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" role="img" aria-label="Chart of ${escapeHTML(c.name)}, ${c.stars.length} stars">`;
     for (const line of c.lines) {
       for (let k = 1; k < line.length; k++) {
         const [x1, y1] = c.stars[line[k - 1]];
         const [x2, y2] = c.stars[line[k]];
-        out += `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" vector-effect="non-scaling-stroke"/>`;
+        out += `<line class="ln" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" vector-effect="non-scaling-stroke"/>`;
       }
     }
-    const unit = Math.max(w, h) / 300;
     order.forEach((i, rank) => {
       const [x, y, size] = c.stars[i];
-      out += `<circle cx="${x}" cy="${y}" r="${(size * 0.9 * unit + unit * 1.2).toFixed(2)}"/>`;
+      const R = (size * 1.1 + 2.2) * unit;
+      const d = i === c.alpha ? starPath(R * 1.3, 8, 0.3, -Math.PI / 2, 0.42) : starPath(R, 6, 0.38);
+      out += `<path class="dg" transform="translate(${x} ${y})" d="${d}"/>`;
       if (rank < GREEK.length) {
-        out += `<text x="${(x + unit * 8).toFixed(1)}" y="${(y - unit * 6).toFixed(1)}" style="font-size:${(unit * 13).toFixed(1)}px">${GREEK[rank]}</text>`;
+        out += `<text x="${(x + unit * 9).toFixed(1)}" y="${(y - unit * 7).toFixed(1)}" style="font-size:${(unit * 14).toFixed(1)}px">${GREEK[rank]}</text>`;
       }
     });
     return `${out}</svg>`;
@@ -915,11 +1065,10 @@
     item.bins.forEach((v, i) => {
       if (!v) return;
       const h = Math.max(1.5, (v / BIN) * H0);
-      bars += `<rect class="bar" x="${i * bw + 0.5}" y="${(H0 - h).toFixed(1)}" width="${bw - 1.5}" height="${h.toFixed(1)}" rx="0.8"/>`;
+      bars += `<rect class="bar" x="${i * bw + 0.5}" y="${(H0 - h).toFixed(1)}" width="${bw - 1.5}" height="${h.toFixed(1)}"/>`;
     });
-    const ticks = [1, 250, 500, 750, 1000];
     let tickText = '';
-    for (const c of ticks) {
+    for (const c of [1, 250, 500, 750, 1000]) {
       const x = ((c - 1) / BIN) * bw;
       tickText += `<text class="tick" x="${x.toFixed(1)}" y="${H0 + 16}" text-anchor="${c === 1 ? 'start' : 'middle'}">${c === 1 ? 'ch. 1' : fmt(c)}</text>`;
     }
@@ -951,7 +1100,7 @@
       const to = Math.min((i + 1) * BIN, LAST);
       cursor.setAttribute('x', i * 4);
       const v = item.bins[i];
-      tip.innerHTML = `<b>Chapters ${from}–${fmt(to)}</b><br>${v ? `named in ${v} of ${to - from + 1}` : 'absent'}`;
+      tip.innerHTML = `Chapters ${from}-${fmt(to)}<br>${v ? `named in ${v} of ${to - from + 1}` : 'absent'}`;
       tip.hidden = false;
       const tw = tip.offsetWidth;
       tip.style.left = `${clamp(e.clientX - tw / 2, 8, view.w - tw - 8)}px`;
@@ -965,29 +1114,30 @@
     });
   }
 
-  function escapeHTML(s) {
-    return s.replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]));
-  }
-
   function folioHTML(item) {
     const isNeb = NEBS.includes(item);
-    const eyebrow = isNeb ? 'A nebula · a place in the myth' : `A constellation of the ${magnitudeWords(item.magnitude)}`;
     const kin = item.related.map((id) => byId.get(id)).filter(Boolean);
+    const no = figNo(item);
+    const plate = isNeb ? '' : `
+      <figure class="plate">
+        ${diagramSVG(item)}
+        <figcaption><span class="px">${no}.</span> ${escapeHTML(item.name)}, a constellation of the ${magnitudeWords(item.magnitude)}, drawn in ${item.stars.length} stars.</figcaption>
+      </figure>`;
     return `
-      <p class="eyebrow">${eyebrow}</p>
+      <p class="fig-no">${isNeb ? `${no}, a place in the myth` : `${no}, a figure of the ${magnitudeWords(item.magnitude)}`}</p>
       <h2 id="folio-name" tabindex="-1">${escapeHTML(item.name)}</h2>
       ${item.aka ? `<p class="aka">${escapeHTML(item.aka)}</p>` : ''}
-      ${isNeb ? '' : diagramSVG(item)}
+      ${plate}
       <dl class="stats">
-        <div><dt>Named</dt><dd>${fmt(item.mentions)} times</dd></div>
+        <div><dt>Times named</dt><dd>${fmt(item.mentions)}</dd></div>
         <div><dt>Chapters</dt><dd>${fmt(item.chapterCount)}</dd></div>
-        <div><dt>First seen</dt><dd>ch. ${fmt(item.first)}</dd></div>
-        <div><dt>Last seen</dt><dd>ch. ${fmt(item.last)}</dd></div>
+        <div><dt>First chapter</dt><dd>${fmt(item.first)}</dd></div>
+        <div><dt>Last chapter</dt><dd>${fmt(item.last)}</dd></div>
       </dl>
       ${ephemerisHTML(item)}
       <div class="story">${item.desc.map((p) => `<p>${escapeHTML(p)}</p>`).join('')}</div>
       ${item.excerpts.length ? `<div class="excerpts"><h3>From the myth</h3>${item.excerpts.map((x) => `
-        <blockquote><p>${escapeHTML(x.text)}</p><cite>Chapter ${fmt(x.ch)} · ${escapeHTML(x.title)}</cite></blockquote>`).join('')}</div>` : ''}
+        <blockquote><p>${escapeHTML(x.text)}</p><cite><span class="px">ch. ${fmt(x.ch)}</span>${escapeHTML(x.title)}</cite></blockquote>`).join('')}</div>` : ''}
       ${kin.length ? `<div class="kin"><h3>Close to it in the story</h3><ul>${kin.map((k) => `<li><button type="button" data-go="${k.id}">${escapeHTML(k.name)}</button></li>`).join('')}</ul></div>` : ''}
     `;
   }
@@ -1045,7 +1195,7 @@
     if (item) openFolio(item);
   });
 
-  // --------------------------------------------------- catalogue and about
+  // --------------------------------------------------- the index and notes
 
   const panels = { catalogue: $('#catalogue'), about: $('#about') };
   let openPanel = null;
@@ -1090,17 +1240,18 @@
     let html = '';
     for (const [m, list] of groups) {
       html += `<section class="catalogue-group"><h3>${ORDINAL[m][0].toUpperCase()}${ORDINAL[m].slice(1)} magnitude</h3><ul class="catalogue-list">`;
+      const size = 7 + (5 - m) * 2.5;
       for (const c of list) {
-        const dot = 3 + (5 - m) * 1.6;
-        html += `<li><button type="button" data-cat="${c.id}"><span class="dot" style="width:${dot}px;height:${dot}px"></span><span class="nm">${escapeHTML(c.name)}</span><span class="ct">${fmt(c.mentions)}</span></button></li>`;
+        html += `<li><button type="button" data-cat="${c.id}"><svg class="icon" width="${size}" height="${size}" viewBox="-10 -10 20 20" aria-hidden="true"><path d="${starPath(10, 6, 0.38)}"/></svg><span class="nm">${escapeHTML(c.name)}</span><span class="leader"></span><span class="ct">${fmt(c.mentions)}</span></button></li>`;
       }
       html += '</ul></section>';
     }
     if (NEBS.length) {
       html += '<section class="catalogue-group"><h3>Nebulae, the places</h3><ul class="catalogue-list">';
       for (const n of NEBS) {
-        const [r, g, b] = NEB_HUES[n.hue] || NEB_HUES.violet;
-        html += `<li><button type="button" data-cat="${n.id}"><span class="neb-dot" style="background:rgb(${r},${g},${b})"></span><span class="nm">${escapeHTML(n.name)}</span><span class="ct">${fmt(n.mentions)}</span></button></li>`;
+        const [r, g, b] = NEB_TINTS[n.hue] || NEB_TINTS.violet;
+        const ink = `rgb(${Math.round(r * 0.45)},${Math.round(g * 0.45)},${Math.round(b * 0.45)})`;
+        html += `<li><button type="button" data-cat="${n.id}"><span class="neb-dot" style="color:${ink}"></span><span class="nm">${escapeHTML(n.name)}</span><span class="leader"></span><span class="ct">${fmt(n.mentions)}</span></button></li>`;
       }
       html += '</ul></section>';
     }
@@ -1112,8 +1263,7 @@
     const preview = (e) => {
       const b = e.target.closest('[data-cat]');
       if (!b) return;
-      const item = byId.get(b.dataset.cat);
-      setLit(item);
+      setLit(byId.get(b.dataset.cat));
     };
     root.addEventListener('pointerover', preview);
     root.addEventListener('focusin', preview);
@@ -1132,8 +1282,142 @@
   });
 
   // ----------------------------------------------------------------- overture
+  //
+  // A title card, a dissolve to the verse, and an iris onto the sky. The
+  // card sits on a strip of film: a faint engraved chart behind it, a
+  // projector's hot spot, and dust, hairs and scratches that come and go.
 
   const overture = $('#overture');
+  const cardTitle = $('#card-title');
+  const cardVerse = $('#card-verse');
+  const leader = $('#leader');
+  const lctx = leader.getContext('2d');
+  let stage = 'title';
+  let stageTimer = null;
+  let chartPattern = null;
+  let lastLeader = 0;
+  const film = { scratches: [], hair: null };
+  const frand = seeded(24);
+
+  function sizeLeader() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    leader.width = Math.round(view.w * dpr);
+    leader.height = Math.round(view.h * dpr);
+    // The faint chart behind the title, drawn once per size.
+    chartPattern = document.createElement('canvas');
+    chartPattern.width = leader.width;
+    chartPattern.height = leader.height;
+    const g = chartPattern.getContext('2d');
+    g.scale(dpr, dpr);
+    const cx = view.w / 2;
+    const cy = view.h * 2.2;
+    g.strokeStyle = 'rgba(255,255,255,0.075)';
+    g.lineWidth = 1;
+    for (let R = view.h * 1.3; R < view.h * 2.4; R += view.h * 0.12) {
+      g.beginPath();
+      g.arc(cx, cy, R, Math.PI * 1.1, Math.PI * 1.9);
+      g.stroke();
+    }
+    for (let a = Math.PI * 1.1; a <= Math.PI * 1.9; a += Math.PI / 22) {
+      g.beginPath();
+      g.moveTo(cx + Math.cos(a) * view.h * 1.3, cy + Math.sin(a) * view.h * 1.3);
+      g.lineTo(cx + Math.cos(a) * view.h * 2.4, cy + Math.sin(a) * view.h * 2.4);
+      g.stroke();
+    }
+    const r = seeded(9);
+    g.fillStyle = 'rgba(255,255,255,0.17)';
+    for (let i = 0; i < 90; i++) {
+      const x = r() * view.w;
+      const y = r() * view.h;
+      const R = 1.5 + Math.pow(r(), 3) * 5;
+      g.save();
+      g.translate(x, y);
+      g.globalAlpha = 0.4 + r() * 0.6;
+      g.fill(new Path2D(starPath(R, 6, 0.38)));
+      g.restore();
+    }
+  }
+
+  function drawLeader(now) {
+    if (now - lastLeader < 42) return; // about 24 frames a second
+    lastLeader = now;
+    const dpr = leader.width / view.w;
+    const w = view.w;
+    const h = view.h;
+    lctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const flick = reduced ? 1 : 0.9 + frand() * 0.1;
+    const hot = lctx.createRadialGradient(w / 2, h * 0.46, 0, w / 2, h * 0.46, Math.max(w, h) * 0.75);
+    const lum = Math.round(26 * flick);
+    hot.addColorStop(0, `rgb(${lum},${lum},${lum - 1})`);
+    hot.addColorStop(0.55, 'rgb(12,12,12)');
+    hot.addColorStop(1, 'rgb(3,3,3)');
+    lctx.fillStyle = hot;
+    lctx.fillRect(0, 0, w, h);
+    const jx = reduced ? 0 : (frand() - 0.5) * 1.2;
+    const jy = reduced ? 0 : (frand() - 0.5) * 1.2;
+    lctx.globalAlpha = flick;
+    lctx.drawImage(chartPattern, jx, jy, w, h);
+    lctx.globalAlpha = 1;
+    if (reduced) return;
+    // Dust specks, one frame each.
+    const specks = frand() < 0.55 ? 0 : 1 + Math.floor(frand() * 4);
+    for (let i = 0; i < specks; i++) {
+      lctx.fillStyle = frand() < 0.6 ? 'rgba(0,0,0,0.75)' : 'rgba(255,255,255,0.45)';
+      lctx.beginPath();
+      lctx.ellipse(frand() * w, frand() * h, 0.6 + frand() * 2.2, 0.6 + frand() * 1.6, frand() * Math.PI, 0, Math.PI * 2);
+      lctx.fill();
+    }
+    // Now and then a hair drifts through the gate.
+    if (!film.hair && frand() < 0.012) {
+      film.hair = { x: frand() * w, y: frand() * h, len: 30 + frand() * 70, bend: (frand() - 0.5) * 40, life: 3 + Math.floor(frand() * 5) };
+    }
+    if (film.hair) {
+      const hr = film.hair;
+      lctx.strokeStyle = 'rgba(0,0,0,0.6)';
+      lctx.lineWidth = 1;
+      lctx.beginPath();
+      lctx.moveTo(hr.x, hr.y);
+      lctx.quadraticCurveTo(hr.x + hr.bend, hr.y + hr.len / 2, hr.x + hr.bend * 0.3, hr.y + hr.len);
+      lctx.stroke();
+      if (--hr.life <= 0) film.hair = null;
+    }
+    // Scratches run the height of the frame and wander a little.
+    if (frand() < 0.03) film.scratches.push({ x: frand() * w, life: 5 + Math.floor(frand() * 18), a: 0.06 + frand() * 0.12 });
+    for (let i = film.scratches.length - 1; i >= 0; i--) {
+      const s = film.scratches[i];
+      s.x += (frand() - 0.5) * 1.5;
+      lctx.strokeStyle = `rgba(255,255,255,${s.a})`;
+      lctx.lineWidth = 1;
+      lctx.beginPath();
+      lctx.moveTo(s.x, 0);
+      lctx.lineTo(s.x + (frand() - 0.5) * 3, h);
+      lctx.stroke();
+      if (--s.life <= 0) film.scratches.splice(i, 1);
+    }
+  }
+
+  function showCard(card) {
+    for (const c of [cardTitle, cardVerse]) c.classList.toggle('shown', c === card);
+  }
+
+  function toTitle() {
+    stage = 'title';
+    showCard(cardTitle);
+    clearTimeout(stageTimer);
+    stageTimer = setTimeout(toVerse, 7200);
+  }
+
+  function toVerse() {
+    clearTimeout(stageTimer);
+    stage = 'verse';
+    // Restart the verse so it writes itself in again.
+    cardVerse.querySelectorAll('.ln, .verse-credit, .enter').forEach((el) => {
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = '';
+    });
+    showCard(cardVerse);
+  }
 
   function kindle() {
     // The Dreamer's cosmos kindles: every figure traces itself in, sweeping
@@ -1143,7 +1427,7 @@
     const { bx } = camBounds();
     if (bx[1] - bx[0] > 40) {
       cam.x = bx[0];
-      camTween = { from: { x: bx[0], y: cam.y }, to: { x: bx[1], y: cam.y }, t0: performance.now() + 300, duration: 3400 };
+      camTween = { from: { x: bx[0], y: cam.y }, to: { x: bx[1], y: cam.y }, t0: performance.now() + 500, duration: 3600 };
     }
     for (const c of CONS) {
       setTimeout(() => {
@@ -1153,39 +1437,75 @@
           c._g.classList.remove('kindled');
           c._label.classList.remove('kindled');
         }, 2300);
-      }, 500 + c._sweep * 1000);
+      }, 700 + c._sweep * 1000);
     }
   }
 
-  function enterSky({ quiet = false } = {}) {
+  function finishOverture() {
     overture.classList.add('gone');
     overture.inert = true;
-    document.body.classList.remove('overture-open');
-    if (!quiet) kindle();
-    const first = svg.querySelector('.con');
-    if (!quiet && first && !isTouch) setTimeout(() => viewport.focus?.(), 50);
+    overture.style.maskImage = '';
+    overture.style.webkitMaskImage = '';
+    requestAnimationFrame(() => overture.classList.remove('irising'));
   }
 
-  function showOverture() {
+  // An iris opens from where the reader clicked and the sky shows through.
+  function iris(x, y) {
+    if (stage === 'sky') return;
+    stage = 'sky';
+    clearTimeout(stageTimer);
+    document.body.classList.remove('overture-open');
+    kindle();
+    if (reduced) {
+      finishOverture();
+      return;
+    }
+    overture.classList.add('irising');
+    const maxR = Math.hypot(Math.max(x, view.w - x), Math.max(y, view.h - y)) + 80;
+    const t0 = performance.now();
+    const step = (now) => {
+      const k = clamp((now - t0) / 1500, 0, 1);
+      const r = maxR * easeIn(k);
+      const m = `radial-gradient(circle at ${x}px ${y}px, transparent ${r.toFixed(1)}px, #000 ${(r + 36).toFixed(1)}px)`;
+      overture.style.maskImage = m;
+      overture.style.webkitMaskImage = m;
+      if (k < 1) requestAnimationFrame(step);
+      else finishOverture();
+    };
+    requestAnimationFrame(step);
+  }
+
+  function enterQuietly() {
+    stage = 'sky';
+    clearTimeout(stageTimer);
+    document.body.classList.remove('overture-open');
+    finishOverture();
+  }
+
+  function showVerseAgain() {
     closeFolio();
     closePanel(openPanel, { restore: false });
     overture.inert = false;
     overture.classList.remove('gone');
     document.body.classList.add('overture-open');
-    // Restart the verse so it writes itself in again.
-    overture.querySelectorAll('.ln, .verse-credit').forEach((el) => {
-      el.style.animation = 'none';
-      void el.offsetWidth;
-      el.style.animation = '';
-    });
-    $('#enter').focus({ preventScroll: true });
+    toVerse();
   }
 
-  $('#enter').addEventListener('click', () => enterSky());
-  $('#btn-verse').addEventListener('click', showOverture);
   overture.addEventListener('click', (e) => {
-    if (e.target === overture) enterSky();
+    if (e.target.closest('#skip')) return;
+    if (stage === 'title') toVerse();
+    else if (stage === 'verse') iris(e.clientX, e.clientY);
   });
+  $('#enter').addEventListener('click', (e) => {
+    e.stopPropagation();
+    const r = e.currentTarget.getBoundingClientRect();
+    iris(e.clientX || r.left + r.width / 2, e.clientY || r.top + r.height / 2);
+  });
+  $('#skip').addEventListener('click', (e) => {
+    e.stopPropagation();
+    iris(view.w / 2, view.h / 2);
+  });
+  $('#btn-verse').addEventListener('click', showVerseAgain);
 
   // --------------------------------------------------------------- the loop
 
@@ -1210,7 +1530,8 @@
     }
     updateNear();
     if (labelsDirty && now - lastScaleChange > 180) placeLabels();
-    drawSky(now);
+    if (!overture.classList.contains('gone')) drawLeader(now);
+    if (stage !== 'title' || overture.classList.contains('irising')) drawSky(now);
     requestAnimationFrame(frame);
   }
 
@@ -1221,7 +1542,7 @@
   // A link to one figure (#the-weaver) skips the overture and opens it.
   const fromHash = decodeURIComponent(location.hash.slice(1));
   if (fromHash && byId.has(fromHash)) {
-    enterSky({ quiet: true });
+    enterQuietly();
     const item = byId.get(fromHash);
     folioOpen = true; // so the camera leaves room for the panel
     const p = focusPoint(item);
@@ -1231,13 +1552,13 @@
     openFolio(item, { fly: false, focus: false });
     clampCam();
   } else {
-    $('#enter').focus({ preventScroll: true });
+    setTimeout(toTitle, reduced ? 0 : 450);
   }
 
   window.addEventListener('hashchange', () => {
     const id = decodeURIComponent(location.hash.slice(1));
     if (byId.has(id)) {
-      enterSky({ quiet: true });
+      enterQuietly();
       openFolio(byId.get(id));
     }
   });

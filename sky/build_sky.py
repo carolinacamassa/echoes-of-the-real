@@ -14,18 +14,20 @@ drift from the text, and the build stops if one does not match.
     uv run python sky/build_sky.py --bundle out.html [--fragment]
 
 ``--bundle`` also writes a single self-contained HTML file with the styles,
-script and data inlined; ``--fragment`` leaves out the document wrapper
+script, data and fonts inlined; ``--fragment`` leaves out the document wrapper
 (doctype, html, head, body) for hosts that add their own.
 """
 
 from __future__ import annotations
 
 import argparse
+import base64
 import json
 import math
 import random
 import re
 import sys
+import urllib.parse
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -311,9 +313,22 @@ def write_data(data: dict) -> str:
     return script
 
 
+FONT_TYPES = {".otf": "font/otf", ".ttf": "font/ttf", ".woff": "font/woff", ".woff2": "font/woff2"}
+
+
+def inline_fonts(css: str) -> str:
+    """Replace each url("../fonts/...") in the stylesheet with a data URI."""
+    def embed(match: re.Match) -> str:
+        path = (HERE / urllib.parse.unquote(match.group(1))).resolve()
+        mime = FONT_TYPES[path.suffix.lower()]
+        data = base64.b64encode(path.read_bytes()).decode("ascii")
+        return f'url("data:{mime};base64,{data}")'
+    return re.sub(r'url\("(\.\./fonts/[^"]+)"\)', embed, css)
+
+
 def bundle(out: Path, data_script: str, fragment: bool) -> None:
     html = (HERE / "index.html").read_text(encoding="utf-8")
-    css = (HERE / "sky.css").read_text(encoding="utf-8")
+    css = inline_fonts((HERE / "sky.css").read_text(encoding="utf-8"))
     js = (HERE / "sky.js").read_text(encoding="utf-8")
     html = html.replace('<link rel="stylesheet" href="sky.css">', f"<style>\n{css}\n</style>")
     html = html.replace('<script src="data.js"></script>', f"<script>\n{data_script}</script>")

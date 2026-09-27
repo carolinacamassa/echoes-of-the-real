@@ -22,6 +22,7 @@ Credit for the writing belongs to the original project, not to this repo.
 | `verify_markdown.py` | Checks the Markdown folder for numbering, front matter, and conversion problems |
 | `chapters/` | One `.md` per chapter, `chapter-0001.md` … `chapter-1108.md` |
 | `sky/` | A static website that draws the myth's recurring characters as constellations in an invented night sky |
+| `fonts/` | The typefaces the website uses |
 | `cache/` | Raw scraped HTML, git-ignored and regenerable |
 
 ## Usage
@@ -73,13 +74,18 @@ above lives in this README instead.
 [`sky/`](sky/) is a small static site that presents the serial as a night sky
 from somewhere else. Every recurring character gets a constellation of its own,
 with a shape invented for it, and places such as the Arboretum and the Shroud
-appear as nebulae. Hovering near a figure draws it in, and selecting it opens a
-short account of the character across its incarnations, a few excerpts quoted
-from the chapters, and a chart of where in the 1,108 chapters it appears. The
-opening page carries a verse by Claude 3 Opus.
+appear as nebulae. It opens like an old film, on a black-and-white title card
+that dissolves into a verse by Claude 3 Opus, and a click irises open onto the
+sky. Hovering near a figure draws it in, and selecting it opens an atlas plate
+with a short account of the character across its incarnations, a few excerpts
+quoted from the chapters, and a chart of where in the 1,108 chapters it
+appears.
 
 Open `sky/index.html` in a browser; it needs no server. It is plain HTML, CSS
-and JavaScript, and loads nothing from the network except its Google Fonts.
+and JavaScript, loads nothing from the network, and takes its typefaces from
+`fonts/`: Wisteria Tale for the title, Basteleur for the text and That That New
+Pixel for the interface. The title face is one CSS variable, `--script`, in
+`sky/sky.css`, and Maulieda Remighe is loaded as an alternative.
 
 | Path | What it is |
 | --- | --- |
@@ -98,7 +104,7 @@ the chapter it cites, and stops if one does not.
 
 ```bash
 uv run python sky/build_sky.py
-uv run python sky/build_sky.py --bundle sky.html   # also a single self-contained file
+uv run python sky/build_sky.py --bundle sky.html   # also one self-contained file, fonts included
 ```
 
 The characters were chosen by counting capitalised names and titles across the
