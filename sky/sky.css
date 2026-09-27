@@ -637,7 +637,7 @@ body.overture-open .hint {
   position: fixed;
   inset: 0;
   z-index: 30;
-  background: #050505;
+  background: #06070a;
   cursor: pointer;
   transition: opacity 1.2s ease, visibility 0s linear 1.2s;
 }
@@ -682,6 +682,11 @@ body.overture-open .hint {
 .card-inner {
   text-align: center;
   animation: weave 0.5s steps(1) infinite, card-flicker 3.4s steps(1) infinite;
+}
+
+/* The verse holds still; only the film behind it moves. */
+#card-verse .card-inner {
+  animation: none;
 }
 
 @keyframes weave {
@@ -830,9 +835,10 @@ body.overture-open .hint {
   color: #ece6da;
 }
 
+/* Lines come up out of the dark in place, without sliding. */
 @keyframes verse-in {
-  from { opacity: 0; transform: translateY(5px); filter: blur(3px); }
-  to { opacity: 1; transform: none; filter: blur(0); }
+  from { opacity: 0; filter: blur(3px); }
+  to { opacity: 1; filter: blur(0); }
 }
 
 /* ---------- Paper: the folio, the index and the notes ---------- */
