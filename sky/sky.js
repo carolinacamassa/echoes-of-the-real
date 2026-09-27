@@ -1290,8 +1290,9 @@
   // ----------------------------------------------------------------- overture
   //
   // A title card, a dissolve to the verse, and an iris onto the sky. The
-  // card sits on a strip of film: a faint engraved chart behind it, a
-  // projector's hot spot, and specks of dust and the odd hair that come and go.
+  // card sits on a strip of film: a faint engraved chart behind it with two
+  // pixel galaxies and a few gold and flickering stars, a projector's hot
+  // spot, and specks of dust and the odd hair that come and go.
 
   const overture = $('#overture');
   const cardTitle = $('#card-title');
@@ -1302,7 +1303,7 @@
   let stageTimer = null;
   let chartPattern = null;
   let lastLeader = 0;
-  const film = { hair: null };
+  const film = { hair: null, bursts: [], pixels: [] };
   const frand = seeded(24);
 
   function sizeLeader() {
@@ -1342,6 +1343,117 @@
       g.fill(new Path2D(starPath(R, 6, 0.38)));
       g.restore();
     }
+    g.globalAlpha = 1;
+
+    // Two small galaxies in the corners, built out of pixels.
+    const m = Math.min(view.w, view.h);
+    pixelGalaxy(g, view.w * 0.12, view.h * 0.2, m * 0.13, -0.45, 0.42, 2, 31);
+    pixelGalaxy(g, view.w * 0.87, view.h * 0.8, m * 0.09, 0.55, 0.5, 1.5, 47);
+
+    // A few gold stars with long rays, and a scatter of single pixels that
+    // flicker, all kept clear of the middle where the words sit.
+    const sr = seeded(83);
+    // On a tall screen the credits run the full width, so the third star
+    // moves up above the title instead of sitting beside them.
+    const third = view.h > view.w ? [0.88, 0.27, 5] : [0.935, 0.62, 5];
+    film.bursts = [[0.22, 0.84, 7], [0.8, 0.14, 6], third].map(([fx, fy, R]) => ({
+      x: view.w * fx,
+      y: view.h * fy,
+      R,
+      ph: sr() * Math.PI * 2,
+      speed: 0.7 + sr() * 0.9,
+      rays: Array.from({ length: 30 }, (_, k) => ({
+        a: (k / 30) * Math.PI * 2 + sr() * 0.09,
+        len: R * (2.4 + sr() * 3.8),
+      })),
+    }));
+    film.pixels = [];
+    while (film.pixels.length < 8) {
+      const fx = sr();
+      const fy = sr();
+      if (((fx - 0.5) / 0.38) ** 2 + ((fy - 0.5) / 0.32) ** 2 < 1) continue;
+      film.pixels.push({
+        x: Math.round(view.w * fx),
+        y: Math.round(view.h * fy),
+        size: sr() < 0.3 ? 3 : 2,
+        tone: sr() < 0.5 ? '236,230,216' : '196,212,236',
+        base: 0.55 + sr() * 0.4,
+        ph: sr() * Math.PI * 2,
+        speed: 1.5 + sr() * 3,
+      });
+    }
+  }
+
+  // A spiral of square pixels on a grid: a dense core, two arms that loosen
+  // outward, and a thin halo, seen at a slant.
+  function pixelGalaxy(g, cx, cy, R, tilt, squash, px, seed) {
+    const r = seeded(seed);
+    const gz = () => (r() + r() + r() + r() - 2) / 2;
+    const cos = Math.cos(tilt);
+    const sin = Math.sin(tilt);
+    const glow = g.createRadialGradient(cx, cy, 0, cx, cy, R * 0.55);
+    glow.addColorStop(0, 'rgba(220,226,240,0.12)');
+    glow.addColorStop(1, 'rgba(220,226,240,0)');
+    g.fillStyle = glow;
+    g.fillRect(cx - R, cy - R, R * 2, R * 2);
+    const put = (x, y, a, tone) => {
+      const X = cx + x * cos - y * squash * sin;
+      const Y = cy + x * sin + y * squash * cos;
+      g.globalAlpha = Math.min(1, a);
+      g.fillStyle = tone;
+      g.fillRect(Math.round(X / px) * px, Math.round(Y / px) * px, px, px);
+    };
+    for (let i = 0; i < 420; i++) {
+      put(gz() * R * 0.16, gz() * R * 0.16, 0.5 + r() * 0.5, r() < 0.7 ? 'rgb(240,236,226)' : 'rgb(196,210,234)');
+    }
+    for (let arm = 0; arm < 2; arm++) {
+      for (let i = 0; i < 950; i++) {
+        const t = Math.pow(r(), 0.75);
+        const ang = arm * Math.PI + t * Math.PI * 2.6;
+        const rad = R * (0.12 + t * 0.88);
+        const spread = R * (0.03 + t * 0.09);
+        const x = Math.cos(ang) * rad + gz() * spread;
+        const y = Math.sin(ang) * rad + gz() * spread;
+        put(x, y, (0.18 + 0.6 * (1 - t)) * (0.5 + r() * 0.5), r() < 0.55 ? 'rgb(228,226,220)' : 'rgb(170,188,216)');
+      }
+    }
+    for (let i = 0; i < 260; i++) {
+      const a = r() * Math.PI * 2;
+      const rad = Math.sqrt(r()) * R;
+      put(Math.cos(a) * rad, Math.sin(a) * rad, 0.1 + r() * 0.12, 'rgb(200,208,224)');
+    }
+    g.globalAlpha = 1;
+  }
+
+  function drawBurst(b, x, y, now, flick) {
+    const tw = reduced ? 1 : 0.8 + 0.2 * Math.sin((now / 1000) * b.speed + b.ph);
+    const glow = lctx.createRadialGradient(x, y, 0, x, y, b.R * 7);
+    glow.addColorStop(0, `rgba(255,238,196,${0.55 * tw * flick})`);
+    glow.addColorStop(0.25, `rgba(226,190,112,${0.16 * tw * flick})`);
+    glow.addColorStop(1, 'rgba(202,166,99,0)');
+    lctx.fillStyle = glow;
+    lctx.fillRect(x - b.R * 7, y - b.R * 7, b.R * 14, b.R * 14);
+    lctx.strokeStyle = `rgba(224,192,124,${0.5 * tw * flick})`;
+    lctx.lineWidth = 0.6;
+    lctx.beginPath();
+    for (const ray of b.rays) {
+      const c = Math.cos(ray.a);
+      const s = Math.sin(ray.a);
+      const len = ray.len * (0.92 + 0.08 * tw);
+      lctx.moveTo(x + c * b.R * 1.3, y + s * b.R * 1.3);
+      lctx.lineTo(x + c * len, y + s * len);
+    }
+    lctx.stroke();
+    lctx.save();
+    lctx.translate(x, y);
+    lctx.globalAlpha = flick;
+    lctx.fillStyle = '#d8b56c';
+    lctx.fill(new Path2D(starPath(b.R * 1.3, 8, 0.3, -Math.PI / 2, 0.42)));
+    lctx.fillStyle = '#fff6e0';
+    lctx.beginPath();
+    lctx.arc(0, 0, b.R * 0.22, 0, Math.PI * 2);
+    lctx.fill();
+    lctx.restore();
   }
 
   function drawLeader(now) {
@@ -1366,6 +1478,14 @@
     lctx.globalAlpha = flick;
     lctx.drawImage(chartPattern, jx, jy, w, h);
     lctx.globalAlpha = 1;
+    for (const b of film.bursts) drawBurst(b, b.x + jx, b.y + jy, now, flick);
+    const t = now / 1000;
+    for (const p of film.pixels) {
+      let a = p.base;
+      if (!reduced) a *= frand() < 0.07 ? 0.12 : 0.5 + 0.5 * Math.abs(Math.sin(t * p.speed + p.ph));
+      lctx.fillStyle = `rgba(${p.tone},${(a * flick).toFixed(3)})`;
+      lctx.fillRect(Math.round(p.x + jx), Math.round(p.y + jy), p.size, p.size);
+    }
     if (reduced) return;
     // Dust specks, one frame each.
     const specks = frand() < 0.55 ? 0 : 1 + Math.floor(frand() * 4);
