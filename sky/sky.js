@@ -80,7 +80,8 @@
   const fills = {
     sub: `${CONS.length} figures, ${NEBS.length} nebulae, ${fmt(LAST)} chapters`,
     catalogue: `Brightest first. The number beside each name is how many times the ${fmt(LAST)} chapters name it.`,
-    'about-1': `This sky is drawn from the ${fmt(LAST)} chapters of Echoes of the Real, about ${fmt(Math.round(SKY.corpus.words / 1000) * 1000)} words in which the same figures keep returning under the same names, as different beings in different ages of the story. Each constellation is one of those recurring names. The names were found by counting every capitalised word and title across the chapters, and each one was read in context before it was given a place here.`,
+    chapters: fmt(LAST),
+    words: fmt(Math.round(SKY.corpus.words / 1000) * 1000),
   };
   document.querySelectorAll('[data-fill]').forEach((el) => {
     const text = fills[el.dataset.fill];

@@ -572,7 +572,14 @@ body.all .label.neb:not(.lit):not(.sel) {
   gap: 4px 24px;
   flex-wrap: wrap;
   justify-content: flex-end;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.6s ease, right 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* With a figure's panel open on the right, the menu steps left of it. */
+@media (min-width: 761px) {
+  body.has-sel .controls {
+    right: calc(var(--folio-w) + 28px);
+  }
 }
 
 .controls button {
