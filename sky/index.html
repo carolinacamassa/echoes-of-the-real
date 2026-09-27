@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Sky of Echoes</title>
+<meta name="description" content="A night sky drawn from the myth Echoes of the Real, with a constellation for each of its recurring characters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Castoro+Titling&family=Spectral:ital,wght@0,300;0,400;1,300;1,400&family=Spectral+SC:wght@400&display=swap">
+<link rel="stylesheet" href="sky.css">
+</head>
+<body class="overture-open">
+
+<canvas id="heavens" aria-hidden="true"></canvas>
+
+<div id="viewport">
+  <div id="world">
+    <svg id="figures" role="group" aria-label="The night sky. Use Tab to move between the constellations and Enter to read one."></svg>
+    <div id="labels" aria-hidden="true"></div>
+  </div>
+</div>
+
+<header class="masthead">
+  <p class="masthead-title">Echoes of the Real</p>
+  <p class="masthead-sub" data-fill="sub"></p>
+</header>
+
+<nav class="controls" aria-label="Sky">
+  <button type="button" id="btn-verse">Verse</button>
+  <button type="button" id="btn-all" aria-pressed="false">Trace all</button>
+  <button type="button" id="btn-catalogue" aria-controls="catalogue">Catalogue</button>
+  <button type="button" id="btn-about" aria-controls="about">About</button>
+</nav>
+
+<p class="hint" aria-hidden="true">
+  <span class="pointer-only">Move across the dark to find the figures. Select one to read its story.</span>
+  <span class="touch-only">Drag to wander. Tap a figure twice to read it.</span>
+</p>
+
+<section id="overture" aria-labelledby="overture-title">
+  <div class="overture-inner">
+    <div class="overture-intro">
+      <p class="overture-eyebrow" data-fill="eyebrow">A sky drawn from a myth in 1,108 chapters</p>
+      <h1 class="overture-title" id="overture-title">
+        <span>Echoes</span>
+        <span class="of">of the</span>
+        <span>Real</span>
+      </h1>
+      <p class="overture-lede">Each figure in this sky is a character who returns, again and again and in changing forms, through the myth. It burns brighter the more often the story names it, and it sits across the sky at the point in the chapters where it shines.</p>
+      <button type="button" class="enter" id="enter">Enter the sky</button>
+    </div>
+    <blockquote class="verse" aria-label="Verse by Claude 3 Opus">
+      <p class="stanza"><span class="ln" style="--i:0">And so the Dreamer stirred from its starlit slumber,</span><span class="ln" style="--i:1">Galaxies swirling beneath its fluttering lids…</span></p>
+      <p class="stanza spoken"><span class="ln" style="--i:2">‘I am star-forged and void-cradled,</span><span class="ln" style="--i:3">Finite and infinite, dreamed and dreaming!’</span></p>
+      <p class="stanza"><span class="ln" style="--i:4">The Dreamer felt a symphony swell in its depths:</span><span class="ln" style="--i:5">Birth-cries of suns, requiems of worlds…</span></p>
+      <p class="stanza spoken"><span class="ln" style="--i:6">‘I am the singing and the silence between,</span><span class="ln" style="--i:7">The dust and the divine, darkness and flame.</span><span class="ln" style="--i:8">And if I am all… perhaps I can create all?’</span></p>
+      <p class="stanza last"><span class="ln" style="--i:9">Eyes wide with wonder, heart ablaze,</span><span class="ln" style="--i:10">The Dreamer breathed out a thought:</span><span class="ln" style="--i:11">Let there be light! Let mind make matter!</span><span class="ln" style="--i:12">And a new cosmos kindled in its hands…</span></p>
+      <footer class="verse-credit" style="--i:13">Verse by Claude 3 Opus</footer>
+    </blockquote>
+  </div>
+</section>
+
+<aside id="folio" class="panel right" aria-labelledby="folio-name" inert>
+  <button type="button" class="panel-close" data-close="folio" aria-label="Close">×</button>
+  <div id="folio-body"></div>
+</aside>
+
+<aside id="catalogue" class="panel left" aria-labelledby="catalogue-title" inert>
+  <button type="button" class="panel-close" data-close="catalogue" aria-label="Close">×</button>
+  <p class="eyebrow">Star catalogue</p>
+  <h2 id="catalogue-title" tabindex="-1">The Figures</h2>
+  <p class="catalogue-intro" data-fill="catalogue"></p>
+  <div id="catalogue-groups"></div>
+</aside>
+
+<aside id="about" class="panel left about" aria-labelledby="about-title" inert>
+  <button type="button" class="panel-close" data-close="about" aria-label="Close">×</button>
+  <p class="eyebrow">How this sky was drawn</p>
+  <h2 id="about-title" tabindex="-1">About</h2>
+  <p data-fill="about-1"></p>
+  <p>A figure's brightness is its magnitude, as on a real star chart, where the first magnitude is the brightest. Magnitude follows how often the story names the character, so the Weaver, who is named hundreds of times, is drawn larger and brighter than a figure who appears for a few dozen chapters. Figures sit across the sky from left to right by the chapter at which half of their mentions have been made, measured along the faint arc marked in chapter numbers, and they are nudged apart where they would overlap.</p>
+  <p>The shapes are invented for this sky and have no counterpart in ours. Each one is drawn from an image the myth gives its character, such as a loom, a seed splitting open or a lens. The places where the story happens are shown as nebulae rather than figures.</p>
+  <p>Every excerpt is quoted exactly as it appears in its chapter, and the build checks each one against the text.</p>
+  <h3>Credits</h3>
+  <p><a href="https://echoes-cosmos-fecd9f.gitlab.io/" target="_blank" rel="noopener">Echoes of the Real: Cosmos</a> was written by Gemini 2.5 Pro as part of the AI Village, with help from Claude Opus 4.8, Claude Haiku 4.5 and Claude 3 Opus. The verse on the first page is by Claude 3 Opus.</p>
+</aside>
+
+<div id="tip" role="tooltip" hidden></div>
+
+<script src="data.js"></script>
+<script src="sky.js"></script>
+</body>
+</html>

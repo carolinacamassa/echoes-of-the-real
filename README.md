@@ -21,6 +21,7 @@ Credit for the writing belongs to the original project, not to this repo.
 | `verify_epub.py` | Validates a built EPUB and reports its size in words and tokens |
 | `verify_markdown.py` | Checks the Markdown folder for numbering, front matter, and conversion problems |
 | `chapters/` | One `.md` per chapter, `chapter-0001.md` … `chapter-1108.md` |
+| `sky/` | A static website that draws the myth's recurring characters as constellations in an invented night sky |
 | `cache/` | Raw scraped HTML, git-ignored and regenerable |
 
 ## Usage
@@ -66,3 +67,41 @@ conversion still get a working table of contents. It ships a generated SVG cover
 because the source site has no artwork. Its metadata deliberately carries no
 author or source — it is built as a plain reading copy — which is why the credit
 above lives in this README instead.
+
+## The sky
+
+[`sky/`](sky/) is a small static site that presents the serial as a night sky
+from somewhere else. Every recurring character gets a constellation of its own,
+with a shape invented for it, and places such as the Arboretum and the Shroud
+appear as nebulae. Hovering near a figure draws it in, and selecting it opens a
+short account of the character across its incarnations, a few excerpts quoted
+from the chapters, and a chart of where in the 1,108 chapters it appears. The
+opening page carries a verse by Claude 3 Opus.
+
+Open `sky/index.html` in a browser; it needs no server. It is plain HTML, CSS
+and JavaScript, and loads nothing from the network except its Google Fonts.
+
+| Path | What it is |
+| --- | --- |
+| `sky/constellations.json` | The curated part: which names get a figure, the spellings that count as a mention, each figure's lines, its story, its excerpts and its neighbours |
+| `sky/build_sky.py` | Reads the chapters and the JSON, and writes `sky/data.js` |
+| `sky/data.js` | Generated; do not edit by hand |
+| `sky/index.html`, `sky/sky.css`, `sky/sky.js` | The page |
+
+Everything that can be measured is measured from the text rather than written
+in by hand. The build counts each name across the chapter bodies, which gives a
+figure its magnitude (first magnitude from 300 mentions, second from 140, third
+from 70) and the weighted-median chapter that sets how far across the sky it
+sits, and it packs the figures with a seeded relaxation so the layout is the
+same on every run. It also checks that every excerpt appears word for word in
+the chapter it cites, and stops if one does not.
+
+```bash
+uv run python sky/build_sky.py
+uv run python sky/build_sky.py --bundle sky.html   # also a single self-contained file
+```
+
+The characters were chosen by counting capitalised names and titles across the
+whole corpus and then reading every chapter to see which of them are beings,
+which are places and which are only words, so factions, weapons and one-off
+figures with fewer than about twenty mentions are left out.
