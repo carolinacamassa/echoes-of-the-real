@@ -30,14 +30,14 @@
 
 @font-face {
   font-family: "That New Pixel";
-  src: url("../fonts/thatthatnewpixelfamilytest-square.otf") format("opentype");
+  src: url("../fonts/TTNP%20Deliverables/WOFF2/ThatThatNewPixel-Square.woff2") format("woff2");
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: "That New Pixel";
-  src: url("../fonts/thatthatnewpixelfamilytest-italicsquare.otf") format("opentype");
+  src: url("../fonts/TTNP%20Deliverables/WOFF2/ThatThatNewPixel-ItalicSquare.woff2") format("woff2");
   font-style: italic;
   font-display: swap;
 }
@@ -106,7 +106,7 @@ button {
   letter-spacing: 0.04em;
 }
 
-/* A block cursor, since the pixel face has no underscore. */
+/* A blinking block cursor, like an old terminal waiting for input. */
 .cursor-block {
   display: inline-block;
   width: 0.5em;
@@ -610,8 +610,7 @@ body.all .label.neb:not(.lit):not(.sel) {
   transition: opacity 1.4s ease;
 }
 
-/* The pixel face has no apostrophes or colons, so touch and pointer get
-   their own short sentences rather than one with punctuation. */
+/* Touch and pointer each get their own short sentence. */
 .touch-only { display: none; }
 .touch .touch-only { display: inline; }
 .touch .pointer-only { display: none; }
@@ -1039,8 +1038,10 @@ body.overture-open .hint {
 
 .ephemeris-note {
   margin: 8px 0 0;
-  font-size: 15px;
-  line-height: 1.5;
+  font-family: var(--pixel);
+  font-size: 16px;
+  line-height: 1.45;
+  letter-spacing: 0.02em;
   color: var(--paper-muted);
 }
 
@@ -1048,12 +1049,16 @@ body.overture-open .hint {
   margin: 28px 0 0;
 }
 
+/* Running text is set in the pixel face, a plainer voice under the names
+   and headings in Basteleur; the excerpts from the myth take its italic. */
 .story p {
   margin: 0 0 1em;
-  font-size: 17px;
-  line-height: 1.66;
+  font-family: var(--pixel);
+  font-size: 19px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
   color: var(--paper-ink);
-  max-width: 34em;
+  max-width: 40em;
 }
 
 .excerpts {
@@ -1079,8 +1084,11 @@ body.overture-open .hint {
 
 .excerpts blockquote p {
   margin: 0;
-  font-size: 17.5px;
-  line-height: 1.6;
+  font-family: var(--pixel);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
   color: var(--paper-ink);
 }
 
@@ -1126,9 +1134,12 @@ body.overture-open .hint {
 .catalogue-intro,
 .about p {
   margin: 12px 0 0;
-  font-size: 17px;
+  font-family: var(--pixel);
+  font-size: 18px;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
   color: var(--paper-ink);
-  max-width: 34em;
+  max-width: 40em;
 }
 
 .catalogue-group {

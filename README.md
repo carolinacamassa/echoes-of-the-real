@@ -83,8 +83,8 @@ appears.
 
 Open `sky/index.html` in a browser; it needs no server. It is plain HTML, CSS
 and JavaScript, loads nothing from the network, and takes its typefaces from
-`fonts/`: Wisteria Tale for the title, Basteleur for the text and That That New
-Pixel for the interface. The title face is one CSS variable, `--script`, in
+`fonts/`: Wisteria Tale for the title, Basteleur for names and headings, and
+That That New Pixel for the interface and the running text. The title face is one CSS variable, `--script`, in
 `sky/sky.css`, and Maulieda Remighe is loaded as an alternative.
 
 | Path | What it is |

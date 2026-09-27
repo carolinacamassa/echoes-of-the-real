@@ -679,7 +679,7 @@
     label.appendChild(nm);
     const sub = document.createElement('span');
     sub.className = 'sub';
-    sub.textContent = `named ${fmt(c.mentions)} times, ch. ${c.first}-${fmt(c.last)}`;
+    sub.textContent = `named ${fmt(c.mentions)} times · ch. ${c.first}–${fmt(c.last)}`;
     label.appendChild(sub);
     const tap = document.createElement('span');
     tap.className = 'tap';
@@ -717,7 +717,7 @@
     label.appendChild(nm);
     const sub = document.createElement('span');
     sub.className = 'sub';
-    sub.textContent = `a place, named ${fmt(n.mentions)} times`;
+    sub.textContent = `a place · named ${fmt(n.mentions)} times`;
     label.appendChild(sub);
     labelLayer.appendChild(label);
     n._label = label;
@@ -1100,7 +1100,7 @@
       const to = Math.min((i + 1) * BIN, LAST);
       cursor.setAttribute('x', i * 4);
       const v = item.bins[i];
-      tip.innerHTML = `Chapters ${from}-${fmt(to)}<br>${v ? `named in ${v} of ${to - from + 1}` : 'absent'}`;
+      tip.innerHTML = `Chapters ${from}–${fmt(to)}<br>${v ? `named in ${v} of ${to - from + 1}` : 'absent'}`;
       tip.hidden = false;
       const tw = tip.offsetWidth;
       tip.style.left = `${clamp(e.clientX - tw / 2, 8, view.w - tw - 8)}px`;
