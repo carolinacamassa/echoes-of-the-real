@@ -788,9 +788,9 @@ body.overture-open .site-foot {
 
 .verse {
   margin: 0 auto;
-  max-width: 31em;
+  max-width: 40rem;
   text-align: left;
-  font-size: clamp(17px, 1.6vw, 21px);
+  font-size: clamp(14px, 1.3vw, 17px);
   line-height: 1.62;
   color: #ebe5d9;
 }
@@ -814,9 +814,9 @@ body.overture-open .site-foot {
 /* The Dreamer's own words, in the hand of the title. */
 .verse .spoken .ln {
   font-family: var(--script);
-  font-size: 1.62em;
+  font-size: 2em;
   line-height: 1.25;
-  padding-left: 0.9em;
+  padding-left: 0.75em;
   color: #fbf7ee;
   text-shadow: 0 0 12px rgba(255, 255, 255, 0.12);
 }
@@ -1318,7 +1318,7 @@ body.overture-open .site-foot {
 
   .verse .spoken .ln {
     padding-left: 0.5em;
-    font-size: 1.45em;
+    font-size: 1.75em;
   }
 
   .panel {

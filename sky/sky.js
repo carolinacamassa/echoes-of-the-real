@@ -1345,18 +1345,23 @@
     }
     g.globalAlpha = 1;
 
-    // Two star clusters in the corners, built out of pixels.
+    // Two star clusters, a few gold stars with long rays, and a scatter of
+    // single pixels that flicker, all kept clear of the words. On a wide
+    // screen they sit in the corners around the central column; on a tall
+    // one the verse fills nearly the whole height, so they keep to the bands
+    // above and below it.
+    const tall = view.h > view.w;
     const m = Math.min(view.w, view.h);
-    pixelCluster(g, view.w * 0.12, view.h * 0.2, m * 0.11, 2, 31);
-    pixelCluster(g, view.w * 0.87, view.h * 0.8, m * 0.08, 1.5, 47);
+    const clusters = tall
+      ? [[0.15, 0.085, 0.1, 2, 31], [0.84, 0.905, 0.075, 1.5, 47]]
+      : [[0.12, 0.2, 0.11, 2, 31], [0.87, 0.8, 0.08, 1.5, 47]];
+    for (const [fx, fy, fr, px, seed] of clusters) pixelCluster(g, view.w * fx, view.h * fy, m * fr, px, seed);
 
-    // A few gold stars with long rays, and a scatter of single pixels that
-    // flicker, all kept clear of the middle where the words sit.
     const sr = seeded(83);
-    // On a tall screen the credits run the full width, so the third star
-    // moves up above the title instead of sitting beside them.
-    const third = view.h > view.w ? [0.88, 0.27, 5] : [0.935, 0.62, 5];
-    film.bursts = [[0.22, 0.84, 7], [0.8, 0.14, 6], third].map(([fx, fy, R]) => ({
+    const bursts = tall
+      ? [[0.2, 0.9, 7], [0.78, 0.07, 6], [0.56, 0.955, 5]]
+      : [[0.22, 0.84, 7], [0.8, 0.14, 6], [0.935, 0.62, 5]];
+    film.bursts = bursts.map(([fx, fy, R]) => ({
       x: view.w * fx,
       y: view.h * fy,
       R,
@@ -1371,7 +1376,10 @@
     while (film.pixels.length < 8) {
       const fx = sr();
       const fy = sr();
-      if (((fx - 0.5) / 0.38) ** 2 + ((fy - 0.5) / 0.32) ** 2 < 1) continue;
+      const onWords = tall
+        ? fy > 0.14 && fy < 0.84
+        : ((fx - 0.5) / 0.38) ** 2 + ((fy - 0.5) / 0.32) ** 2 < 1;
+      if (onWords) continue;
       film.pixels.push({
         x: Math.round(view.w * fx),
         y: Math.round(view.h * fy),
